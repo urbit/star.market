@@ -9,6 +9,8 @@ export interface Store {
 export const useStore = create(set => ({
   dust: 0,
   stars: [],
+  treasuryBalance: 0,
   setDust: (dust: number) => set(state => ({ dust })),
   setStars: (stars: Star[]) => set(state => ({ stars })),
+  setTreasuryBalance: (treasuryBalance: number) => set(state => ({ treasuryBalance }))
 }))

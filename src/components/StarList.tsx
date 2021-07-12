@@ -7,7 +7,11 @@ const StarList = ({ selected, onSelect }: { selected?: Star[], onSelect?: (star:
   const stars: Star[] = useStore((store: any) => store.stars) || []
 
   return <Box>
-    {stars.map((star) => <StarEntry star={star} key={`star-${star.point}`} />)}
+    {stars.map((star) => <StarEntry
+      star={star}
+      key={`star-${star.point}`}
+      onSelect={onSelect}
+      selected={!!selected?.find(({ point }) => point === star.point)} />)}
   </Box>
 }
 
