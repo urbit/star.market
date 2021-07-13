@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 3. Go to the `stardust` repo and run `npm i && npm run deploy-dev`.
 4. Come back to this repo and run `yarn && yarn start`.
 5. Log in to Metamask or Brave Crypto Wallet, connect to the local Ganache network (port 8545), and add a new account using the private key from the second Ganache account. It will be the same account as the one that deployed the contracts in step 3 and so will have less ETH than the other accounts.
-6. You should see that your account has 2 stars and 0 DUST.
+6. Reload the webpage. You should see that your account has 2 stars and 0 DUST.
 
 ## Available Scripts
 
