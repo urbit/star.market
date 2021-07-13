@@ -2,6 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Dev Setup
+
+1. [Download Ganache](https://www.trufflesuite.com/ganache) and start a local ethereum network on port 8545 (the default).
+2. Ensure you have the latest version of [the stardust repo](https://github.com/willbach/stardust/tree/local-dev) in an adjacent folder (same parent directory as this repo).
+3. Go to the `stardust` repo and run `npm i && npm run deploy-dev`.
+4. Come back to this repo and run `yarn && yarn start`.
+5. Log in to Metamask or Brave Crypto Wallet, connect to the local Ganache network (port 8545), and add a new account using the private key from the second Ganache account. It will be the same account as the one that deployed the contracts in step 3 and so will have less ETH than the other accounts.
+6. You should see that your account has 2 stars and 0 DUST.
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -2,27 +2,39 @@ import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract'
 
 import { DUST_ABI, ECLIPTIC_ABI, TREASURY_ABI } from '../constants/abi'
-import { AZIMUTH_ADDRESSES, ECLIPTIC_ADDRESS, TREASURY_ADDRESS } from '../constants/addresses'
 import Star from '../types/Star'
 
 const ob = require('urbit-ob')
 const ajs = require('azimuth-js')
 
+const {
+  REACT_APP_AZIMUTH_ADDRESS,
+  REACT_APP_POLLS_ADDRESS,
+  REACT_APP_CLAIMS_ADDRESS,
+  REACT_APP_ECLIPTIC_ADDRESS,
+  REACT_APP_TREASURY_ADDRESS,
+} = process.env
+
 export class Api {
   web3: Web3
   ecliptic: Contract
   treasury: Contract
+  currentAddress?: string
+  currentAddressType?: 'Metamask' | 'Master Ticket' | 'Hardware Wallet'
 
   constructor() {
     const ethereum = (window as any).ethereum // default is to use metamask
 
     if (ethereum) {
       ethereum.request({ method: 'eth_requestAccounts' });
+      this.currentAddress = ethereum.selectedAddress
+      ethereum.on('accountsChanged', (accounts: string[]) => this.currentAddress = accounts[0])
+      this.currentAddressType = 'Metamask'
     }
 
-    this.web3 = new Web3(ethereum);
-    this.ecliptic = new this.web3.eth.Contract(ECLIPTIC_ABI, ECLIPTIC_ADDRESS)
-    this.treasury = new this.web3.eth.Contract(TREASURY_ABI, TREASURY_ADDRESS)
+    this.web3 = new Web3(ethereum); // use infura connection if ethereum isn't available?
+    this.ecliptic = new this.web3.eth.Contract(ECLIPTIC_ABI, REACT_APP_ECLIPTIC_ADDRESS)
+    this.treasury = new this.web3.eth.Contract(TREASURY_ABI, REACT_APP_TREASURY_ADDRESS)
   }
 
   connectMetamask = async () => {
@@ -33,8 +45,8 @@ export class Api {
 
       this.web3 = new Web3(ethereum);
 
-      this.ecliptic = new this.web3.eth.Contract(ECLIPTIC_ABI, ECLIPTIC_ADDRESS)
-      this.treasury = new this.web3.eth.Contract(TREASURY_ABI, TREASURY_ADDRESS)
+      this.ecliptic = new this.web3.eth.Contract(ECLIPTIC_ABI, REACT_APP_ECLIPTIC_ADDRESS)
+      this.treasury = new this.web3.eth.Contract(TREASURY_ABI, REACT_APP_TREASURY_ADDRESS)
     }
   }
 
@@ -55,9 +67,13 @@ export class Api {
   getStars = async () : Promise<Star[]> => {
     this.checkConnection()
 
-    const contracts = await ajs.initContracts(this.web3, AZIMUTH_ADDRESSES)
-    const selectedAddress: string = (window as any).ethereum.selectedAddress
-    const points = await ajs.azimuth.getOwnedPoints(contracts, selectedAddress)
+    const contracts = await ajs.initContracts(this.web3, {
+      azimuth: REACT_APP_AZIMUTH_ADDRESS,
+      polls: REACT_APP_POLLS_ADDRESS,
+      claims: REACT_APP_CLAIMS_ADDRESS,
+      ecliptic: REACT_APP_ECLIPTIC_ADDRESS,
+    })
+    const points = await ajs.azimuth.getOwnedPoints(contracts, this.currentAddress)
   
     const stars : Star[] = await Promise.all(points
       .map(Number)
@@ -87,25 +103,24 @@ export class Api {
 
   getDust = async () : Promise<void> => {
     this.checkConnection()
-    const selectedAddress: string = (window as any).ethereum.selectedAddress
 
     const tokenAddress = await this.treasury.methods.startoken().call()
     const starToken = new this.web3.eth.Contract(DUST_ABI, tokenAddress)
 
-    const dust = await (await starToken.methods.balanceOf(selectedAddress)).call()
+    const dust = await (await starToken.methods.balanceOf(this.currentAddress)).call()
     return dust
   }
 
   depositStar = async (star: Star) =>  {
     this.checkConnection()
 
-    await this.ecliptic.methods.setTransferProxy(star.point, TREASURY_ADDRESS).send({
-      from: (window as any).ethereum.selectedAddress
+    await this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
+      from: this.currentAddress
     })
 
     if (window.confirm(`Are you sure you want to deposit this star (${star.name})?`)) {
       const response = await this.treasury.methods.deposit(star.point).send({
-        from: (window as any).ethereum.selectedAddress
+        from: this.currentAddress
       })
       console.log('DEPOSIT', response)
     }
@@ -116,7 +131,7 @@ export class Api {
 
     for (let i = 0; i < tokens; i++) {
       const response = await this.treasury.methods.redeem().send({
-        from: (window as any).ethereum.selectedAddress
+        from: this.currentAddress
       })
       console.log('REDEEM', response)
     }
