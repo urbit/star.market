@@ -1,10 +1,11 @@
 import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract'
 
+import Account from '../account'
 import { DUST_ABI, ECLIPTIC_ABI, TREASURY_ABI } from '../constants/abi'
+import { TOKENS_PER_STAR } from '../constants/token'
 import Star from '../types/Star'
 
-const ob = require('urbit-ob')
 const ajs = require('azimuth-js')
 
 const {
@@ -15,21 +16,22 @@ const {
   REACT_APP_TREASURY_ADDRESS,
 } = process.env
 
-export class Api {
+const showNotConnectedAlert = () =>
+  alert('You must have Metamask or another extension installed and active to connect to the Ethereum network. Please reload the page when ready.')
+
+export default class Api {
   web3: Web3
+  account: Account
   ecliptic: Contract
   treasury: Contract
-  currentAddress?: string
-  currentAddressType?: 'Metamask' | 'Master Ticket' | 'Hardware Wallet'
 
-  constructor() {
+  constructor(account: Account) {
+    this.account = account
+    
     const ethereum = (window as any).ethereum // default is to use metamask
 
-    if (ethereum) {
-      ethereum.request({ method: 'eth_requestAccounts' });
-      this.currentAddress = ethereum.selectedAddress
-      ethereum.on('accountsChanged', (accounts: string[]) => this.currentAddress = accounts[0])
-      this.currentAddressType = 'Metamask'
+    if (!ethereum) {
+      showNotConnectedAlert()
     }
 
     this.web3 = new Web3(ethereum); // use infura connection if ethereum isn't available?
@@ -43,24 +45,18 @@ export class Api {
     if (ethereum) {
       await ethereum.request({ method: 'eth_requestAccounts' });
 
-      this.web3 = new Web3(ethereum);
+      this.account.currentAddress = ethereum.selectedAddress
 
+      this.web3 = new Web3(ethereum);
       this.ecliptic = new this.web3.eth.Contract(ECLIPTIC_ABI, REACT_APP_ECLIPTIC_ADDRESS)
       this.treasury = new this.web3.eth.Contract(TREASURY_ABI, REACT_APP_TREASURY_ADDRESS)
     }
   }
 
-  connectMasterTicket = async (ticket: string) => { // flesh this out
-
-  }
-
-  connectWallet = async () => { // WalletConnect: https://registry.walletconnect.org/wallets
-    
-  }
-
   checkConnection = () => {
     if (!(window as any).ethereum) {
-      throw new Error('No Metamask or other connected account')
+      showNotConnectedAlert()
+      throw new Error('No Ethereum connection available')
     }
   }
 
@@ -73,7 +69,7 @@ export class Api {
       claims: REACT_APP_CLAIMS_ADDRESS,
       ecliptic: REACT_APP_ECLIPTIC_ADDRESS,
     })
-    const points = await ajs.azimuth.getOwnedPoints(contracts, this.currentAddress)
+    const points = await ajs.azimuth.getOwnedPoints(contracts, this.account.currentAddress)
   
     const stars : Star[] = await Promise.all(points
       .map(Number)
@@ -83,12 +79,11 @@ export class Api {
         const spawnCount = await ajs.azimuth.getSpawnCount(contracts, point)
         const isComplete = Number(spawnCount) === 0
   
-        console.log('STAR', point, isUnlinked, isComplete)
-  
         return new Star({
           point,
-          name: ob.patp(point),
           canTrade: isUnlinked && isComplete,
+          isComplete,
+          isUnlinked,
         })
       }))
     return stars
@@ -101,28 +96,27 @@ export class Api {
     return assetCount
   }
 
-  getDust = async () : Promise<void> => {
+  getDust = async () : Promise<number> => {
     this.checkConnection()
 
     const tokenAddress = await this.treasury.methods.startoken().call()
     const starToken = new this.web3.eth.Contract(DUST_ABI, tokenAddress)
 
-    const dust = await (await starToken.methods.balanceOf(this.currentAddress)).call()
-    return dust
+    const dust = await (await starToken.methods.balanceOf(this.account.currentAddress)).call()
+    return (dust / TOKENS_PER_STAR)
   }
 
   depositStar = async (star: Star) =>  {
     this.checkConnection()
-
+    
     await this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
-      from: this.currentAddress
+      from: this.account.currentAddress
     })
 
     if (window.confirm(`Are you sure you want to deposit this star (${star.name})?`)) {
-      const response = await this.treasury.methods.deposit(star.point).send({
-        from: this.currentAddress
+      await this.treasury.methods.deposit(star.point).send({
+        from: this.account.currentAddress
       })
-      console.log('DEPOSIT', response)
     }
   }
 
@@ -131,16 +125,12 @@ export class Api {
 
     for (let i = 0; i < tokens; i++) {
       const response = await this.treasury.methods.redeem().send({
-        from: this.currentAddress
+        from: this.account.currentAddress
       })
       console.log('REDEEM', response)
     }
   }
 }
-
-const api = new Api()
-
-export default api
 
 // const transactionParameters = {
 //   nonce: '0x00', // ignored by MetaMask

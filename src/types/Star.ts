@@ -1,16 +1,23 @@
+const ob = require('urbit-ob')
+
 export default class Star {
   point: number
   name: string
   canTrade: boolean
+  isComplete: boolean
+  isUnlinked: boolean
 
   constructor(data: {
     point: number,
-    name: string,
     canTrade: boolean,
+    isComplete: boolean,
+    isUnlinked: boolean,
   }) {
     this.point = data.point
-    this.name = data.name
+    this.name = ob.patp(this.point)
     this.canTrade = data.canTrade
+    this.isComplete = data.isComplete
+    this.isUnlinked = data.isUnlinked
   }
 
   compareTo = (star: Star) : number => {
@@ -24,4 +31,6 @@ export default class Star {
       return this.canTrade ? 1 : -1
     }
   }
+
+  getDisabledMessage = () => `Cannot swap, ${this.isComplete ? 'has been linked' : 'has spawned planets'}`
 }

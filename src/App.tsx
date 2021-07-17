@@ -7,16 +7,20 @@ import light from './components/themes/light'
 import dark from './components/themes/dark'
 
 import { useStore } from './store';
-import api from './api';
+import Api from './api';
 import Container from './components/Container'
 
-import { Box } from '@tlon/indigo-react'
-import './App.css';
+import './App.scss';
+import Account from './account';
 
 const App = () => {
-  const { setStars, setDust, setTreasuryBalance } = useStore((store: any) => store)
+  const { setStars, setDust, setTreasuryBalance, setAccount } = useStore((store: any) => store)
 
   const initialize = useCallback(async () => {
+    const account = new Account()
+    const api = new Api(account)
+    setAccount(account)
+
     const stars = await api.getStars().catch(console.error)
     setStars(stars)
 
@@ -25,7 +29,7 @@ const App = () => {
 
     const treasuryBalance = await api.getTreasuryBalance().catch(console.error)
     setTreasuryBalance(treasuryBalance)
-  }, [setStars, setDust, setTreasuryBalance])
+  }, [setAccount, setStars, setDust, setTreasuryBalance])
 
   useEffect(() => {
     initialize()
@@ -34,9 +38,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={false ? dark : light}>
-        <Box display='flex' flexDirection='column' position='absolute' backgroundColor='white' height='100%' width='100%' px={[0,4]} pb={[0,4]}>
-          <Container />
-        </Box>
+        <Container />
       </ThemeProvider>
     </BrowserRouter>
   );

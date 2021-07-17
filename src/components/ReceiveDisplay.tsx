@@ -1,12 +1,17 @@
 import { Box, Text } from "@tlon/indigo-react"
-import { pluralize, starDustLabel } from "../utils/text"
 import { Exchange } from "./SwapForm"
 
 const ReceiveDisplay = ({ amount, exchange }: { amount: number, exchange: Exchange }) => {
-  const text = `You will receive ${amount} ${pluralize(starDustLabel(exchange), amount, exchange === Exchange.dustForStars)}`
+  const exchangeRate = exchange === Exchange.dustForStars ? '1 STAR = 1 DUST' : '1 DUST = 1 STAR'
+  let className = 'amount'
+  if (amount > 0) {
+    console.log('ere')
+    className = `${className} ${exchange === Exchange.dustForStars ? 'dust' : 'star'}`
+  }
 
-  return <Box>
-    <Text>{text}</Text>
+  return <Box className="receive-display">
+    <Text className="exchange-rate">{exchangeRate}</Text>
+    <Text className={className}>{amount}</Text>
   </Box>
 }
 

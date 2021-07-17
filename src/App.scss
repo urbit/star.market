@@ -1,0 +1,324 @@
+$form-background: #F4F3F1;
+$form-dark-background: #e5e5e5;
+$form-grey-text: #9a9a9a;
+$yellow: rgba(255, 199, 0, 1);
+$green: rgba(0, 177, 113, 1);
+$washed-green: rgba(0, 159, 101, 0.05);
+$blue: rgba(33, 157, 255, 1);
+$washed-blue: rgba(33, 157, 255, 0.05);
+
+body {
+  font-size: 16px;
+  font-family: "Inter","Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
+}
+
+.master-ticket-form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  width: 250px;
+  padding: 20px 40px;
+}
+
+.master-ticket-form label {
+  margin: 8px 0px 2px;
+}
+
+.master-ticket-form input {
+  width: 240px
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+
+  form {
+    background-color: $form-background;
+    min-height: 18rem;
+    width: 30rem;
+    border-radius: 1rem;
+
+    input {
+      font-family: "Inter","Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
+    }
+  }
+
+  .amount {
+    width: 15rem;
+    padding: 0rem 0.75rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 0.75rem;
+    color: $form-grey-text;
+    border: 2px solid $form-dark-background;
+    line-height: 1.333333;
+
+    &.dust {
+      color: $blue;
+    }
+
+    &.star {
+      color: $green;
+    }
+  }
+}
+
+.header-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  text-align: center;
+
+  .treasury {
+    background-color: $form-background;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+  }
+
+  // .title {
+  //   background-color: $form-background;
+  //   padding: 0.5rem;
+  //   border-radius: 0.25rem;
+  //   font-weight: bold;
+  //   font-size: 1.25rem;
+  // }
+
+  .wallet-display {
+    background-color: $form-background;
+    border-radius: 0.25rem;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    .eth-balance {
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+    }
+
+    .address {
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(0,0,0,0.2);
+      }
+    }
+  }
+}
+
+.swap-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  .toggle-exchange {
+    padding: 0.5rem;
+    transform: rotate(90deg);
+    position: absolute;
+    border: 2px solid $form-dark-background;
+    background-color: $form-background;
+    border-radius: 2rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $form-dark-background;
+    }
+  }
+
+  .half {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.5rem;
+    width: calc(100% - 3rem);
+    border-radius: 1rem;
+    min-height: 9rem;
+
+    &.deposit {
+      padding-bottom: 2rem;
+    }
+
+    &.receive {
+      background-color: $form-dark-background;
+      padding-top: 2rem;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .denomination {
+      display: flex;
+      flex-direction: column;
+  
+      .label {
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 1rem 0rem;
+      }
+  
+      .value {
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.assets {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+
+  .exchange-rate {
+    margin: 1rem 0rem;
+    color: rgba(0,0,0,0.6);
+  }
+}
+
+.receive-display {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+
+  .exchange-rate {
+    margin: 1rem 0rem;
+    color: rgba(0,0,0,0.6);
+  }
+}
+
+button.trade-button {
+  margin-top: 0.5rem;
+  width: 30rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  height: 4rem;
+  border: none;
+
+  &.star {
+    background-color: $green;
+    color: white;
+  }
+
+  &.dust {
+    background-color: $blue;
+    color: white;
+  }
+
+  &.disabled {
+    background-color: $form-dark-background;
+    color: black;
+  }
+
+  &.connect {
+    background-color: $yellow;
+    color: black;
+  }
+
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
+}
+
+.star-selector {
+  cursor: pointer;
+  position: relative;
+
+  .star-list {
+    position: absolute;
+    background-color: white;
+    padding: 0.875rem;
+    z-index: 1;
+    margin-top: 0.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid $form-dark-background;
+    right: 0;
+  }
+}
+
+.selected-stars {
+  width: 15rem;
+  padding: 0.5rem 0.75rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  color: $form-grey-text;
+  border: 2px solid $form-dark-background;
+  line-height: 1.333333;
+  min-height: 37px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.star-entry {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  padding: 0.125rem;
+
+  .sigil-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    svg {
+      margin-right: 0.25rem;
+      border-radius: 0.2rem;
+    }
+  }
+
+  .label {
+    margin-left: 2rem;
+    white-space: nowrap;
+  }
+
+  &.selected {
+    color: $green;
+  }
+
+  &.disabled {
+    color: $form-grey-text;
+
+    &:hover {
+      color: $form-grey-text;
+      cursor: auto;
+
+      .sigil-name svg rect {
+        fill: $form-grey-text;
+      }
+    }
+  }
+
+  &:hover {
+    color: $green;
+
+    .sigil-name {
+      svg {
+        rect {
+          fill: $green;
+        }
+      }
+    }
+  }
+}
