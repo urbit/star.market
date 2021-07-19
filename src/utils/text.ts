@@ -1,4 +1,4 @@
-import { Exchange } from "../components/SwapForm";
+import { Exchange } from "../components/Forms/SwapForm";
 
 export const starDustLabel = (exchange: Exchange) => `${exchange === Exchange.starsForDust ? 'DUST' : 'star'}`
 

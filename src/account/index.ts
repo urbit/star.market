@@ -1,3 +1,5 @@
+import { UrbitWallet } from "../types/UrbitWallet"
+
 const { generateWallet } = require('urbit-key-generation')
 
 export interface MasterTicketOptions {
@@ -8,10 +10,16 @@ export interface MasterTicketOptions {
   boot?: boolean
 }
 
+export enum WalletType {
+  Metamask = 'Metamask',
+  MasterTicket = 'Master Ticket',
+  WalletConnect = 'WalletConnect',
+}
+
 export default class Account {
-  urbitWallet: any
+  urbitWallet?: UrbitWallet
   currentAddress?: string
-  currentAddressType?: 'Metamask' | 'Master Ticket' | 'Hardware Wallet' // Metamask includes any browser-based ethereum wallet
+  currentWalletType?: WalletType // Metamask includes any browser-based ethereum wallet
 
   constructor() {
     const ethereum = (window as any).ethereum // default is to use metamask
@@ -20,17 +28,29 @@ export default class Account {
       ethereum.request({ method: 'eth_requestAccounts' });
       this.currentAddress = ethereum.selectedAddress
       ethereum.on('accountsChanged', (accounts: string[]) => this.currentAddress = accounts[0])
-      this.currentAddressType = 'Metamask'
+      this.currentWalletType = WalletType.Metamask
+    }
+  }
+
+  connectMetamask = async () => {
+    const ethereum = (window as any).ethereum
+
+    if (ethereum) {
+      await ethereum.request({ method: 'eth_requestAccounts' });
+      this.currentAddress = ethereum.selectedAddress
+      ethereum.on('accountsChanged', (accounts: string[]) => this.currentAddress = accounts[0])
+      this.currentWalletType = WalletType.Metamask
     }
   }
 
   connectMasterTicket = async (options: MasterTicketOptions) => { // flesh this out
     const wallet = await generateWallet(options)
-    console.log('WALLET', wallet)
+    console.log('MASTER TICKET WALLET', wallet)
     this.urbitWallet = wallet
+    this.currentAddress = this.urbitWallet?.ownership.keys.address
   }
 
-  connectWallet = async () => { // WalletConnect: https://registry.walletconnect.org/wallets
-    
+  connectWalletConnect = async () => { // WalletConnect: https://registry.walletconnect.org/wallets
+    console.log('WALLET CONNECT WALLET')
   }
 }

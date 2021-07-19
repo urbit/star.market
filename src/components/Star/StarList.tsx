@@ -1,6 +1,6 @@
-import { useStore } from '../store'
+import { useStore } from '../../store'
 import { Box } from '@tlon/indigo-react'
-import Star from '../types/Star'
+import Star from '../../types/Star'
 import StarEntry from './StarEntry'
 
 const StarList = ({ selected, onSelect }: { selected?: Star[], onSelect?: (star: Star) => void }) => {

@@ -32,5 +32,5 @@ export default class Star {
     }
   }
 
-  getDisabledMessage = () => `Cannot swap, ${this.isComplete ? 'has been linked' : 'has spawned planets'}`
+  getDisabledMessage = () => `Cannot swap, ${this.isComplete ? 'has been booted' : 'has spawned planets'}`
 }

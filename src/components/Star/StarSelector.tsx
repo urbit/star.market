@@ -3,7 +3,7 @@ import { MouseEvent } from "react"
 import { Box } from "@tlon/indigo-react"
 import StarList from "./StarList"
 import StarEntry from "./StarEntry"
-import Star from "../types/Star"
+import Star from "../../types/Star"
 
 interface StarSelectorProps {
   toggleStarSelector: (e: MouseEvent) => void
@@ -19,7 +19,7 @@ const StarSelector = (
     {!selectedStars.length ?
       <div className="amount">Select Stars</div> :
       <div className="selected-stars">
-        {selectedStars.map((star) => <StarEntry selected star={star} />)}
+        {selectedStars.map((star) => <StarEntry selected star={star} key={`selected-star-${star.point}`} />)}
       </div>
     }
     {showStarSelector && <StarList selected={selectedStars} onSelect={selectStar} />}

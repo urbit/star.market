@@ -1,6 +1,6 @@
 import { Row, Text } from '@tlon/indigo-react'
 
-import { useStore } from '../store'
+import { useStore } from '../../store'
 import WalletDisplay from './WalletDisplay'
 
 const HeaderBar = ({ toggleWalletModal }: { toggleWalletModal: () => void }) => {

@@ -1,7 +1,7 @@
 import { Box, Row } from "@tlon/indigo-react";
 import { sigil, reactRenderer } from '@tlon/sigil-js'
 import { MouseEvent } from "react";
-import Star from "../types/Star";
+import Star from "../../types/Star";
 
 const StarEntry = ({ star, selected, onSelect }: { star: Star, selected?: boolean, onSelect?: (star: Star) => void }) => {
   const { name, point, canTrade, getDisabledMessage } = star

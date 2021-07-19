@@ -13,8 +13,10 @@ import Container from './components/Container'
 import './App.scss';
 import Account from './account';
 
+const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
+
 const App = () => {
-  const { setStars, setDust, setTreasuryBalance, setAccount } = useStore((store: any) => store)
+  const { setStars, setDust, setTreasuryBalance, setAccount, setGasPrice } = useStore((store: any) => store)
 
   const initialize = useCallback(async () => {
     const account = new Account()
@@ -29,7 +31,15 @@ const App = () => {
 
     const treasuryBalance = await api.getTreasuryBalance().catch(console.error)
     setTreasuryBalance(treasuryBalance)
-  }, [setAccount, setStars, setDust, setTreasuryBalance])
+
+    try {
+      const { result: { SafeGasPrice } } = await fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`)
+        .then(result => result.json())
+      setGasPrice(Number(SafeGasPrice))
+    } catch (e) {
+      console.warn(e)
+    }
+  }, [setAccount, setStars, setDust, setTreasuryBalance, setGasPrice])
 
   useEffect(() => {
     initialize()

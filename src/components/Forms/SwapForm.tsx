@@ -2,11 +2,11 @@ import { useState, useCallback, ChangeEvent, MouseEvent } from "react"
 
 import { Box, Icon, Row, Text } from "@tlon/indigo-react"
 import ReceiveDisplay from './ReceiveDisplay'
-import Star from "../types/Star"
-import { addOrRemove } from "../utils/array"
-import { useStore } from "../store"
+import Star from "../../types/Star"
+import { addOrRemove } from "../../utils/array"
+import { useStore } from "../../store"
 import TradeButton from "./TradeButton"
-import StarSelector from "./StarSelector"
+import StarSelector from "../Star/StarSelector"
 
 export enum Exchange {
   starsForDust,
@@ -14,7 +14,7 @@ export enum Exchange {
 }
 
 const SwapForm = () => {
-  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance } = useStore((store: any) => store)
+  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance, gasPrice } = useStore((store: any) => store)
   const [dustInput, setDustInput] = useState('')
   const [showStarSelector, setShowStarSelector] = useState(false)
   const [selectedStars, setSelectedStars] = useState([] as Star[])
@@ -81,8 +81,8 @@ const SwapForm = () => {
       }
     } else {
       try {
-        if (dust && Number(dust) && window.confirm('Are you sure you want to exchange your DUST for stars?')) {
-          await api.redeemTokens(Number(dust))
+        if (dustInput && Number(dustInput) && window.confirm('Are you sure you want to exchange your DUST for stars?')) {
+          await api.redeemTokens(Number(dustInput))
           setDustInput('0')
           await refreshValues()
         }
@@ -124,7 +124,7 @@ const SwapForm = () => {
           <Text className="label">Receive</Text>
           <Text className="value">{receiveDenomination}</Text>
         </Box>
-        <ReceiveDisplay amount={starsForDust ? selectedStars.length : Number(dustInput)} exchange={exchange} />
+        <ReceiveDisplay amount={starsForDust ? selectedStars.length : Number(dustInput)} exchange={exchange} gasPrice={gasPrice} />
       </Row>
     </form>
     

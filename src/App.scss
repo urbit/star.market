@@ -12,22 +12,6 @@ body {
   font-family: "Inter","Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
 }
 
-.master-ticket-form {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid black;
-  width: 250px;
-  padding: 20px 40px;
-}
-
-.master-ticket-form label {
-  margin: 8px 0px 2px;
-}
-
-.master-ticket-form input {
-  width: 240px
-}
-
 .modal {
   display: flex;
   flex-direction: column;
@@ -38,7 +22,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.3);
 }
 
 .container {
@@ -50,6 +34,31 @@ body {
     min-height: 18rem;
     width: 30rem;
     border-radius: 1rem;
+
+    .form-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      .back {
+        width: 2rem;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+  
+      .title {
+        font-weight: bold;
+      }
+  
+      .close {
+        border: none;
+        width: 2rem;
+        cursor: pointer;
+        text-align: right;
+      }
+    }
 
     input {
       font-family: "Inter","Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
@@ -203,6 +212,10 @@ body {
     margin: 1rem 0rem;
     color: rgba(0,0,0,0.6);
   }
+
+  .tx-cost {
+    margin-top: 1rem;
+  }
 }
 
 button.trade-button {
@@ -319,6 +332,102 @@ button.trade-button {
           fill: $green;
         }
       }
+    }
+  }
+}
+
+form.wallet-form {
+  padding: 1rem;
+  background-color: white;
+
+  .metamask-warning {
+    margin-bottom: 2rem;
+    padding: 0rem 0.5rem;
+  }
+}
+
+.wallet-entry {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $form-background;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border: 1px solid $form-dark-background;
+  height: 2.5rem;
+
+  &.selected {
+    background-color: $form-dark-background;
+
+    &:hover {
+      cursor: auto;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $form-dark-background;
+  }
+
+  .checkmark {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .name {
+    font-weight: bold;
+  }
+
+  img {
+    width: 2rem;
+  }
+}
+
+form.master-ticket-form {
+  padding: 1rem;
+  background-color: $form-background;
+  display: flex;
+  flex-direction: column;
+
+  button.close {
+    background-color: $form-background;
+  }
+
+  label {
+    margin: 0.75rem 0rem 0.25rem 0.125rem;
+    font-weight: 600;
+  }
+
+  input {
+    font-size: 16px;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    background-color: white;
+    border: 1px solid $form-dark-background
+  }
+
+  .checkbox {
+    margin: 0.8rem 0.5rem 0rem 0.5rem;
+  }
+
+  button.submit {
+    color: black;
+    background-color: rgba(0,0,0,0.2);
+    border: none;
+    cursor: pointer;
+    margin: 1rem 0rem 0.5rem;
+    padding: 1.25rem;
+
+    &:hover {
+      background-color: rgba(0,0,0,0.4);
+      color: white;
+    }
+
+    &.disabled:hover {
+      color: black;
+      background-color: rgba(0,0,0,0.2);
     }
   }
 }
