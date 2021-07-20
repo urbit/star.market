@@ -2,9 +2,9 @@ $form-background: #F4F3F1;
 $form-dark-background: #e5e5e5;
 $form-grey-text: #9a9a9a;
 $yellow: rgba(255, 199, 0, 1);
-$green: rgba(0, 177, 113, 1);
+$star-green: rgba(0, 177, 113, 1);
 $washed-green: rgba(0, 159, 101, 0.05);
-$blue: rgba(33, 157, 255, 1);
+$dust-blue: rgba(33, 157, 255, 1);
 $washed-blue: rgba(33, 157, 255, 0.05);
 
 body {
@@ -63,6 +63,30 @@ body {
     input {
       font-family: "Inter","Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
     }
+
+    .denomination {
+      display: flex;
+      flex-direction: column;
+  
+      .label {
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 1rem 0rem 0.75rem;
+      }
+  
+      .value {
+        font-size: 2.5rem;
+        font-weight: bold;
+
+        &.star {
+          color: $star-green;
+        }
+
+        &.dust {
+          color: $dust-blue;
+        }
+      }
+    }
   }
 
   .amount {
@@ -77,11 +101,11 @@ body {
     line-height: 1.333333;
 
     &.dust {
-      color: $blue;
+      color: $dust-blue;
     }
 
     &.star {
-      color: $green;
+      color: $star-green;
     }
   }
 }
@@ -131,6 +155,21 @@ body {
         background-color: rgba(0,0,0,0.2);
       }
     }
+
+    &.error {
+      background-color: rgba(168, 27, 27, 1);
+      padding: 0.5rem 2rem;
+
+      .error-icon {
+        color: white;
+      }
+
+      .error-message {
+        color: white;
+        font-size: 1rem;
+        margin-left: 1rem;
+      }
+    }
   }
 }
 
@@ -173,22 +212,6 @@ body {
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
-
-    .denomination {
-      display: flex;
-      flex-direction: column;
-  
-      .label {
-        font-size: 1rem;
-        font-weight: bold;
-        margin: 1rem 0rem;
-      }
-  
-      .value {
-        font-size: 2.5rem;
-        font-weight: bold;
-      }
-    }
   }
 }
 
@@ -227,12 +250,12 @@ button.trade-button {
   border: none;
 
   &.star {
-    background-color: $green;
+    background-color: $star-green;
     color: white;
   }
 
   &.dust {
-    background-color: $blue;
+    background-color: $dust-blue;
     color: white;
   }
 
@@ -307,7 +330,7 @@ button.trade-button {
   }
 
   &.selected {
-    color: $green;
+    color: $star-green;
   }
 
   &.disabled {
@@ -324,12 +347,12 @@ button.trade-button {
   }
 
   &:hover {
-    color: $green;
+    color: $star-green;
 
     .sigil-name {
       svg {
         rect {
-          fill: $green;
+          fill: $star-green;
         }
       }
     }
@@ -428,6 +451,65 @@ form.master-ticket-form {
     &.disabled:hover {
       color: black;
       background-color: rgba(0,0,0,0.2);
+    }
+  }
+}
+
+form.confirmation-form {
+  padding: 2rem;
+
+  &.star {
+    background-color: $washed-green;
+  }
+  
+  &.dust {
+    background-color: $washed-blue;
+  }
+
+  .star-container {
+    margin: 0.75rem 0rem;
+  }
+
+  .info-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    .left {
+      font-weight: bold;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 2rem;
+
+    button {
+      width: 14rem;
+      color: white;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      &.cancel {
+        background-color: $form-grey-text;
+      }
+
+      &.confirm {
+        &.star {
+          background-color: $star-green;
+        }
+
+        &.dust {
+          background-color: $dust-blue;
+        }
+      }
     }
   }
 }

@@ -24,13 +24,13 @@ const App = () => {
     setAccount(account)
 
     const stars = await api.getStars().catch(console.error)
-    setStars(stars)
+    setStars(stars || [])
 
     const dust = await api.getDust().catch(console.error)
-    setDust(dust)
+    setDust(dust || 0)
 
     const treasuryBalance = await api.getTreasuryBalance().catch(console.error)
-    setTreasuryBalance(treasuryBalance)
+    setTreasuryBalance(treasuryBalance || 0)
 
     try {
       const { result: { SafeGasPrice } } = await fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`)

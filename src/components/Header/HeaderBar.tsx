@@ -11,7 +11,7 @@ const HeaderBar = ({ toggleWalletModal }: { toggleWalletModal: () => void }) => 
 
     {/* <Box className="title">Stardust Exchange</Box> */}
 
-    <WalletDisplay address={account.currentAddress} toggleWalletModal={toggleWalletModal} />
+    <WalletDisplay toggleWalletModal={toggleWalletModal} />
   </Row>
 }
 

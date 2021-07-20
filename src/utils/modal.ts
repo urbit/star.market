@@ -1,6 +1,6 @@
-import { MouseEvent } from 'react'
+import { MouseEvent, FormEvent } from 'react'
 
-export const stopClick = (e: MouseEvent) => {
+export const stopClick = (e: MouseEvent | FormEvent<HTMLFormElement>) => {
   e.preventDefault()
   e.stopPropagation()
 }

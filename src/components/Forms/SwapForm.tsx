@@ -7,6 +7,7 @@ import { addOrRemove } from "../../utils/array"
 import { useStore } from "../../store"
 import TradeButton from "./TradeButton"
 import StarSelector from "../Star/StarSelector"
+import ConfirmationForm from "./ConfirmationForm"
 
 export enum Exchange {
   starsForDust,
@@ -14,11 +15,12 @@ export enum Exchange {
 }
 
 const SwapForm = () => {
-  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance, gasPrice } = useStore((store: any) => store)
+  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance } = useStore((store: any) => store)
   const [dustInput, setDustInput] = useState('')
   const [showStarSelector, setShowStarSelector] = useState(false)
   const [selectedStars, setSelectedStars] = useState([] as Star[])
   const [exchange, setExchange] = useState(Exchange.starsForDust)
+  const [confirm, setConfirm] = useState(false)
 
   const changeDust = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const newDust = Number(event.target.value.replace(/\D/g,''))
@@ -66,7 +68,10 @@ const SwapForm = () => {
 
     const newTreasuryBalance = await api.getTreasuryBalance().catch(console.error)
     setTreasuryBalance(newTreasuryBalance)
-  }, [api, setStars, setDust, setTreasuryBalance])
+
+    setConfirm(false)
+    setExchange(exchange === Exchange.starsForDust ? Exchange.dustForStars : Exchange.starsForDust)
+  }, [api, setStars, setDust, setTreasuryBalance, exchange, setExchange])
   
   const trade = async () => {
     if (exchange === Exchange.starsForDust) {
@@ -98,7 +103,15 @@ const SwapForm = () => {
 
   const disableButton = starsForDust ? !selectedStars.length : !Number(dustInput)
 
-  return <Box onClick={hideStarSelector}>
+  return confirm ?
+  <ConfirmationForm
+    starsForDust={starsForDust}
+    dust={Number(dustInput)}
+    stars={selectedStars}
+    onConfirm={trade}
+    onCancel={() => setConfirm(false)}
+  />:
+  <Box onClick={hideStarSelector}>
     <form className="swap-form">
       <Row className="half deposit">
         <Box className="denomination">
@@ -124,12 +137,12 @@ const SwapForm = () => {
           <Text className="label">Receive</Text>
           <Text className="value">{receiveDenomination}</Text>
         </Box>
-        <ReceiveDisplay amount={starsForDust ? selectedStars.length : Number(dustInput)} exchange={exchange} gasPrice={gasPrice} />
+        <ReceiveDisplay amount={starsForDust ? selectedStars.length : Number(dustInput)} exchange={exchange} />
       </Row>
     </form>
     
     <TradeButton
-      onClick={trade}
+      onClick={() => setConfirm(true)}
       starsForDust={starsForDust}
       hasAddress={Boolean(account.currentAddress)}
       disabled={disableButton}
