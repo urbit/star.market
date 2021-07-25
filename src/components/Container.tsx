@@ -9,9 +9,12 @@ import WalletForm from './Forms/WalletForm'
 import { useStore } from '../store'
 import Account from '../account'
 import WalletConnectForm from './Forms/WalletConnectForm'
+import LoadingIndicator from './Results/LoadingIndicator'
+import SuccessDisplay from './Results/SuccessDisplay'
+import ErrorDisplay from './Results/ErrorDisplay'
 
-const Container = () => {
-  const account: Account = useStore((store: any) => store.account)
+const Container = ({ refresh } : { refresh: () => void }) => {
+  const { setAccount, successTxHashes, errorMessage, loading, setSuccessTxHashes, setErrorMessage } = useStore((store: any) => store)
 
   const [showWalletModal, setShowWalletModal] = useState(false)
   const [promptForMasterTicket, setPromptForMasterTicket] = useState(false)
@@ -29,8 +32,13 @@ const Container = () => {
     setPromptForWalletConnect(false)
   }, [setPromptForWalletConnect])
 
+  const connectMetamask = useCallback(() => {
+    const account = new Account({})
+    setAccount(account)
+  }, [setAccount])
+
   return <Box className="container">
-    <HeaderBar toggleWalletModal={toggleWalletModal} />
+    <HeaderBar {...{ refresh, toggleWalletModal }} />
     <Box display="flex" flexDirection="column" alignItems="center" marginTop="3rem">
       <SwapForm />
     </Box>
@@ -38,7 +46,7 @@ const Container = () => {
     {showWalletModal && <Modal hideModal={() => setShowWalletModal(false)}>
       <WalletForm
         hideModal={() => setShowWalletModal(false)}
-        connectMetamask={account.connectMetamask}
+        connectMetamask={connectMetamask}
         showMasterTicketModal={() => setPromptForMasterTicket(true)}
         showWalletConnectModal={() => setPromptForWalletConnect(true)}
       />
@@ -50,6 +58,18 @@ const Container = () => {
 
     {promptForWalletConnect && <Modal hideModal={toggleWalletConnectModal}>
       <WalletConnectForm hideModal={() => setPromptForWalletConnect(false)} />
+    </Modal>}
+
+    {successTxHashes.length && <Modal hideModal={() => setSuccessTxHashes([])}>
+      <SuccessDisplay onClose={() => setSuccessTxHashes([])} />
+    </Modal>}
+
+    {errorMessage && <Modal hideModal={() => setErrorMessage(undefined)}>
+      <ErrorDisplay onClose={() => setErrorMessage(undefined)} />
+    </Modal>}
+
+    {loading && <Modal hideModal={() => null}>
+      <LoadingIndicator />
     </Modal>}
   </Box>
 }

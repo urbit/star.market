@@ -16,6 +16,10 @@ const {
   REACT_APP_TREASURY_ADDRESS,
 } = process.env
 
+export const SET_TRANSFER_PROXY_GAS_LIMIT = 200000
+export const DEPOSIT_GAS_LIMIT = 600000
+export const REDEEM_GAS_LIMIT = 500000
+
 const showNotConnectedAlert = () =>
   alert('You must have Metamask or another extension installed and active to connect to the Ethereum network. Please reload the page when ready.')
 
@@ -106,47 +110,92 @@ export default class Api {
     return (dust / TOKENS_PER_STAR)
   }
 
-  depositStar = async (star: Star) =>  {
+  depositStar = async (star: Star, gasPrice?: number) : Promise<string | undefined> =>  {
     this.checkConnection()
-    
-    await this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
-      from: this.account.currentAddress
-    })
+    const confirmationMessage = `Are you sure you want to deposit this star (${star.name})?`
 
-    if (window.confirm(`Are you sure you want to deposit this star (${star.name})?`)) {
-      await this.treasury.methods.deposit(star.point).send({
+    if (this.account.urbitWallet) {
+      const privateKey = this.account.urbitWallet.ownership.keys.private
+
+      const rawProxyTxn = {
+        from: this.account.currentAddress, 
+        to: REACT_APP_ECLIPTIC_ADDRESS, 
+        gas: SET_TRANSFER_PROXY_GAS_LIMIT, 
+        gasPrice,
+        // this encodes the ABI of the method and the arguements
+        data: this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).encodeABI() 
+      }
+
+      const signedProxyTx = await this.web3.eth.accounts.signTransaction(rawProxyTxn, privateKey)
+
+      if (signedProxyTx?.rawTransaction) {
+        await this.web3.eth.sendSignedTransaction(signedProxyTx.rawTransaction)
+
+        if (window.confirm(confirmationMessage)) {
+          const rawDepositTxn = {
+            from: this.account.currentAddress, 
+            to: REACT_APP_TREASURY_ADDRESS, 
+            gas: DEPOSIT_GAS_LIMIT, 
+            gasPrice,
+            // this encodes the ABI of the method and the arguements
+            data: this.treasury.methods.deposit(star.point).encodeABI() 
+          }
+    
+          const signedDepositTxn = await this.web3.eth.accounts.signTransaction(rawDepositTxn, privateKey)
+  
+          if (signedDepositTxn?.rawTransaction) {
+            const { transactionHash } = await this.web3.eth.sendSignedTransaction(signedDepositTxn.rawTransaction)
+            return transactionHash
+          }
+        }
+      }
+    } else {
+      await this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
         from: this.account.currentAddress
       })
+  
+      if (window.confirm(confirmationMessage)) {
+        const { transactionHash } = await this.treasury.methods.deposit(star.point).send({
+          from: this.account.currentAddress
+        })
+        return transactionHash
+      }
     }
+    
   }
 
-  redeemTokens = async (tokens: number) => {
+  redeemTokens = async (tokens: number, gasPrice?: number) : Promise<string[]> => {
     this.checkConnection()
+
+    const hashes = []
 
     for (let i = 0; i < tokens; i++) {
-      const response = await this.treasury.methods.redeem().send({
-        from: this.account.currentAddress
-      })
-      console.log('REDEEM', response)
+      if (this.account.urbitWallet) {
+        const privateKey = this.account.urbitWallet.ownership.keys.private
+
+        const rawRedeemTxn = {
+          from: this.account.currentAddress, 
+          to: REACT_APP_TREASURY_ADDRESS, 
+          gas: REDEEM_GAS_LIMIT, 
+          gasPrice,
+          // this encodes the ABI of the method and the arguements
+          data: this.treasury.methods.redeem().encodeABI() 
+        }
+  
+        const signedRedeemTxn = await this.web3.eth.accounts.signTransaction(rawRedeemTxn, privateKey)
+
+        if (signedRedeemTxn?.rawTransaction) {
+          const { transactionHash } = await this.web3.eth.sendSignedTransaction(signedRedeemTxn.rawTransaction)
+          hashes.push(transactionHash)
+        }
+      } else {
+        const { transactionHash } = await this.treasury.methods.redeem().send({
+          from: this.account.currentAddress
+        })
+        hashes.push(transactionHash)
+      }
     }
+
+    return hashes
   }
 }
-
-// const transactionParameters = {
-//   nonce: '0x00', // ignored by MetaMask
-//   gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
-//   gas: '0x2710', // customizable by user during MetaMask confirmation.
-//   to: '0x0000000000000000000000000000000000000000', // Required except during contract publications.
-//   from: ethereum.selectedAddress, // must match user's active address.
-//   value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-//   data:
-//     '0x7f7465737432000000000000000000000000000000000000000000000000000000600057', // Optional, but used for defining smart contract creation and interaction.
-//   chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-// }
-
-// // txHash is a hex string
-// // As with any RPC call, it may throw an error
-// const txHash = await ethereum.request({
-//   method: 'eth_sendTransaction',
-//   params: [transactionParameters],
-// })

@@ -57,6 +57,7 @@
     "urbit-ob": "^5.0.1",
     "urbit-sigil-js": "^1.3.13",
     "web-vitals": "^1.0.1",
+    "web3": "^1.4.0",
     "zustand": "^3.5.2"
   },
   "scripts": {

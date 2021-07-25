@@ -1,11 +1,4 @@
-$form-background: #F4F3F1;
-$form-dark-background: #e5e5e5;
-$form-grey-text: #9a9a9a;
-$yellow: rgba(255, 199, 0, 1);
-$star-green: rgba(0, 177, 113, 1);
-$washed-green: rgba(0, 159, 101, 0.05);
-$dust-blue: rgba(33, 157, 255, 1);
-$washed-blue: rgba(33, 157, 255, 0.05);
+@import './styles/variables.scss';
 
 body {
   font-size: 16px;
@@ -106,69 +99,6 @@ body {
 
     &.star {
       color: $star-green;
-    }
-  }
-}
-
-.header-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 2rem;
-  text-align: center;
-
-  .treasury {
-    background-color: $form-background;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-  }
-
-  // .title {
-  //   background-color: $form-background;
-  //   padding: 0.5rem;
-  //   border-radius: 0.25rem;
-  //   font-weight: bold;
-  //   font-size: 1.25rem;
-  // }
-
-  .wallet-display {
-    background-color: $form-background;
-    border-radius: 0.25rem;
-
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    align-items: center;
-
-    .eth-balance {
-      padding: 0.5rem 1rem;
-      border-radius: 0.25rem;
-    }
-
-    .address {
-      padding: 0.5rem 1rem;
-      border-radius: 0.25rem;
-
-      &:hover {
-        cursor: pointer;
-        background-color: rgba(0,0,0,0.2);
-      }
-    }
-
-    &.error {
-      background-color: rgba(168, 27, 27, 1);
-      padding: 0.5rem 2rem;
-
-      .error-icon {
-        color: white;
-      }
-
-      .error-message {
-        color: white;
-        font-size: 1rem;
-        margin-left: 1rem;
-      }
     }
   }
 }

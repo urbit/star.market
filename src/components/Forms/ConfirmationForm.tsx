@@ -1,14 +1,10 @@
 import { Box, Button, Text } from "@tlon/indigo-react"
 import { useStore } from "../../store"
 import Star from "../../types/Star"
+import { APPROX_DEPOSIT_GAS, APPROX_WITHDRAW_GAS, GWEI, TEN_THOUSAND } from "../../utils/constants"
 import { stopClick } from "../../utils/modal"
 import { getExchangeRate } from "../../utils/text"
 import StarEntry from "../Star/StarEntry"
-
-const APPROX_DEPOSIT_GAS = 520000
-const APPROX_WITHDRAW_GAS = 300000
-const GWEI = Math.pow(10, -9)
-const PRECISION = 10000
 
 interface ConfirmationFormProps {
   starsForDust: boolean
@@ -24,7 +20,7 @@ const ConfirmationForm = ({ starsForDust, dust, stars, onConfirm, onCancel }: Co
   const amount = starsForDust ? stars.length : dust
 
   const txCost = gasPrice * amount * (starsForDust ? APPROX_DEPOSIT_GAS : APPROX_WITHDRAW_GAS) * GWEI
-  const formattedTxCost = Math.round(txCost * PRECISION) / PRECISION
+  const formattedTxCost = Math.round(txCost * TEN_THOUSAND) / TEN_THOUSAND
 
   const exchangeRate = getExchangeRate(starsForDust)
 

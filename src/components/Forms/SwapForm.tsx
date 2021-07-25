@@ -15,7 +15,7 @@ export enum Exchange {
 }
 
 const SwapForm = () => {
-  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance } = useStore((store: any) => store)
+  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance, setLoading, setSuccessTxHashes, setErrorMessage } = useStore((store: any) => store)
   const [dustInput, setDustInput] = useState('')
   const [showStarSelector, setShowStarSelector] = useState(false)
   const [selectedStars, setSelectedStars] = useState([] as Star[])
@@ -74,27 +74,35 @@ const SwapForm = () => {
   }, [api, setStars, setDust, setTreasuryBalance, exchange, setExchange])
   
   const trade = async () => {
+    setLoading(true)
+
     if (exchange === Exchange.starsForDust) {
       if (selectedStars.length && window.confirm('You will need to make 2 transactions for each star. The first to authorize the DUST contract to transfer your star, the second to deposit the star.')) {
         try {
-          await Promise.all(selectedStars.map((star) => api.depositStar(star)))
+          const hashes = await Promise.all(selectedStars.map((star) => api.depositStar(star)))
+          setSuccessTxHashes(hashes)
           setSelectedStars([])
           await refreshValues()
         } catch (e) {
+          setErrorMessage(e)
           console.warn('ERROR DEPOSITING STARS', e)
         }
       }
     } else {
       try {
         if (dustInput && Number(dustInput) && window.confirm('Are you sure you want to exchange your DUST for stars?')) {
-          await api.redeemTokens(Number(dustInput))
+          const hashes = await api.redeemTokens(Number(dustInput))
+          setSuccessTxHashes(hashes)
           setDustInput('0')
           await refreshValues()
         }
       } catch (e) {
+        setErrorMessage(e)
         console.warn('ERROR REDEEMING DUST', e)
       }
     }
+
+    setLoading(false)
   }
 
   const assets = starsForDust ? stars.length : dust

@@ -1,0 +1,66 @@
+@import '../../styles//variables.scss';
+
+.header-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  text-align: center;
+
+  .treasury {
+    background-color: $form-background;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+  }
+
+  .wallet-display {
+    background-color: $form-background;
+    border-radius: 0.25rem;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    .eth-balance {
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+    }
+
+    .address {
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $hover-20;
+      }
+    }
+
+    &.error {
+      background-color: rgba(168, 27, 27, 1);
+      padding: 0.5rem 2rem;
+
+      .error-icon {
+        color: white;
+      }
+
+      .error-message {
+        color: white;
+        font-size: 1rem;
+        margin-left: 1rem;
+      }
+    }
+
+    .refresh {
+      border-radius: 0.25rem;
+      padding: 0.5rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $hover-20;
+      }
+    }
+  }
+}

@@ -1,17 +1,17 @@
 import { Row, Text } from '@tlon/indigo-react'
 
 import { useStore } from '../../store'
-import WalletDisplay from './WalletDisplay'
+import WalletDisplay, { WalletDisplayProps } from './WalletDisplay'
 
-const HeaderBar = ({ toggleWalletModal }: { toggleWalletModal: () => void }) => {
-  const { account, treasuryBalance } = useStore((store: any) => store)
+import './HeaderBar.scss'
+
+const HeaderBar = (props: WalletDisplayProps) => {
+  const { treasuryBalance } = useStore((store: any) => store)
 
   return <Row className="header-bar">
     <Text className="treasury">Treasury: {treasuryBalance} STAR</Text>
 
-    {/* <Box className="title">Stardust Exchange</Box> */}
-
-    <WalletDisplay toggleWalletModal={toggleWalletModal} />
+    <WalletDisplay {...props} />
   </Row>
 }
 

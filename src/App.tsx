@@ -16,12 +16,11 @@ import Account from './account';
 const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
 
 const App = () => {
-  const { setStars, setDust, setTreasuryBalance, setAccount, setGasPrice } = useStore((store: any) => store)
+  const { setStars, setDust, setTreasuryBalance, setAccount, setGasPrice, setLoading, account } = useStore((store: any) => store)
 
-  const initialize = useCallback(async () => {
-    const account = new Account()
+  const refresh = useCallback(async () => {
+    setLoading(true)
     const api = new Api(account)
-    setAccount(account)
 
     const stars = await api.getStars().catch(console.error)
     setStars(stars || [])
@@ -39,7 +38,16 @@ const App = () => {
     } catch (e) {
       console.warn(e)
     }
-  }, [setAccount, setStars, setDust, setTreasuryBalance, setGasPrice])
+
+    setLoading(false)
+  }, [setStars, setDust, setTreasuryBalance, setGasPrice, setLoading, account])
+
+  const initialize = useCallback(() => {
+    const account = new Account({})
+    setAccount(account)
+
+    refresh()
+  }, [setAccount, refresh])
 
   useEffect(() => {
     initialize()
@@ -48,7 +56,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={false ? dark : light}>
-        <Container />
+        <Container refresh={refresh} />
       </ThemeProvider>
     </BrowserRouter>
   );
