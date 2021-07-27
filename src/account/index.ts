@@ -1,6 +1,7 @@
-import { UrbitWallet } from '../types/UrbitWallet'
+import WalletConnect from "@walletconnect/client"
 
-const { generateWallet } = require('urbit-key-generation')
+import { UrbitWallet } from '../types/UrbitWallet'
+import { setPreferredWallet } from "../utils/local-storage"
 
 const { NODE_ENV } = process.env
 
@@ -20,17 +21,24 @@ export enum WalletType {
 
 export default class Account {
   urbitWallet?: UrbitWallet
+  walletConnection?: WalletConnect
   currentAddress?: string
   currentWalletType?: WalletType // Metamask includes any browser-based ethereum wallet
 
-  constructor({ wallet }: { wallet?: UrbitWallet }) {
+  constructor({ urbitWallet, walletConnection, useMetamask }: { urbitWallet?: UrbitWallet, walletConnection?: WalletConnect, useMetamask?: boolean }) {
     const ethereum = (window as any).ethereum // default is to use Metamask
 
-    if (wallet) {
-      this.urbitWallet = wallet
-      this.currentAddress = wallet.ownership.keys.address
+    if (urbitWallet) {
+      this.urbitWallet = urbitWallet
+      this.currentAddress = urbitWallet.ownership.keys.address
       this.currentWalletType = WalletType.MasterTicket
-    } else if (ethereum) {
+      
+    } else if (walletConnection) {
+      this.walletConnection = walletConnection
+      this.currentAddress = walletConnection.accounts[0]
+      this.currentWalletType = WalletType.WalletConnect
+
+    } else if (useMetamask && ethereum) {
       // this.urbitWallet = {
       //   meta: {
       //     generator: {
@@ -61,31 +69,35 @@ export default class Account {
       this.currentAddress = ethereum.selectedAddress
       ethereum.on('accountsChanged', (accounts: string[]) => this.currentAddress = accounts[0])
       this.currentWalletType = WalletType.Metamask
+    } else {
+      this.urbitWallet = undefined
+      this.walletConnection = undefined
+      this.currentAddress = undefined
+      this.currentWalletType = undefined
     }
+
+    setPreferredWallet(this.currentWalletType)
   }
 
-  connectMasterTicket = async (options: MasterTicketOptions) => { // flesh this out
-    const wallet = await generateWallet(options)
-    return wallet
+  setCurrentAddress = (currentAddress: string) => {
+    console.log('SETTING CURRENT ADDRESS', currentAddress)
+    this.currentAddress = currentAddress
+    return this
   }
 
-  connectWalletConnect = async () => { // WalletConnect: https://registry.walletconnect.org/wallets
-    console.log('WALLET CONNECT WALLET')
-  }
+  getBalance = async () => (window as any).ethereum.request({ method: 'eth_getBalance', params: [this.currentAddress, "latest"] })
 
-  isValidNetwork = () => {
+  static isValidNetwork = () => {
     if (NODE_ENV === 'development' || NODE_ENV === 'test') {
       return true
     }
-
+  
     const ethereum = (window as any).ethereum
-
+  
     if (!ethereum) {
       return false
     }
-
+  
     return ethereum.chainId === '0x1'
   }
-
-  getBalance = async () => (window as any).ethereum.request({ method: 'eth_getBalance', params: [this.currentAddress, "latest"] });
 }

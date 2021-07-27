@@ -5,11 +5,17 @@ import { useStore } from "../../store"
 import Account from "../../account"
 import FormHeader from "./FormHeader"
 import { stopClick } from "../../utils/modal"
+import { RefreshProps } from "../Container"
+import { UrbitWallet } from "../../types/UrbitWallet"
 
 const ob = require('urbit-ob')
+const { generateWallet } = require('urbit-key-generation')
 
-const MasterTicketForm = ({ hideModal }: { hideModal: () => void }) => {
-  const account: Account = useStore((store: any) => store.account)
+interface MasterTicketFormProps extends RefreshProps {
+  hideModal: () => void
+}
+
+const MasterTicketForm = ({ hideModal, refresh } : MasterTicketFormProps) => {
   const { setAccount, setLoading } = useStore((store: any) => store)
 
   const [ticket, setTicket] = useState('')
@@ -24,16 +30,16 @@ const MasterTicketForm = ({ hideModal }: { hideModal: () => void }) => {
     
     const formattedShip = ob.patp2dec(`~${ship}`)
 
-    const wallet = await account.connectMasterTicket({
+    const urbitWallet: UrbitWallet = await generateWallet({
       ticket: `~${ticket}`, ship: formattedShip, passphrase
     })
 
-    const newAccount = new Account({ wallet })
+    const newAccount = new Account({ urbitWallet })
     setAccount(newAccount)
 
     hideModal()
-    setLoading(false)
-  }, [account, ticket, ship, passphrase, hideModal, setAccount, setLoading])
+    refresh(newAccount)
+  }, [ticket, ship, passphrase, hideModal, setAccount, setLoading, refresh])
 
   const changeTicket = (event: ChangeEvent<HTMLInputElement>) => setTicket(event.target.value.replace(/[^a-zA-Z-]/g,'').toLowerCase())
   const changeShip = (event: ChangeEvent<HTMLInputElement>) => setShip(event.target.value.replace(/[^a-zA-Z-]/g,'').toLowerCase())

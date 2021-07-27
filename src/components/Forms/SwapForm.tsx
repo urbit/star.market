@@ -14,7 +14,11 @@ export enum Exchange {
   dustForStars,
 }
 
-const SwapForm = () => {
+interface SwapFormProps {
+  toggleWalletModal: () => void
+}
+
+const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
   const { account, api, dust, stars, setStars, setDust, setTreasuryBalance, setLoading, setSuccessTxHashes, setErrorMessage } = useStore((store: any) => store)
   const [dustInput, setDustInput] = useState('')
   const [showStarSelector, setShowStarSelector] = useState(false)
@@ -109,6 +113,7 @@ const SwapForm = () => {
   const depositDenomination = starsForDust ? 'STAR' : 'DUST'
   const receiveDenomination = starsForDust ? 'DUST' : 'STAR'
 
+  const hasAddress = Boolean(account.currentAddress)
   const disableButton = starsForDust ? !selectedStars.length : !Number(dustInput)
 
   return confirm ?
@@ -150,10 +155,10 @@ const SwapForm = () => {
     </form>
     
     <TradeButton
-      onClick={() => setConfirm(true)}
+      onClick={hasAddress ? () => setConfirm(true) : toggleWalletModal}
       starsForDust={starsForDust}
-      hasAddress={Boolean(account.currentAddress)}
-      disabled={disableButton}
+      hasAddress={hasAddress}
+      disabled={hasAddress && disableButton}
     />
   </Box>
 }

@@ -27,6 +27,8 @@
     "@types/yup": "^0.29.7",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
+    "@walletconnect/client": "^1.4.1",
+    "@walletconnect/qrcode-modal": "^1.4.1",
     "azimuth-js": "^0.22.1",
     "classnames": "^2.2.6",
     "css-loader": "^3.5.3",

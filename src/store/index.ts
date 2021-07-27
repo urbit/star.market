@@ -30,7 +30,7 @@ export const useStore = create(set => ({
   dust: 0,
   stars: [],
   treasuryBalance: 0,
-  loading: true,
+  loading: false,
   successTxHashes: [],
   setAccount: (account: Account) => set(state => ({ account, api: new Api(account) })),
   setDust: (dust: number) => set(state => ({ dust })),

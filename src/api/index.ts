@@ -199,3 +199,28 @@ export default class Api {
     return hashes
   }
 }
+
+// code for WalletConnect
+
+// // Draft transaction
+// const tx = {
+//   from: "0xbc28Ea04101F03aA7a94C1379bc3AB32E65e62d3", // Required
+//   to: "0x89D24A7b4cCB1b6fAA2625Fe562bDd9A23260359", // Required (for non contract deployments)
+//   data: "0x", // Required
+//   gasPrice: "0x02540be400", // Optional
+//   gas: "0x9c40", // Optional
+//   value: "0x00", // Optional
+//   nonce: "0x0114", // Optional
+// };
+
+// // Send transaction
+// connector
+//   .sendTransaction(tx)
+//   .then((result) => {
+//     // Returns transaction id (hash)
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     // Error returned when rejected
+//     console.error(error);
+//   });

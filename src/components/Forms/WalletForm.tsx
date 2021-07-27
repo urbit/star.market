@@ -1,23 +1,22 @@
 import { useCallback } from 'react'
 import { Box } from '@tlon/indigo-react'
 
-import Account, { WalletType } from '../../account'
+import { WalletType } from '../../account'
 import { useStore } from '../../store'
 import WalletEntry from './WalletEntry'
 import FormHeader from './FormHeader'
 import { stopClick } from '../../utils/modal'
+import { ContainerProps } from '../Container'
 
-interface WalletFormProps {
+interface WalletFormProps extends ContainerProps {
   hideModal: () => void
-  connectMetamask: () => void
   showMasterTicketModal: () => void
-  showWalletConnectModal: () => void
 }
 
 const WalletForm = (
-  { hideModal, connectMetamask, showMasterTicketModal, showWalletConnectModal } : WalletFormProps
+  { hideModal, connectMetamask, showMasterTicketModal, connectWalletConnector } : WalletFormProps
 ) => {
-  const account: Account = useStore((store: any) => store.account)
+  const { account } = useStore((store: any) => store)
 
   const walletTypes = Object.values(WalletType)
 
@@ -30,10 +29,10 @@ const WalletForm = (
         showMasterTicketModal()
         break
       case WalletType.WalletConnect:
-        showWalletConnectModal()
+        connectWalletConnector()
         break
     }
-  }, [connectMetamask, showMasterTicketModal, showWalletConnectModal])
+  }, [connectMetamask, showMasterTicketModal, connectWalletConnector])
 
   return <form className="wallet-form" onClick={stopClick}>
     <FormHeader title="Select Wallet" hideModal={hideModal} />
