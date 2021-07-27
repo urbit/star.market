@@ -114,17 +114,24 @@ export default class Api {
     this.checkConnection()
     const confirmationMessage = `Are you sure you want to deposit this star (${star.name})?`
 
+    const rawProxyTxn = {
+      from: this.account.currentAddress!, 
+      to: REACT_APP_ECLIPTIC_ADDRESS, 
+      data: this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).encodeABI(),
+      gas: SET_TRANSFER_PROXY_GAS_LIMIT, 
+      gasPrice,
+    }
+
+    const rawDepositTxn = {
+      from: this.account.currentAddress!, 
+      to: REACT_APP_TREASURY_ADDRESS, 
+      data: this.treasury.methods.deposit(star.point).encodeABI(),
+      gas: DEPOSIT_GAS_LIMIT, 
+      gasPrice,
+    }
+
     if (this.account.urbitWallet) {
       const privateKey = this.account.urbitWallet.ownership.keys.private
-
-      const rawProxyTxn = {
-        from: this.account.currentAddress, 
-        to: REACT_APP_ECLIPTIC_ADDRESS, 
-        gas: SET_TRANSFER_PROXY_GAS_LIMIT, 
-        gasPrice,
-        // this encodes the ABI of the method and the arguements
-        data: this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).encodeABI() 
-      }
 
       const signedProxyTx = await this.web3.eth.accounts.signTransaction(rawProxyTxn, privateKey)
 
@@ -132,15 +139,6 @@ export default class Api {
         await this.web3.eth.sendSignedTransaction(signedProxyTx.rawTransaction)
 
         if (window.confirm(confirmationMessage)) {
-          const rawDepositTxn = {
-            from: this.account.currentAddress, 
-            to: REACT_APP_TREASURY_ADDRESS, 
-            gas: DEPOSIT_GAS_LIMIT, 
-            gasPrice,
-            // this encodes the ABI of the method and the arguements
-            data: this.treasury.methods.deposit(star.point).encodeABI() 
-          }
-    
           const signedDepositTxn = await this.web3.eth.accounts.signTransaction(rawDepositTxn, privateKey)
   
           if (signedDepositTxn?.rawTransaction) {
@@ -149,6 +147,12 @@ export default class Api {
           }
         }
       }
+
+    } else if (this.account.walletConnection) {
+      await this.account.walletConnection.sendTransaction(rawProxyTxn)
+      const transactionHash = await this.account.walletConnection.sendTransaction(rawDepositTxn)
+      return transactionHash
+
     } else {
       await this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
         from: this.account.currentAddress
@@ -170,24 +174,27 @@ export default class Api {
     const hashes = []
 
     for (let i = 0; i < tokens; i++) {
+      const rawRedeemTxn = {
+        from: this.account.currentAddress!, 
+        to: REACT_APP_TREASURY_ADDRESS, 
+        data: this.treasury.methods.redeem().encodeABI(),
+        gas: REDEEM_GAS_LIMIT, 
+        gasPrice,
+      }
+
       if (this.account.urbitWallet) {
         const privateKey = this.account.urbitWallet.ownership.keys.private
-
-        const rawRedeemTxn = {
-          from: this.account.currentAddress, 
-          to: REACT_APP_TREASURY_ADDRESS, 
-          gas: REDEEM_GAS_LIMIT, 
-          gasPrice,
-          // this encodes the ABI of the method and the arguements
-          data: this.treasury.methods.redeem().encodeABI() 
-        }
-  
         const signedRedeemTxn = await this.web3.eth.accounts.signTransaction(rawRedeemTxn, privateKey)
 
         if (signedRedeemTxn?.rawTransaction) {
           const { transactionHash } = await this.web3.eth.sendSignedTransaction(signedRedeemTxn.rawTransaction)
           hashes.push(transactionHash)
         }
+
+      } else if (this.account.walletConnection) {
+        const transactionHash = await this.account.walletConnection.sendTransaction(rawRedeemTxn)
+        hashes.push(transactionHash)
+
       } else {
         const { transactionHash } = await this.treasury.methods.redeem().send({
           from: this.account.currentAddress
@@ -199,28 +206,3 @@ export default class Api {
     return hashes
   }
 }
-
-// code for WalletConnect
-
-// // Draft transaction
-// const tx = {
-//   from: "0xbc28Ea04101F03aA7a94C1379bc3AB32E65e62d3", // Required
-//   to: "0x89D24A7b4cCB1b6fAA2625Fe562bDd9A23260359", // Required (for non contract deployments)
-//   data: "0x", // Required
-//   gasPrice: "0x02540be400", // Optional
-//   gas: "0x9c40", // Optional
-//   value: "0x00", // Optional
-//   nonce: "0x0114", // Optional
-// };
-
-// // Send transaction
-// connector
-//   .sendTransaction(tx)
-//   .then((result) => {
-//     // Returns transaction id (hash)
-//     console.log(result);
-//   })
-//   .catch((error) => {
-//     // Error returned when rejected
-//     console.error(error);
-//   });
