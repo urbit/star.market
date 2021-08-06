@@ -37,7 +37,7 @@ const Container = ({ refresh, connectWalletConnector, connectMetamask } : Contai
 
   return <Box className="container">
     <HeaderBar {...{ refresh, toggleWalletModal }} />
-    <Box display="flex" flexDirection="column" alignItems="center" marginTop="3rem">
+    <Box display="flex" flexDirection="column" alignItems="center">
       <SwapForm {...{ refresh, toggleWalletModal }} />
     </Box>
 
@@ -53,7 +53,7 @@ const Container = ({ refresh, connectWalletConnector, connectMetamask } : Contai
       <MasterTicketForm refresh={refresh} hideModal={() => setPromptForMasterTicket(false)} />
     </Modal>}
 
-    {successTxHashes.length && <Modal hideModal={() => setSuccessTxHashes([])}>
+    {!!successTxHashes.length && <Modal hideModal={() => setSuccessTxHashes([])}>
       <SuccessDisplay onClose={() => setSuccessTxHashes([])} />
     </Modal>}
 

@@ -124,7 +124,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     onConfirm={trade}
     onCancel={() => setConfirm(false)}
   />:
-  <Box onClick={hideStarSelector}>
+  <Box onClick={hideStarSelector} className="form-holder">
     <form className="swap-form">
       <Row className="half deposit">
         <Box className="denomination">

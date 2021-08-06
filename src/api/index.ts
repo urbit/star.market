@@ -21,7 +21,7 @@ export const DEPOSIT_GAS_LIMIT = 800000
 export const REDEEM_GAS_LIMIT = 600000
 
 const showNotConnectedAlert = () =>
-  alert('You must have Metamask or ano8ther extension installed and active to connect to the Ethereum network. Please reload the page when ready.')
+  alert('You must have Metamask or another extension installed and active to connect to the Ethereum network. Please reload the page when ready.')
 
 export default class Api {
   web3: Web3
