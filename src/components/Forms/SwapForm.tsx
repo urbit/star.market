@@ -44,7 +44,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     setShowStarSelector(false)
   }, [setShowStarSelector])
 
-  const selectStar = (star: Star) => setSelectedStars(star.canTrade ? addOrRemove(selectedStars, star) : selectedStars)
+  const selectStar = (star: Star) => setSelectedStars(star.isUnlinked ? addOrRemove(selectedStars, star) : selectedStars)
 
   const toggleExchange = () => 
     setExchange(

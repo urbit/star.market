@@ -4,7 +4,7 @@ import { MouseEvent } from "react";
 import Star from "../../types/Star";
 
 const StarEntry = ({ star, selected, onSelect }: { star: Star, selected?: boolean, onSelect?: (star: Star) => void }) => {
-  const { name, point, canTrade, getDisabledMessage } = star
+  const { name, point, isUnlinked, getDisabledMessage } = star
 
   const select = (event: MouseEvent) => {
     if (onSelect) {
@@ -16,7 +16,7 @@ const StarEntry = ({ star, selected, onSelect }: { star: Star, selected?: boolea
 
   let className = 'star-entry'
 
-  if (!canTrade) {
+  if (!isUnlinked) {
     className = `${className} disabled`
   } else if (selected) {
     className = `${className} selected`
@@ -28,11 +28,11 @@ const StarEntry = ({ star, selected, onSelect }: { star: Star, selected?: boolea
        patp: name,
        renderer: reactRenderer,
        size: 16,
-       colors: [canTrade ? selected ? 'rgba(0, 177, 113, 1)' : 'black' : '#9a9a9a', 'white'],
+       colors: [isUnlinked ? selected ? 'rgba(0, 177, 113, 1)' : 'black' : '#9a9a9a', 'white'],
      })}
       <div>{name}</div>
     </Row>
-    <div className="label">{canTrade ? `AZP ${point}` : getDisabledMessage()}</div>
+    <div className="label">{isUnlinked ? `AZP ${point}` : getDisabledMessage()}</div>
   </Box>
 }
 

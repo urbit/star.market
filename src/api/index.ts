@@ -80,13 +80,9 @@ export default class Api {
       .filter(ajs.check.isStar)
       .map(async (point: number) => {
         const isUnlinked = !(await ajs.azimuth.hasBeenLinked(contracts, point))
-        const spawnCount = await ajs.azimuth.getSpawnCount(contracts, point)
-        const isComplete = Number(spawnCount) === 0
   
         return new Star({
           point,
-          canTrade: isUnlinked && isComplete,
-          isComplete,
           isUnlinked,
         })
       }))
