@@ -83,7 +83,11 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     if (exchange === Exchange.starsForDust) {
       if (selectedStars.length && window.confirm('You will need to make 2 transactions for each star. The first to authorize the DUST contract to transfer your star, the second to deposit the star.')) {
         try {
-          const hashes = await Promise.all(selectedStars.map((star) => api.depositStar(star)))
+          const hashes : string[] = [];
+          for (let i = 0; i < selectedStars.length; i++) {
+            const hash = await api.depositStar(selectedStars[i])
+            hashes.push(hash);
+          }
           setSuccessTxHashes(hashes)
           setSelectedStars([])
           await refreshValues()
