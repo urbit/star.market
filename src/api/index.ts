@@ -108,7 +108,6 @@ export default class Api {
 
   depositStar = async (star: Star, gasPrice?: number) : Promise<string | undefined> =>  {
     this.checkConnection()
-    const confirmationMessage = `Are you sure you want to deposit this star (${star.name})?`
 
     const rawProxyTxn = {
       from: this.account.currentAddress!, 
@@ -134,13 +133,11 @@ export default class Api {
       if (signedProxyTx?.rawTransaction) {
         await this.web3.eth.sendSignedTransaction(signedProxyTx.rawTransaction)
 
-        if (window.confirm(confirmationMessage)) {
-          const signedDepositTxn = await this.web3.eth.accounts.signTransaction(rawDepositTxn, privateKey)
+        const signedDepositTxn = await this.web3.eth.accounts.signTransaction(rawDepositTxn, privateKey)
   
-          if (signedDepositTxn?.rawTransaction) {
-            const { transactionHash } = await this.web3.eth.sendSignedTransaction(signedDepositTxn.rawTransaction)
-            return transactionHash
-          }
+        if (signedDepositTxn?.rawTransaction) {
+          const { transactionHash } = await this.web3.eth.sendSignedTransaction(signedDepositTxn.rawTransaction)
+          return transactionHash
         }
       }
 
@@ -154,12 +151,10 @@ export default class Api {
         from: this.account.currentAddress
       })
   
-      if (window.confirm(confirmationMessage)) {
-        const { transactionHash } = await this.treasury.methods.deposit(star.point).send({
-          from: this.account.currentAddress
-        })
-        return transactionHash
-      }
+      const { transactionHash } = await this.treasury.methods.deposit(star.point).send({
+        from: this.account.currentAddress
+      })
+      return transactionHash
     }
     
   }
