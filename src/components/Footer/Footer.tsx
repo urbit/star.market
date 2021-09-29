@@ -1,14 +1,18 @@
 import { Link } from 'react-router-dom';
 import Logo from '../Icons/Logo';
 
-export default function HomeHeader() {
+import './Footer.scss'
+
+export default function Footer() {
     return (
-        <header className="homeHeader">
+        <header className="footer">
             <div className="innerCol">
                 <Link to="/">
-                    <div className="pill-button bg-gray">
+                    <div className="pill-button">
                         <Logo />
-                        <p className="ml-0.5em">Star Market</p>
+                        <p className="ml-0.5em">
+                            Star Market
+                        </p>
                     </div>
                 </Link>
                 <nav>
@@ -18,8 +22,13 @@ export default function HomeHeader() {
                         </div>
                     </Link>
                     <Link to="/app">
-                    <div className="pill-button bg-yellow ml-0.5em">
+                        <div className="pill-button ml-0.5em">
                             Launch App
+                        </div>
+                    </Link>
+                    <Link to="/disclaimer">
+                        <div className="pill-button ml-0.5em">
+                            Disclaimer
                         </div>
                     </Link>
                 </nav>

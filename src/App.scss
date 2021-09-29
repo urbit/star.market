@@ -1,5 +1,9 @@
 @import './styles/variables.scss';
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-size: 16px;
   font-family: "Inter","Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
@@ -26,7 +30,7 @@ body {
   form {
     background-color: $form-background;
     min-height: 18rem;
-    width: 30rem;
+    // width: 30rem;
     border-radius: 1rem;
     margin-top: 3rem;
     @media screen and (max-width: 767px) {
@@ -115,6 +119,25 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 40%;
+}
+
+.toggle-exchange {
+  padding: 0.5rem;
+  position: absolute;
+  border: 2px solid $form-dark-background;
+  background-color: $form-background;
+  border-radius: 999rem;
+  width: 3em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  bottom: -1.5em;
+  &:hover {
+    background-color: $form-dark-background;
+  }
 }
 
 .swap-form {
@@ -122,32 +145,21 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-
-  .toggle-exchange {
-    padding: 0.5rem;
-    transform: rotate(90deg);
-    position: absolute;
-    border: 2px solid $form-dark-background;
-    background-color: $form-background;
-    border-radius: 2rem;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $form-dark-background;
-    }
-  }
+  width: 100%;
 
   .half {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 1.5rem;
-    width: calc(100% - 3rem);
+    width: 100%;
     border-radius: 1rem;
     min-height: 9rem;
 
+
     &.deposit {
       padding-bottom: 2rem;
+      position: relative;
     }
 
     &.receive {
@@ -195,7 +207,7 @@ body {
 
 button.trade-button {
   margin-top: 0.5rem;
-  width: 30rem;
+  width: 100%;
   border-radius: 1rem;
   font-size: 1.5rem;
   height: 4rem;
@@ -474,5 +486,183 @@ form.confirmation-form {
   width: 100vw;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
+
+.measure {
+  max-width: 34em;
+}
+
+.measure-narrow {
+  max-width: 20em;
+}
+
+.layout {
+  width: 66.6667%;
+
+  margin-top: 6em;
+}
+
+h2 {
+  //styleName: Sans/H2;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.011em;
+  text-align: left;
+}
+
+h3, .gray-title {
+  //styleName: Sans/H2;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.011em;
+  text-align: left;
+  color: #999999;
+}
+
+  p a {
+    color: #999999;
+    text-decoration: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .pill-button {
+    display: flex;
+    height: 3em;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: black;
+    text-decoration: none;
+    //styleName: Sans/H3;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0em;
+  }
+
+  .bg-gray {
+    background-color: #F2F2F2
+  }
+
+  .bg-yellow {
+    background-color: #F3C263
+  }
+
+  .ml-0\.5em {
+    margin-left: 0.5em;
+  }
+
+  .hero-rect {
+    width: 100%;
+    height: 540px;
+    background-color: #F2F2F2;
+    padding: 2em;
+    position: relative;
+    border-radius: 24px;
+
+  }
+
+  .hero-rect .inner-text {
+    position: absolute;
+    bottom: 2em;
+    left: 2em;
+  }
+
+  .hero-rect .logo {
+    position: absolute;
+    top: 2em;
+    left: 2em;
+  }
+
+  .hero-rect {
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: -0.03em;
+    text-align: left;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .bubbleLink {
+    list-style: none;
+
+  }
+  
+  .bubbleLink a {
+    display: flex;
+    align-items: center;
+  }
+
+
+  .bubbleLink .bubble {
+    width: 3em;
+    height: 3em;
+    border-radius: 999px;
+    margin-right: 0.75em;
+    background-color: #999999;
+  }
+
+  .bubbleLink .textGroup {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mt-2 {
+    margin-top: 2em;
+  }
+  
+  .bubbleLink .textGroup .title {
+    padding: 0;
+    margin: 0;
+    //styleName: Sans / UI + Control;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: black;
+  }
+
+  .bubbleLink .textGroup .caption {
+    padding: 0;
+    margin: 0;
+    //styleName: Sans / UI + Control;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #999999;
+  }
+
+  .fourOFour {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
