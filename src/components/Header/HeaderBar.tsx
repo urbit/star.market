@@ -1,5 +1,4 @@
 import { Row, Text } from '@tlon/indigo-react'
-
 import { useStore } from '../../store'
 import WalletDisplay, { WalletDisplayProps } from './WalletDisplay'
 
