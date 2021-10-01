@@ -1,6 +1,6 @@
 import { useState, useCallback, ChangeEvent, MouseEvent } from "react"
 
-import { Box, Icon, Row, Text } from "@tlon/indigo-react"
+import { Box, Row, Text } from "@tlon/indigo-react"
 import ReceiveDisplay from './ReceiveDisplay'
 import Star from "../../types/Star"
 import { addOrRemove } from "../../utils/array"
