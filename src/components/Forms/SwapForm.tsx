@@ -8,6 +8,7 @@ import { useStore } from "../../store"
 import TradeButton from "./TradeButton"
 import StarSelector from "../Star/StarSelector"
 import ConfirmationForm from "./ConfirmationForm"
+import Swap from "../Icons/Swap"
 
 export enum Exchange {
   starsForDust,
@@ -143,11 +144,11 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
             dustInputField
           }
         </Box>
-      </Row>
 
-      <Box className="toggle-exchange" onClick={toggleExchange}>
-        <Icon icon={"Swap"} />
-      </Box>
+        <Box className="toggle-exchange" onClick={toggleExchange}>
+          <Swap />
+        </Box>
+      </Row>
 
       <Row className="half receive">
         <Box className="denomination">

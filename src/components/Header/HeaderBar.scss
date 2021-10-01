@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 2rem;
+  margin-top: 3em;
   text-align: center;
 
   @media screen and (max-width: 767px) {
@@ -73,4 +74,24 @@
       }
     }
   }
+}
+
+.homeHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 5em;
+}
+
+.homeHeader .innerCol {
+  width: 66.6667%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4em;
+  // align-items: center;
+}
+
+.homeHeader nav {
+  display: flex;
+  // align-items: center;
 }

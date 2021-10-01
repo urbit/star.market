@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import WalletConnect from "@walletconnect/client"
 import QRCodeModal from "@walletconnect/qrcode-modal"
 
@@ -11,6 +11,9 @@ import dark from './components/themes/dark'
 import { useStore } from './store';
 import Api from './api';
 import Container from './components/Container'
+import Home from './components/Home'
+import About from './components/About'
+import NoMatch from './components/NoMatch'
 
 import './App.scss';
 import Account, { WalletType } from './account';
@@ -119,7 +122,21 @@ const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={false ? dark : light}>
-        <Container {...{ refresh, connectMetamask, connectWalletConnector }} />
+      <Switch>
+          <Route path="/app">
+            {/* <Container/> refers to the swap app */}
+            <Container {...{ refresh, connectMetamask, connectWalletConnector }} />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route>
+            <NoMatch />
+          </Route>
+        </Switch>
       </ThemeProvider>
     </BrowserRouter>
   );
