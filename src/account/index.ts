@@ -90,16 +90,16 @@ export default class Account {
   static isValidNetwork = () => {
     // TODO: REMOVE THIS BEFORE FINAL VERSION
     return true
-    if (NODE_ENV === 'development' || NODE_ENV === 'test') {
-      return true
+    //   if (NODE_ENV === 'development' || NODE_ENV === 'test') {
+    //     return true
+    //   }
+    
+    //   const ethereum = (window as any).ethereum
+    
+    //   if (!ethereum) {
+    //     return false
+    //   }
+    
+    //   return ethereum.chainId === '0x1'
     }
-  
-    const ethereum = (window as any).ethereum
-  
-    if (!ethereum) {
-      return false
-    }
-  
-    return ethereum.chainId === '0x1'
-  }
 }
