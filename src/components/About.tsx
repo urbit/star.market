@@ -1,5 +1,3 @@
-import { Row, Text } from '@tlon/indigo-react'
-import { Link } from 'react-router-dom';
 import HomeHeader from './Header/HomeHeader';
 
 export default function About() {
