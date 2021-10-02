@@ -23,19 +23,16 @@ body {
   background-color: rgba(0,0,0,0.3);
 }
 
-.container {
-  min-height: 100vh;
-  min-width: 100vw;
 
   form {
     background-color: $form-background;
     min-height: 18rem;
-    // width: 30rem;
+    // width: 32rem;
     border-radius: 1rem;
     margin-top: 3rem;
     @media screen and (max-width: 767px) {
       margin-top: 1rem;
-      width: 26rem;
+      // width: 26rem;
     }
 
     .form-header {
@@ -91,7 +88,7 @@ body {
         }
       }
     }
-  }
+  
 
   .amount {
     width: 14.1rem;
@@ -119,7 +116,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 66.6667%;
 }
 
 .toggle-exchange {
@@ -500,8 +497,13 @@ form.confirmation-form {
 
 .layout {
   width: 66.6667%;
-
+  max-width: 60em;
   margin-top: 8em;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 6em;
+    width: 80.0%;
+  }
 }
 
 h2 {
@@ -552,6 +554,7 @@ h3, .gray-title {
     font-style: normal;
     font-weight: 600;
     letter-spacing: 0em;
+    border: none;
   }
 
   .bg-gray {
@@ -564,6 +567,10 @@ h3, .gray-title {
 
   .ml-0\.5em {
     margin-left: 0.5em;
+  }
+
+  .mr-0\.5em {
+    margin-right: 0.5em;
   }
 
   .hero-rect {

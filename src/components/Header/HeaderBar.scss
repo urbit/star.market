@@ -14,16 +14,16 @@
     align-items: flex-start;
     padding: 0.5rem 1rem;
 
-    .treasury {
-      margin-bottom: 1rem;
-    }
+    // .treasury {
+    //   margin-bottom: 1rem;
+    // }
   }
 
-  .treasury {
-    background-color: $form-background;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-  }
+  // .treasury {
+  //   background-color: $form-background;
+  //   padding: 0.5rem 1rem;
+  //   border-radius: 0.25rem;
+  // }
 
   .wallet-display {
     background-color: $form-background;
@@ -80,7 +80,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  height: 5em;
+  // height: 5em;
 }
 
 .homeHeader .innerCol {
@@ -88,7 +88,12 @@
   display: flex;
   justify-content: space-between;
   margin-top: 4em;
-  // align-items: center;
+  max-width: 60em;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 3em;
+    width: 80.0%;
+  }
 }
 
 .homeHeader nav {

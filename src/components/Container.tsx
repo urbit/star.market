@@ -35,36 +35,38 @@ const Container = ({ refresh, connectWalletConnector, connectMetamask } : Contai
     setPromptForMasterTicket(false)
   }, [setPromptForMasterTicket])
 
-  return <Box className="container">
+  return <div className="layout-container">
     <HeaderBar {...{ refresh, toggleWalletModal }} />
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <SwapForm {...{ refresh, toggleWalletModal }} />
-    </Box>
+      <section className="layout">
+        <Box display="flex" flexDirection="column" alignItems="center">
+        <SwapForm {...{ refresh, toggleWalletModal }} />
+      </Box>
 
-    {showWalletModal && <Modal hideModal={() => setShowWalletModal(false)}>
-      <WalletForm
-        {...{ refresh, connectWalletConnector, connectMetamask }}
-        hideModal={() => setShowWalletModal(false)}
-        showMasterTicketModal={() => setPromptForMasterTicket(true)}
-      />
-    </Modal>}
+      {showWalletModal && <Modal hideModal={() => setShowWalletModal(false)}>
+        <WalletForm
+          {...{ refresh, connectWalletConnector, connectMetamask }}
+          hideModal={() => setShowWalletModal(false)}
+          showMasterTicketModal={() => setPromptForMasterTicket(true)}
+        />
+      </Modal>}
 
-    {promptForMasterTicket && <Modal hideModal={toggleMasterTicketModal}>
-      <MasterTicketForm refresh={refresh} hideModal={() => setPromptForMasterTicket(false)} />
-    </Modal>}
+      {promptForMasterTicket && <Modal hideModal={toggleMasterTicketModal}>
+        <MasterTicketForm refresh={refresh} hideModal={() => setPromptForMasterTicket(false)} />
+      </Modal>}
 
-    {!!successTxHashes.length && <Modal hideModal={() => setSuccessTxHashes([])}>
-      <SuccessDisplay onClose={() => setSuccessTxHashes([])} />
-    </Modal>}
+      {!!successTxHashes.length && <Modal hideModal={() => setSuccessTxHashes([])}>
+        <SuccessDisplay onClose={() => setSuccessTxHashes([])} />
+      </Modal>}
 
-    {errorMessage && <Modal hideModal={() => setErrorMessage(undefined)}>
-      <ErrorDisplay onClose={() => setErrorMessage(undefined)} />
-    </Modal>}
+      {errorMessage && <Modal hideModal={() => setErrorMessage(undefined)}>
+        <ErrorDisplay onClose={() => setErrorMessage(undefined)} />
+      </Modal>}
 
-    {loading && <Modal hideModal={() => null}>
-      <LoadingIndicator />
-    </Modal>}
-  </Box>
+      {loading && <Modal hideModal={() => null}>
+        <LoadingIndicator />
+      </Modal>}       
+    </section>
+  </div>
 }
 
 export default Container
