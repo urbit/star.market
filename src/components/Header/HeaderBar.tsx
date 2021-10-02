@@ -1,4 +1,3 @@
-import { Row, Text } from '@tlon/indigo-react'
 import { Link } from 'react-router-dom'
 import { useStore } from '../../store'
 import WalletDisplay, { WalletDisplayProps } from './WalletDisplay'
