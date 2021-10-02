@@ -3,7 +3,7 @@ import WalletConnect from "@walletconnect/client"
 import { UrbitWallet } from '../types/UrbitWallet'
 import { setPreferredWallet } from "../utils/local-storage"
 
-const { NODE_ENV } = process.env
+// const { NODE_ENV } = process.env
 
 export interface MasterTicketOptions {
   ticket: string

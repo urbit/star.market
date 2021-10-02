@@ -35,7 +35,7 @@ way to obtain an Urbit star.</p>
                             title="OpenSea"
                             caption="The world's largest NFT marketplace"
                         >
-                            <img className="bubble" src="https://opensea.io/static/images/logos/opensea.svg" />
+                            <img alt="opensea logo" className="bubble" src="https://opensea.io/static/images/logos/opensea.svg" />
                         </BubbleLink>
 
                         <BubbleLink
@@ -44,7 +44,7 @@ way to obtain an Urbit star.</p>
                             title="Urbit.live"
                             caption="The universe's largest Urbit planet market"
                         >
-                            <img className="bubble" src="https://urbit.live/static/media/urbit-live-logo-png-400.6ec9a92b.png" />
+                            <img alt="urbit.live logo" className="bubble" src="https://urbit.live/static/media/urbit-live-logo-png-400.6ec9a92b.png" />
 
                         </BubbleLink>
                     </ul>
@@ -61,11 +61,14 @@ way to obtain an Urbit star.</p>
 
                     <ul>
                         <BubbleLink
+
                             href="https://app.uniswap.org/"
                             title="Uniswap"
                             caption="A decentralized finance protocol"
                         >
-                            <img className="bubble" src="https://app.uniswap.org/static/media/logo.4a50b488.svg" />
+                            <img 
+                            alt="uniswap logo"
+                            className="bubble" src="https://app.uniswap.org/static/media/logo.4a50b488.svg" />
                         </BubbleLink>
 
                         <BubbleLink
@@ -74,7 +77,9 @@ way to obtain an Urbit star.</p>
                             title="Sushi"
                             caption="A decentralized finance protocol"
                         >
-                            <img className="bubble" src="https://sushi.com/static/media/logo.dec926df.png" />
+                            <img 
+                            alt="sushi swap logo"
+                            className="bubble" src="https://sushi.com/static/media/logo.dec926df.png" />
 
                         </BubbleLink>
 
@@ -84,7 +89,9 @@ way to obtain an Urbit star.</p>
                             title="Matcha"
                             caption="Matcha finds you the best prices across exchanges and combines them into one trade."
                         >
-                            <img className="bubble" src="https://urbit.live/static/media/urbit-live-logo-png-400.6ec9a92b.png" />
+                            <img 
+                            alt="urbit.live logo"
+                            className="bubble" src="https://urbit.live/static/media/urbit-live-logo-png-400.6ec9a92b.png" />
 
                         </BubbleLink>
                     </ul>
