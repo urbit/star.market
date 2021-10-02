@@ -6,7 +6,7 @@ export default function About() {
             <HomeHeader />
 
             <section className="layout">
-                <div className="measure">
+                <div className="measure-narrow hero-text">
                 <p>Star Market is the easiest 
                     way to obtain a Star.
                 </p>

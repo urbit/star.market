@@ -14,8 +14,8 @@ import Container from './components/Container'
 import Home from './components/Home'
 import About from './components/About'
 import NoMatch from './components/NoMatch'
-
 import './App.scss';
+
 import Account, { WalletType } from './account';
 import { useEffect } from 'react';
 import { getPreferredWallet } from './utils/local-storage';
