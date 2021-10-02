@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&text=↑→↓←↗&family=Source+Code+Pro:wght@400;500;600;700;800&display=swap");
+
 @import './styles/variables.scss';
 
 * {
@@ -6,7 +8,7 @@
 
 body {
   font-size: 16px;
-  font-family: "Inter","Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
+  font-family: "Inter", "Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
   margin: 0;
 };
 
@@ -23,19 +25,16 @@ body {
   background-color: rgba(0,0,0,0.3);
 }
 
-.container {
-  min-height: 100vh;
-  min-width: 100vw;
 
   form {
     background-color: $form-background;
     min-height: 18rem;
-    // width: 30rem;
+    // width: 32rem;
     border-radius: 1rem;
     margin-top: 3rem;
     @media screen and (max-width: 767px) {
       margin-top: 1rem;
-      width: 26rem;
+      // width: 26rem;
     }
 
     .form-header {
@@ -91,7 +90,7 @@ body {
         }
       }
     }
-  }
+  
 
   .amount {
     width: 14.1rem;
@@ -119,7 +118,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 66.6667%;
 }
 
 .toggle-exchange {
@@ -500,13 +499,17 @@ form.confirmation-form {
 
 .layout {
   width: 66.6667%;
-
+  max-width: 60em;
   margin-top: 8em;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 6em;
+    width: 80.0%;
+  }
 }
 
 h2 {
   //styleName: Sans/H2;
-  font-family: Inter;
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
@@ -515,9 +518,16 @@ h2 {
   text-align: left;
 }
 
+.hero-text {
+  font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: -0.03em;
+}
+
 h3, .gray-title {
   //styleName: Sans/H2;
-  font-family: Inter;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -547,11 +557,11 @@ h3, .gray-title {
     color: black;
     text-decoration: none;
     //styleName: Sans/H3;
-    font-family: Inter;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     letter-spacing: 0em;
+    border: none;
   }
 
   .bg-gray {
@@ -564,6 +574,10 @@ h3, .gray-title {
 
   .ml-0\.5em {
     margin-left: 0.5em;
+  }
+
+  .mr-0\.5em {
+    margin-right: 0.5em;
   }
 
   .hero-rect {
@@ -589,7 +603,6 @@ h3, .gray-title {
   }
 
   .hero-rect {
-    font-family: Inter;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
@@ -635,7 +648,6 @@ h3, .gray-title {
     padding: 0;
     margin: 0;
     //styleName: Sans / UI + Control;
-    font-family: Inter;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -649,7 +661,6 @@ h3, .gray-title {
     padding: 0;
     margin: 0;
     //styleName: Sans / UI + Control;
-    font-family: Inter;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;

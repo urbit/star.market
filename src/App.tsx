@@ -14,8 +14,8 @@ import Container from './components/Container'
 import Home from './components/Home'
 import About from './components/About'
 import NoMatch from './components/NoMatch'
-
 import './App.scss';
+
 import Account, { WalletType } from './account';
 import { useEffect } from 'react';
 import { getPreferredWallet } from './utils/local-storage';
@@ -29,6 +29,12 @@ interface WalletConnectParams {
 
 const App = () => {
   const { account, setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading } = useStore((store: any) => store)
+
+  // TODO: REMOVE THIS BEFORE FINAL VERSION
+  console.log(
+    'Connect to Hardhat network running on http://65.108.49.124:8545',
+    'Use PK: 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d'
+  )
 
   const refresh = useCallback(async (account: Account) => {
     if (account.currentAddress) {

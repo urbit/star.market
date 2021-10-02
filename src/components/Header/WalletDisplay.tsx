@@ -34,7 +34,7 @@ const WalletDisplay = ({ toggleWalletModal, refresh } : WalletDisplayProps) => {
 
   const isValidNetwork = Account.isValidNetwork()
 
-  return isValidNetwork ? <Row className="wallet-display">
+  return isValidNetwork ? <Row className="pill-button bg-gray ml-0.5em">
     {account.currentAddress && <Text className="eth-balance">{ethBalance} ETH</Text>}
     <Row className="address" onClick={toggleWalletModal}>
       <Text>{displayAddress}</Text>

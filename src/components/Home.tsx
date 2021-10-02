@@ -10,7 +10,7 @@ export default function Home() {
             <section className="layout">
                 <div className="hero-rect">
                     <Logo className="logo" />
-                    <div className="inner-text measure-narrow ">
+                    <div className="inner-text measure-narrow">
                         <p>Star Market is the easiest 
 way to obtain an Urbit star.</p>
 
