@@ -19,7 +19,7 @@ export default function About() {
 
                 <p>
                     Urbit is a clean-slate OS and network.
-                    Learn more about Urbit at <a href="urbit.org" target="_blank">Urbit.org</a>.
+                    Learn more about Urbit at <a href="urbit.org" rel="noreferrer" target="_blank">Urbit.org</a>.
                 </p>
             </div>
             </section>
@@ -37,7 +37,7 @@ export default function About() {
                         </tr>
                         <tr>
                             <td>Token Icon</td>
-                            <td><img style={{width:'96px', height: '96px'}}src="/assets/wstr-logo-192.png" /></td>
+                            <td><img alt="wstr-logo" style={{width:'96px', height: '96px'}}src="/assets/wstr-logo-192.png" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -56,12 +56,12 @@ export default function About() {
                         <tr>
                             <td>Contract Address</td>
                             <td>
-                                <a target="_blank" href="https://github.com/ransonhobbes/stardust">etherscan link to contract address goes here once launched</a>
+                                <a rel="noreferrer" target="_blank" href="https://github.com/ransonhobbes/stardust">etherscan link to contract address goes here once launched</a>
                             </td>
                         </tr>
                         <tr>
                             <td>Contract Source</td>
-                            <td><a target="_blank" href="https://github.com/ransonhobbes/stardust">https://github.com/ransonhobbes/stardust</a></td>
+                            <td><a rel="noreferrer" target="_blank" href="https://github.com/ransonhobbes/stardust">https://github.com/ransonhobbes/stardust</a></td>
                         </tr>
                         <tr>
                             <td>Token Website</td>
