@@ -564,12 +564,28 @@ h3, .gray-title {
     border: none;
   }
 
+  .toolbar-link {
+    display: flex;
+    height: 3em;
+    align-items: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: black;
+    text-decoration: none;
+    //styleName: Sans/H3;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0em;
+    border: none;
+  }
+
   .bg-gray {
     background-color: #F2F2F2
   }
 
   .bg-yellow {
-    background-color: #F3C263
+    background-color: #F6B451
   }
 
   .ml-0\.5em {
@@ -592,8 +608,9 @@ h3, .gray-title {
 
   .hero-rect .inner-text {
     position: absolute;
-    bottom: 2em;
-    left: 2em;
+    bottom: 0;
+    left: 0;
+    padding: 2em;
   }
 
   .hero-rect .logo {
@@ -618,7 +635,6 @@ h3, .gray-title {
 
   .bubbleLink {
     list-style: none;
-
   }
   
   .bubbleLink a {
@@ -642,6 +658,10 @@ h3, .gray-title {
 
   .mt-2 {
     margin-top: 2em;
+  }
+
+  .mb-4em {
+    margin-bottom: 4em;
   }
   
   .bubbleLink .textGroup .title {
@@ -676,4 +696,64 @@ h3, .gray-title {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+
+
+  .token-info table {
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 350px;
+    width: 100%;
+  }
+  
+  .token-info table tr th,
+  .token-info table tr td {
+    border-right-width: 2px;
+    border-right-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    padding: 8px !important;
+    border-color: $form-dark-background;
+  }
+  
+  .token-info table tr th:first-child,
+  .token-info table tr td:first-child {
+    border-left-width: 2px;
+    border-left-style: solid;
+    border-color: $form-dark-background;
+    width: 200px;
+  }
+  
+  .token-info table tr:first-child td {
+    border-top-width: 2px;
+    border-top-style: solid;
+    text-align: left;
+    vertical-align: middle;
+    border-top-color: $form-dark-background;
+  }
+  
+  /* top-left border-radius */
+  .token-info table tr:first-child td:first-child {
+    border-top-left-radius: 8px;
+  }
+  
+  /* top-right border-radius */
+  .token-info table tr:first-child td:last-child {
+    border-top-right-radius: 8px;
+  }
+  
+  /* bottom-left border-radius */
+  .token-info table tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+  }
+  
+  /* bottom-right border-radius */
+  .token-info table tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+  }
+
+  .token-info a {
+    color: black;
+    text-decoration: underline;
   }
