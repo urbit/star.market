@@ -564,12 +564,28 @@ h3, .gray-title {
     border: none;
   }
 
+  .toolbar-link {
+    display: flex;
+    height: 3em;
+    align-items: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: black;
+    text-decoration: none;
+    //styleName: Sans/H3;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0em;
+    border: none;
+  }
+
   .bg-gray {
     background-color: #F2F2F2
   }
 
   .bg-yellow {
-    background-color: #F3C263
+    background-color: #F6B451
   }
 
   .ml-0\.5em {
@@ -592,8 +608,9 @@ h3, .gray-title {
 
   .hero-rect .inner-text {
     position: absolute;
-    bottom: 2em;
-    left: 2em;
+    bottom: 0;
+    left: 0;
+    padding: 2em;
   }
 
   .hero-rect .logo {

@@ -4,18 +4,27 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  height: 5em;
 }
 
 .footer .innerCol {
   width: 66.6667%;
   display: flex;
   justify-content: space-between;
-  margin-top: 6em;
+  padding-top: 6em;
   padding-bottom: 12em;
   max-width: 60em;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 3em;
+    width: 80.0%;
+  }
 }
 
 .footer nav {
   display: flex;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }

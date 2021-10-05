@@ -33,7 +33,7 @@ way to obtain an Urbit star.</p>
                         <BubbleLink
                             href="https://opensea.io/assets/urbit-id"
                             title="OpenSea"
-                            caption="The world's largest NFT marketplace"
+                            caption="A large, general NFT marketplace"
                         >
                             <img alt="opensea logo" className="bubble" src="https://opensea.io/static/images/logos/opensea.svg" />
                         </BubbleLink>
@@ -42,7 +42,7 @@ way to obtain an Urbit star.</p>
                             href="https://urbit.live/"
                             className="mt-2"
                             title="Urbit.live"
-                            caption="The universe's largest Urbit planet market"
+                            caption="A specialized marketplace for Urbit planets"
                         >
                             <img alt="urbit.live logo" className="bubble" src="https://urbit.live/static/media/urbit-live-logo-png-400.6ec9a92b.png" />
 
