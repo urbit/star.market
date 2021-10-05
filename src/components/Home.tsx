@@ -39,14 +39,11 @@ way to obtain an Urbit star.</p>
                         </BubbleLink>
 
                         <BubbleLink
-                            href="https://urbit.live/"
+                            href="web+urbitgraph://group/~tirrel/the-marketplace"
                             className="mt-2"
-                            title="Urbit.live"
-                            caption="A specialized marketplace for Urbit planets"
-                        >
-                            <img alt="urbit.live logo" className="bubble" src="https://urbit.live/static/media/urbit-live-logo-png-400.6ec9a92b.png" />
-
-                        </BubbleLink>
+                            title="The Marketplace"
+                            caption="An Urbit group for trading address space"
+                        />
                     </ul>
                        
                 </div>
@@ -54,9 +51,9 @@ way to obtain an Urbit star.</p>
 
             <section className="layout">
                 <div className="measure">
-                    <h3 className="gray-title">Get $WSTR</h3>
+                    <h3 className="gray-title">Get WSTR</h3>
                     <h2>
-                        Trade $WSTR on a variety of distributed exchanges
+                        Trade WSTR on a variety of distributed exchanges
                     </h2>
 
                     <ul>
@@ -68,7 +65,7 @@ way to obtain an Urbit star.</p>
                         >
                             <img 
                             alt="uniswap logo"
-                            className="bubble" src="https://app.uniswap.org/static/media/logo.4a50b488.svg" />
+                            className="bubble" src="/assets/uniswap-logo.png" />
                         </BubbleLink>
 
                         <BubbleLink
@@ -79,7 +76,7 @@ way to obtain an Urbit star.</p>
                         >
                             <img 
                             alt="sushi swap logo"
-                            className="bubble" src="https://sushi.com/static/media/logo.dec926df.png" />
+                            className="bubble" src="/assets/sushi-logo.png" />
 
                         </BubbleLink>
 
@@ -91,7 +88,7 @@ way to obtain an Urbit star.</p>
                         >
                             <img 
                             alt="urbit.live logo"
-                            className="bubble" src="https://urbit.live/static/media/urbit-live-logo-png-400.6ec9a92b.png" />
+                            className="bubble" src="/assets/matcha-logo.png" />
 
                         </BubbleLink>
                     </ul>

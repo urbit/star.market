@@ -74,9 +74,19 @@ export default function About() {
             <section className="layout">
                 <h3 className="gray-title">Audit References</h3>
                 <ul>
+                <BubbleLink
+                        href="https://18108973658826589741.googlegroups.com/attach/73008de92defe/Stardust%20Security%20Audit%20Report%20(merged).md?part=0.1&view=1&vt=ANaJVrGgpIpZnv_PCvdmd2QCO2I_RNoo9GuqUgGFB_yTcQkgE-2gToLANjZIxZ6y0_zCNY3eAW-whjIsv3PvqL_3X3JbAy_qCFc70kIWda-NP_7Ur1-WpMg"
+                        title="Mix Bytes"
+                        caption="Security audit by Mix Bytes"
+                    >
+                    <img 
+                        alt="lock icon"
+                        className="bubble" src="assets/lock-bg.png" />
+                    </BubbleLink>
                     <BubbleLink
                         href="https://18108973658826589741.googlegroups.com/attach/73008de92defe/Preliminary%20Stardust%20Audit%20Report%20v2.pdf?part=0.2&view=1&vt=ANaJVrFY0pvUAvtKp022657-C1GOkCllq0QoQqxiBniLR9IzFbGxSPXQS0qmlHHKUacRtjkabt27FDSbqdZzAI0FKoxxml3RUEQ_wnnRpzpU_rR1E3PicAQ"
                         title="Optilistic Audit"
+                        className="mt-2"
                         caption="Security audit from Optilistic"
                     >
                     <img 
