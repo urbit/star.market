@@ -13,6 +13,7 @@ import Api from './api';
 import Container from './components/Container'
 import Home from './components/Home'
 import About from './components/About'
+import Disclaimer from './components/Disclaimer'
 import NoMatch from './components/NoMatch'
 import './App.scss';
 
@@ -135,6 +136,9 @@ const App = () => {
           </Route>
           <Route path="/about">
             <About />
+          </Route>
+          <Route path="/disclaimer">
+            <Disclaimer />
           </Route>
           <Route exact path="/">
             <Home />
