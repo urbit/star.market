@@ -8,26 +8,26 @@ export default function Footer() {
         <header className="footer">
             <div className="innerCol">
                 <Link to="/">
-                    <div className="pill-button">
+                    <div className="toolbar-link">
                         <Logo />
-                        <p className="ml-0.5em">
+                        <p className=" ml-0.5em">
                             Star Market
                         </p>
                     </div>
                 </Link>
                 <nav>
                     <Link to="/about">
-                        <div className='pill-button'>
+                        <div className='toolbar-link'>
                             About
                         </div>
                     </Link>
                     <Link to="/app">
-                        <div className="pill-button ml-0.5em">
+                        <div className="toolbar-link">
                             Launch App
                         </div>
                     </Link>
                     <Link to="/disclaimer">
-                        <div className="pill-button ml-0.5em">
+                        <div className="toolbar-link">
                             Disclaimer
                         </div>
                     </Link>

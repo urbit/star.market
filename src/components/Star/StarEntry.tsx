@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Row } from "@tlon/indigo-react";
+import { Button, Row } from "@tlon/indigo-react";
 import { sigil, reactRenderer } from '@tlon/sigil-js'
 import { MouseEvent } from "react";
 import Star from "../../types/Star";
@@ -11,7 +11,11 @@ interface StarEntryProps {
 }
 
 const StarEntry = ({ star, selected = false, onSelect, showCheckbox = false }: StarEntryProps) => {
-  const { name, isUnlinked, getDisabledMessage } = star
+  const { 
+    name, 
+    isUnlinked, 
+    // getDisabledMessage
+  } = star
 
   const select = (event: MouseEvent) => {
     if (onSelect) {
