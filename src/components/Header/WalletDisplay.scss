@@ -1,0 +1,79 @@
+@import '../../styles/variables.scss';
+
+.walletSection {
+  .wallet-display {
+    padding-left: 0;
+    padding-right: 0;
+  
+    &.connect {
+      .address-refresh {
+        background-color: white;
+        .address {
+          border-radius: 24px;
+          background-color: black;
+      
+          span {
+            color: white;
+          }
+        }
+      }
+    }
+  
+    .eth-balance {
+      padding: 0 12px 0 24px;
+      border-radius: 0.25rem;
+      color: $medium-grey;
+    }
+  
+    .wstr-balance {
+      padding: 0 12px;
+      color: $dark-grey;
+    }
+  
+    .star-balance {
+      padding: 0 12px;
+    }
+  
+    .address-refresh {
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+      background-color: $form-dark-background;
+  
+      .address {
+        padding: 0.75rem;
+        cursor: pointer;
+    
+        &:hover {
+          background-color: $hover-20;
+        }
+      }
+  
+      .refresh {
+        cursor: pointer;  
+        padding: 0.75rem;
+        margin-right: 16px;
+        height: 46px;
+        width: 46px;
+  
+        &:hover {
+          background-color: $hover-20;
+        }
+      }
+    }
+  
+    &.error {
+      background-color: rgba(168, 27, 27, 1);
+      padding: 0.5rem 2rem;
+  
+      .error-icon {
+        color: white;
+      }
+  
+      .error-message {
+        color: white;
+        font-size: 1rem;
+        margin-left: 1rem;
+      }
+    }
+  }
+}

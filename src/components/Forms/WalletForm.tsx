@@ -16,7 +16,7 @@ interface WalletFormProps extends ContainerProps {
 const WalletForm = (
   { hideModal, connectMetamask, showMasterTicketModal, connectWalletConnector } : WalletFormProps
 ) => {
-  const { account } = useStore((store: any) => store)
+  const { account } = useStore()
 
   const walletTypes = Object.values(WalletType)
 

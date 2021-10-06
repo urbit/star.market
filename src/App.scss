@@ -23,6 +23,26 @@ body {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.logo-container {
+  border-radius: 24px;
+  background-color: black;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+
+  svg {
+    margin: 0 !important;
+    path {
+      fill: white;
+    }
+  }
 }
 
 
@@ -70,40 +90,54 @@ body {
       display: flex;
       flex-direction: column;
   
-      .label {
-        font-size: 1rem;
-        font-weight: bold;
+      .action {
+        font-size: 16px;
         margin: 1rem 0rem 0.75rem;
       }
-  
-      .value {
-        font-size: 2.5rem;
-        font-weight: bold;
-        width: 6.5rem;
+      
+      .label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 2rem;
+        min-width: 12rem;
 
-        &.star {
-          color: $star-green;
+        svg {
+          border-radius: 8px;
+          margin-right: 8px;
         }
 
-        &.dust {
-          color: $dust-blue;
+        .value-balance {
+          display: flex;
+          flex-direction: column;
+          .value {
+            font-size: 20px;
+            font-weight: 600;
+          }
         }
       }
     }
   
 
   .amount {
-    width: 14.1rem;
-    padding: 0rem 0.75rem;
-    font-size: 2.5rem;
-    font-weight: bold;
-    background-color: white;
-    border-radius: 0.75rem;
-    color: $form-grey-text;
-    border: 2px solid $form-dark-background;
-    line-height: 1.333333;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 10px 12px;
+    border: none;
+    font-size: 16px;
+    
+    width: 16rem;
+    height: 40px;
+    left: 0px;
+    top: 36px;
+    
+    background: white;
+    border-radius: 8px;
+    color: $medium-grey;
 
-    &.dust {
+    &.wstr {
       color: $dust-blue;
     }
 
@@ -118,7 +152,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 66.6667%;
 }
 
 .toggle-exchange {
@@ -181,26 +214,57 @@ body {
 
   .exchange-rate {
     margin: 1rem 0rem;
-    color: rgba(0,0,0,0.6);
+    color: $medium-grey;
+    font-weight: 600;
   }
 }
 
 .receive-display {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin-left: 3rem;
 
   @media screen and (max-width: 767px) {
     margin-left: 1rem;
   }
 
-  .exchange-rate {
-    margin: 1rem 0rem;
-    color: rgba(0,0,0,0.6);
-  }
-
   .tx-cost {
     margin-top: 1rem;
+  }
+
+  .exchange-rate {
+    margin: 1rem 0rem;
+    color: $medium-grey;
+    font-weight: 600;
+  }
+
+  .stars {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+
+    background-color: $form-background;
+    border-radius: 8px;
+    padding: 12px;
+    max-width: 16rem;
+  }
+
+  .wstr {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 10px 12px;
+    
+    max-width: 16rem;
+    height: 40px;
+    left: 0px;
+    top: 36px;
+    
+    background: white;
+    border-radius: 8px;
+    color: $medium-grey;
   }
 }
 
@@ -211,29 +275,16 @@ button.trade-button {
   font-size: 1.5rem;
   height: 4rem;
   border: none;
+  color: white;
+  background-color: black;
 
   @media screen and (max-width: 767px) {
     width: 26rem;
   }
 
-  &.star {
-    background-color: $star-green;
-    color: white;
-  }
-
-  &.dust {
-    background-color: $dust-blue;
-    color: white;
-  }
-
   &.disabled {
     background-color: $form-dark-background;
-    color: black;
-  }
-
-  &.connect {
-    background-color: $yellow;
-    color: black;
+    color: $medium-grey;
   }
 
   &:hover {
@@ -242,93 +293,10 @@ button.trade-button {
   }
 }
 
-.star-selector {
-  cursor: pointer;
-  position: relative;
-
-  .star-list {
-    position: absolute;
-    background-color: white;
-    padding: 0.875rem;
-    z-index: 1;
-    margin-top: 0.25rem;
-    border-radius: 0.5rem;
-    border: 1px solid $form-dark-background;
-    right: 0;
-  }
-}
-
-.selected-stars {
-  width: 15rem;
-  padding: 0.5rem 0.75rem;
-  background-color: white;
-  border-radius: 0.75rem;
-  color: $form-grey-text;
-  border: 2px solid $form-dark-background;
-  line-height: 1.333333;
-  min-height: 37px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.star-entry {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  color: black;
-  padding: 0.125rem;
-
-  .sigil-name {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    svg {
-      margin-right: 0.25rem;
-      border-radius: 0.2rem;
-    }
-  }
-
-  .label {
-    margin-left: 2rem;
-    white-space: nowrap;
-  }
-
-  &.selected {
-    color: $star-green;
-  }
-
-  &.disabled {
-    color: $form-grey-text;
-
-    &:hover {
-      color: $form-grey-text;
-      cursor: auto;
-
-      .sigil-name svg rect {
-        fill: $form-grey-text;
-      }
-    }
-  }
-
-  &:hover {
-    color: $star-green;
-
-    .sigil-name {
-      svg {
-        rect {
-          fill: $star-green;
-        }
-      }
-    }
-  }
-}
-
 form.wallet-form {
   padding: 1rem;
   background-color: white;
+  max-width: 30rem;
 
   .metamask-warning {
     margin-bottom: 2rem;
@@ -424,17 +392,61 @@ form.master-ticket-form {
 
 form.confirmation-form {
   padding: 2rem;
+  background-color: $preview-gold-light;
 
-  &.star {
-    background-color: $washed-green;
-  }
-  
-  &.dust {
-    background-color: $washed-blue;
+  .swap-message, .receive-message {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    color: $dark-grey;
   }
 
-  .star-container {
-    margin: 0.75rem 0rem;
+  .receive-message {
+    margin-top: 20px;
+  }
+
+  .label-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &:nth-child(2) {
+      margin-bottom: 16px;;
+    }
+
+    .value {
+      font-size: 64px;
+      font-weight: 600;
+      color: $preview-gold;
+    }
+    
+    .logo-container {
+      background-color: $preview-gold;
+    }
+
+    .label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 12px;
+
+
+      .wstr, .star {
+        line-height: 32px;
+        font-weight: 600;
+        font-size: 20px;
+        color: $preview-gold;
+      }
+    }
+
+    .stars {
+      margin-left: 12px;
+      color: $dark-grey;
+      width: 16rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 
   .info-row {
@@ -444,7 +456,12 @@ form.confirmation-form {
     margin-top: 1rem;
 
     .left {
-      font-weight: bold;
+      color: $dark-grey;
+      font-weight: 600;
+    }
+
+    .right {
+      color: $medium-grey;
     }
   }
 
@@ -469,24 +486,25 @@ form.confirmation-form {
       }
 
       &.confirm {
-        &.star {
-          background-color: $star-green;
-        }
-
-        &.dust {
-          background-color: $dust-blue;
-        }
+        background-color: black;
+        color: white;
+        margin-left: 12px;
       }
     }
   }
 }
 
 .layout-container {
-  width: 100vw;
   min-height: 100vh;
+  margin: 0 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  @media screen and (min-width: 1000px) {
+    width: 960px;
+    margin: 0 auto;
+  }
 }
 
 .measure {
@@ -498,12 +516,12 @@ form.confirmation-form {
 }
 
 .layout {
-  width: 66.6667%;
+  width: 80%;
   max-width: 60em;
   margin-top: 8em;
 
   @media screen and (max-width: 767px) {
-    margin-top: 6em;
+    margin-top: 4em;
     width: 80.0%;
   }
 }
@@ -690,70 +708,108 @@ h3, .gray-title {
     color: #999999;
   }
 
-  .fourOFour {
-    width: 100%;
-    height: 400px;
+.fourOFour {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-trade-modal {
+  padding: 24px;
+  width: 400px;
+  background-color: white;
+  border-radius: 24px;
+
+  .message {
+    margin-bottom: 24px;  
+  }
+
+  .buttons {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+    flex-direction: row;
+    justify-content: space-between;
+
+    .cancel, .confirm {
+      width: 160px;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .cancel {
+      background-color: $medium-grey;
+    }
+    .confirm {
+      background-color: black;
+    }
+  }
 
 
-  .token-info table {
-    border-collapse: separate;
-    border-spacing: 0;
-    min-width: 350px;
-    width: 100%;
-  }
-  
-  .token-info table tr th,
-  .token-info table tr td {
-    border-right-width: 2px;
-    border-right-style: solid;
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    padding: 8px !important;
-    border-color: $form-dark-background;
-  }
-  
-  .token-info table tr th:first-child,
-  .token-info table tr td:first-child {
-    border-left-width: 2px;
-    border-left-style: solid;
-    border-color: $form-dark-background;
-    width: 200px;
-  }
-  
-  .token-info table tr:first-child td {
-    border-top-width: 2px;
-    border-top-style: solid;
-    text-align: left;
-    vertical-align: middle;
-    border-top-color: $form-dark-background;
-  }
-  
-  /* top-left border-radius */
-  .token-info table tr:first-child td:first-child {
-    border-top-left-radius: 8px;
-  }
-  
-  /* top-right border-radius */
-  .token-info table tr:first-child td:last-child {
-    border-top-right-radius: 8px;
-  }
-  
-  /* bottom-left border-radius */
-  .token-info table tr:last-child td:first-child {
-    border-bottom-left-radius: 8px;
-  }
-  
-  /* bottom-right border-radius */
-  .token-info table tr:last-child td:last-child {
-    border-bottom-right-radius: 8px;
-  }
+button:hover {
+  opacity: 0.8;
+}
 
-  .token-info a {
-    color: black;
-    text-decoration: underline;
-  }
+
+.token-info table {
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 350px;
+  width: 100%;
+}
+
+.token-info table tr th,
+.token-info table tr td {
+  border-right-width: 2px;
+  border-right-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  padding: 8px !important;
+  border-color: $form-dark-background;
+}
+
+.token-info table tr th:first-child,
+.token-info table tr td:first-child {
+  border-left-width: 2px;
+  border-left-style: solid;
+  border-color: $form-dark-background;
+  width: 200px;
+}
+
+.token-info table tr:first-child td {
+  border-top-width: 2px;
+  border-top-style: solid;
+  text-align: left;
+  vertical-align: middle;
+  border-top-color: $form-dark-background;
+}
+
+/* top-left border-radius */
+.token-info table tr:first-child td:first-child {
+  border-top-left-radius: 8px;
+}
+
+/* top-right border-radius */
+.token-info table tr:first-child td:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* bottom-left border-radius */
+.token-info table tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+/* bottom-right border-radius */
+.token-info table tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+.token-info a {
+  color: black;
+  text-decoration: underline;
+}

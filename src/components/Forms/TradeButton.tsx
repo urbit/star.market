@@ -4,7 +4,7 @@ const TradeButton = (
   { hasAddress, disabled, starsForDust, onClick }:
   { hasAddress: boolean, disabled: boolean, starsForDust: boolean, onClick: () => void }
 ) => {
-  let className = `trade-button ${starsForDust ? 'star' : 'dust'}`
+  let className = `trade-button ${starsForDust ? 'star' : 'wstr'}`
   if (!hasAddress) {
     className = `${className} connect`
   } else if (disabled) {
@@ -16,12 +16,12 @@ const TradeButton = (
   if (hasAddress) {
     if (disabled) {
       if (starsForDust) {
-        text = 'Select Stars'
+        text = 'Select Stars to Swap'
       } else {
-        text = 'Select Dust'
+        text = 'Input WSTR to Swap'
       }
     } else {
-      text = 'Exchange'
+      text = 'Review Swap'
     }
   }
 

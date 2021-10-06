@@ -1,5 +1,5 @@
-import { Box } from "@tlon/indigo-react"
 import { MouseEvent } from "react"
+import { Box } from "@tlon/indigo-react"
 
 const Modal = ({ children, hideModal }: { children: JSX.Element, hideModal: () => void }) => {
   const onClick = (event: MouseEvent) => {

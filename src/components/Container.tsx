@@ -22,7 +22,7 @@ export interface ContainerProps extends RefreshProps {
 }
 
 const Container = ({ refresh, connectWalletConnector, connectMetamask } : ContainerProps) => {
-  const { successTxHashes, errorMessage, loading, setSuccessTxHashes, setErrorMessage } = useStore((store: any) => store)
+  const { successTxHashes, errorMessage, loading, setSuccessTxHashes, setErrorMessage } = useStore()
 
   const [showWalletModal, setShowWalletModal] = useState(false)
   const [promptForMasterTicket, setPromptForMasterTicket] = useState(false)
@@ -58,8 +58,8 @@ const Container = ({ refresh, connectWalletConnector, connectMetamask } : Contai
         <SuccessDisplay onClose={() => setSuccessTxHashes([])} />
       </Modal>}
 
-      {errorMessage && <Modal hideModal={() => setErrorMessage(undefined)}>
-        <ErrorDisplay onClose={() => setErrorMessage(undefined)} />
+      {errorMessage && <Modal hideModal={() => setErrorMessage('')}>
+        <ErrorDisplay onClose={() => setErrorMessage('')} />
       </Modal>}
 
       {loading && <Modal hideModal={() => null}>

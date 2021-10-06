@@ -39,43 +39,16 @@ export default class Account {
       this.currentWalletType = WalletType.WalletConnect
 
     } else if (useMetamask && ethereum) {
-      // this.urbitWallet = {
-      //   meta: {
-      //     generator: {
-      //       name: 'string',
-      //       version: 'string',
-      //     },
-      //     spec: 'string',
-      //     ship: 0,
-      //     patp: 'string',
-      //     tier: 'planet',
-      //     passphrase: 'string'
-      //   },
-      //   ticket: '',
-      //   shards: [],
-      //   ownership: {
-      //     keys: {
-      //       private: 'a13fc2a1d257a4f41e9474690561e9835cbbbec0d6f6db6cd512cfbe8960c0d8',
-      //       address: '0x1d06BD7b06A4Ca55cC3F60b2aB33492413cE448e',
-      //       public: '',
-      //       chain: '',
-      //     },
-      //     type: 'ownership',
-      //     seed: '',
-      //     derivationPath: '',
-      //   }
-      // }
-      ethereum.request({ method: 'eth_requestAccounts' })
       this.currentAddress = ethereum.selectedAddress
-      ethereum.on('accountsChanged', (accounts: string[]) => this.currentAddress = accounts[0])
       this.currentWalletType = WalletType.Metamask
+
     } else {
       this.urbitWallet = undefined
       this.walletConnection = undefined
       this.currentAddress = undefined
       this.currentWalletType = undefined
     }
-
+    console.log(5, this.currentWalletType)
     setPreferredWallet(this.currentWalletType)
   }
 
