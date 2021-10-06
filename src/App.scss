@@ -12,6 +12,10 @@ body {
   margin: 0;
 };
 
+p {
+  line-height: 1.5;
+}
+
 .modal {
   display: flex;
   flex-direction: column;
@@ -515,14 +519,40 @@ form.confirmation-form {
   max-width: 20em;
 }
 
+.flex {
+  display: flex
+}
+
+.flex-col {
+  flex-direction: column
+}
+
+.w-6\/12 {
+  width: 50%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.home-section-img {
+  height: 22em;
+  content: '';
+  background-color: black;
+  border-radius: 1.5em;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
+
 .layout {
-  width: 80%;
+  width: 100%;
   max-width: 60em;
   margin-top: 8em;
 
   @media screen and (max-width: 767px) {
     margin-top: 4em;
-    width: 80.0%;
+    width: 100%;
   }
 }
 
@@ -614,6 +644,14 @@ h3, .gray-title {
     margin-right: 0.5em;
   }
 
+  .ml-1em {
+    margin-left: 1em;
+  }
+
+  .mr-1em {
+    margin-right: 1em;
+  }
+
   .hero-rect {
     width: 100%;
     height: 540px;
@@ -674,12 +712,20 @@ h3, .gray-title {
     flex-direction: column;
   }
 
+  .mt-1 {
+    margin-top: 1em;
+  }
+
   .mt-2 {
     margin-top: 2em;
   }
 
   .mb-4em {
     margin-bottom: 4em;
+  }
+
+  .inline-block {
+    display: inline-block;
   }
   
   .bubbleLink .textGroup .title {
@@ -813,3 +859,24 @@ button:hover {
   color: black;
   text-decoration: underline;
 }
+
+.button-sm {
+  // display:flex;
+  // align-items: center;
+  // justify-content: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-radius: 99em;
+  font-weight: 500;
+  &:hover {
+    opacity: .6
+  }
+}
+
+.button-bg-black {
+  background-color: black;
+  color: white;
+}
+
