@@ -31,7 +31,7 @@ way to obtain an Urbit star.</p>
                         </h2>
                         <p>Urbit IDs are nonfungible assets that represent an identity, a namespace, a key to a unit of personal computation built on Urbit OS.
                         </p>
-                            <a rel="noreferrer" target="/blank" href="" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                            <a rel="noreferrer" target="/blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/sigil-grid.png')",
