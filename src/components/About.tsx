@@ -36,6 +36,14 @@ export default function About() {
                             <td>WSTR</td>
                         </tr>
                         <tr>
+                                <td>Max Supply</td>
+                                <td>65,2180</td>
+                        </tr>
+                        <tr>
+                                <td>Social</td>
+                                <td><a rel="noreferrer" target="_blank" href="https://twitter.com/urbit">@urbit</a> on Twitter</td>
+                        </tr>
+                        <tr>
                             <td>Token Icon</td>
                             <td><img alt="wstr-logo" style={{width:'96px', height: '96px'}}src="/assets/wstr-logo-192.png" /></td>
                         </tr>
@@ -46,7 +54,7 @@ export default function About() {
                     <tbody>
                         <tr>
                             <td>Token Description</td>
-                            <td>WSTR is a token representing a 'wrapped urbit star', with 1 (fungible) WSTR representing one (nonfungible) star. $WSTR is intended to bring liquidity to the star asset class, which is a primary investment mechanism on the Urbit network.</td>
+                            <td><p>WSTR is a token representing a 'wrapped urbit star', with 1 (fungible) WSTR representing one (nonfungible) star. $WSTR is intended to bring liquidity to the star asset class, which is a primary investment mechanism on the Urbit network.</p></td>
                         </tr>
                     </tbody>
                 </table>
@@ -60,7 +68,7 @@ export default function About() {
                             </td>
                         </tr>
                         <tr>
-                            <td>Contract Source</td>
+                            <td>Contract Source Repo</td>
                             <td><a rel="noreferrer" target="_blank" href="https://github.com/ransonhobbes/stardust">https://github.com/ransonhobbes/stardust</a></td>
                         </tr>
                         <tr>
@@ -74,19 +82,9 @@ export default function About() {
             <section className="layout">
                 <h3 className="gray-title">Audit References</h3>
                 <ul>
-                <BubbleLink
-                        href="https://18108973658826589741.googlegroups.com/attach/73008de92defe/Stardust%20Security%20Audit%20Report%20(merged).md?part=0.1&view=1&vt=ANaJVrGgpIpZnv_PCvdmd2QCO2I_RNoo9GuqUgGFB_yTcQkgE-2gToLANjZIxZ6y0_zCNY3eAW-whjIsv3PvqL_3X3JbAy_qCFc70kIWda-NP_7Ur1-WpMg"
-                        title="Mix Bytes"
-                        caption="Security audit by Mix Bytes"
-                    >
-                    <img 
-                        alt="lock icon"
-                        className="bubble" src="assets/lock-bg.png" />
-                    </BubbleLink>
                     <BubbleLink
                         href="https://18108973658826589741.googlegroups.com/attach/73008de92defe/Preliminary%20Stardust%20Audit%20Report%20v2.pdf?part=0.2&view=1&vt=ANaJVrFY0pvUAvtKp022657-C1GOkCllq0QoQqxiBniLR9IzFbGxSPXQS0qmlHHKUacRtjkabt27FDSbqdZzAI0FKoxxml3RUEQ_wnnRpzpU_rR1E3PicAQ"
                         title="Optilistic Audit"
-                        className="mt-2"
                         caption="Security audit from Optilistic"
                     >
                     <img 
@@ -102,6 +100,16 @@ export default function About() {
                         <img 
                             alt="lock icon"
                             className="bubble" src="assets/lock-bg.png" />
+                    </BubbleLink>
+                    <BubbleLink
+                        href="https://18108973658826589741.googlegroups.com/attach/73008de92defe/Stardust%20Security%20Audit%20Report%20(merged).md?part=0.1&view=1&vt=ANaJVrGgpIpZnv_PCvdmd2QCO2I_RNoo9GuqUgGFB_yTcQkgE-2gToLANjZIxZ6y0_zCNY3eAW-whjIsv3PvqL_3X3JbAy_qCFc70kIWda-NP_7Ur1-WpMg"
+                        title="Mix Bytes"
+                        caption="Security audit by Mix Bytes"
+                        className="mt-2"
+                    >
+                    <img 
+                        alt="lock icon"
+                        className="bubble" src="assets/lock-bg.png" />
                     </BubbleLink>
                 </ul>
             </section>

@@ -23,6 +23,26 @@ way to obtain an Urbit star.</p>
             </section>
 
             <section className="layout">
+                <div className="flex">
+                    <div className="measure-narrow mr-1em">
+                        <h3 className="gray-title">Why Urbit ID?</h3>
+                        <h2>
+                            A key to the world’s only personal computer
+                        </h2>
+                        <p>Urbit IDs are nonfungible assets that represent an identity, a namespace, a key to a unit of personal computation built on Urbit OS.
+                        </p>
+                            <a rel="noreferrer" target="/blank" href="" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                    </div>
+                    <div style={{
+                        backgroundImage:"url('/assets/sigil-grid.png')",
+                        backgroundSize:"cover",
+                        backgroundPosition:"center",
+                    }}
+                    className="home-section-img w-full ml-1em" />
+                </div>
+            </section>
+
+            <section className="layout">
                 <div className="measure">
                     <h3 className="gray-title">Get Urbit Stars</h3>
                     <h2>
@@ -50,6 +70,26 @@ way to obtain an Urbit star.</p>
             </section>
 
             <section className="layout">
+                <div className="flex">
+                    <div className="measure-narrow mr-1em">
+                        <h3 className="gray-title">Urbit IDs for Star Operators</h3>
+                        <h2>
+                            Stars are businesses, supernodes, providers etc
+                        </h2>
+                        <p>Obtaining a Star-class Urbit ID is an immediate entrypoint to building a business on the Urbit Network. There are a variety of modular tools developed to get provider businesses set up. 
+                        </p>
+                            <a href="https://operators.urbit.org" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                    </div>
+                    <div style={{
+                        backgroundImage:"url('/assets/network-graph.png')",
+                        backgroundSize:"cover",
+                        backgroundPosition:"center",
+                    }}
+                    className="home-section-img w-full ml-1em" />
+                </div>
+            </section>
+
+            <section className="layout">
                 <div className="measure">
                     <h3 className="gray-title">Get WSTR</h3>
                     <h2>
@@ -60,7 +100,7 @@ way to obtain an Urbit star.</p>
                         <BubbleLink
 
                             href="https://app.uniswap.org/"
-                            title="Uniswap"
+                            title="Uniswap V2"
                             caption="A decentralized finance protocol"
                         >
                             <img 
@@ -68,7 +108,7 @@ way to obtain an Urbit star.</p>
                             className="bubble" src="/assets/uniswap-logo.png" />
                         </BubbleLink>
 
-                        <BubbleLink
+                        {/* <BubbleLink
                             href="https://sushi.com/"
                             className="mt-2"
                             title="Sushi"
@@ -90,7 +130,7 @@ way to obtain an Urbit star.</p>
                             alt="urbit.live logo"
                             className="bubble" src="/assets/matcha-logo.png" />
 
-                        </BubbleLink>
+                        </BubbleLink> */}
                     </ul>
                        
                 </div>
