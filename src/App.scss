@@ -516,13 +516,13 @@ form.confirmation-form {
 }
 
 .layout {
-  width: 80%;
+  width: 100%;
   max-width: 60em;
   margin-top: 8em;
 
   @media screen and (max-width: 767px) {
     margin-top: 4em;
-    width: 80.0%;
+    width: 100%;
   }
 }
 

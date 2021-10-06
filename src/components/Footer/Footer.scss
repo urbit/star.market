@@ -7,16 +7,16 @@
 }
 
 .footer .innerCol {
-  width: 66.6667%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-top: 6em;
+  padding-top: 8em;
   padding-bottom: 12em;
   max-width: 60em;
 
   @media screen and (max-width: 767px) {
     margin-top: 3em;
-    width: 80.0%;
+    width: 100%;
   }
 }
 
