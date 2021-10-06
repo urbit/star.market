@@ -19,25 +19,25 @@ export interface Store {
   setTreasuryBalance: (balance: number) => void
   setGasPrice: (gasPrice: number) => void
   setLoading: (loading: boolean) => void
-  setSuccessTxHashes: (successTxHash: boolean) => void
-  setErrorMessage: (errorMessage: boolean) => void
+  setSuccessTxHashes: (successTxHashes: string[]) => void
+  setErrorMessage: (errorMessage: string) => void
 }
 
-export const useStore = create(set => ({
-  account: Account,
-  api: Api,
+export const useStore = create<Store>(set => ({
+  account: new Account({}),
+  api: new Api(new Account({})),
   gasPrice: 20,
   dust: 0,
   stars: [],
   treasuryBalance: 0,
   loading: false,
   successTxHashes: [],
-  setAccount: (account: Account) => set(state => ({ account, api: new Api(account) })),
-  setDust: (dust: number) => set(state => ({ dust })),
-  setStars: (stars: Star[]) => set(state => ({ stars })),
-  setTreasuryBalance: (treasuryBalance: number) => set(state => ({ treasuryBalance })),
-  setGasPrice: (gasPrice: number) => set(state => ({ gasPrice })),
-  setLoading: (loading: boolean) => set(state => ({ loading })),
-  setSuccessTxHashes: (successTxHashes: string[]) => set(state => ({ successTxHashes })),
-  setErrorMessage: (errorMessage: string) => set(state => ({ errorMessage })),
+  setAccount: (account: Account) => set(() => ({ account, api: new Api(account) })),
+  setDust: (dust: number) => set(() => ({ dust })),
+  setStars: (stars: Star[]) => set(() => ({ stars: stars.sort((a, b) => Number(b.isUnlinked) - Number(a.isUnlinked) ) })),
+  setTreasuryBalance: (treasuryBalance: number) => set(() => ({ treasuryBalance })),
+  setGasPrice: (gasPrice: number) => set(() => ({ gasPrice })),
+  setLoading: (loading: boolean) => set(() => ({ loading })),
+  setSuccessTxHashes: (successTxHashes: string[]) => set(() => ({ successTxHashes })),
+  setErrorMessage: (errorMessage: string) => set(() => ({ errorMessage })),
 }))

@@ -28,7 +28,7 @@ interface WalletConnectParams {
 }
 
 const App = () => {
-  const { account, setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading } = useStore((store: any) => store)
+  const { account, setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading } = useStore()
 
   // TODO: REMOVE THIS BEFORE FINAL VERSION
   console.log(
@@ -103,20 +103,25 @@ const App = () => {
     refresh(newAccount)
   }, [setAccount, refresh, updateCurrentAddress])
 
-  const connectMetamask = useCallback(() => {
+  const setMetamask = useCallback(() => {
     const newAccount = new Account({ useMetamask: true })
     setAccount(newAccount)
     refresh(newAccount)
   }, [setAccount, refresh])
+
+  const connectMetamask = useCallback(() => {
+    const ethereum = (window as any).ethereum
+    setMetamask()
+    ethereum.on('accountsChanged', () => setMetamask())
+    ethereum.request({ method: 'eth_requestAccounts' })
+  }, [setMetamask])
 
   useEffect(() => {
     const loadPreferredWallet = async () => {
       const walletType = await getPreferredWallet()
 
       if (walletType === WalletType.Metamask) {
-        const newAccount = new Account({ useMetamask: true })
-        setAccount(newAccount)
-        refresh(newAccount)
+        connectMetamask()
       } else if (walletType === WalletType.WalletConnect) {
         connectWalletConnector()
       }

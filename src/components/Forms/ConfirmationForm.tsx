@@ -1,42 +1,57 @@
-import { Box, Button, Text } from "@tlon/indigo-react"
+import { Button, Box, Text, Row } from "@tlon/indigo-react"
 import { useStore } from "../../store"
 import Star from "../../types/Star"
 import { APPROX_DEPOSIT_GAS, APPROX_WITHDRAW_GAS, GWEI, TEN_THOUSAND } from "../../utils/constants"
 import { stopClick } from "../../utils/modal"
 import { getExchangeRate } from "../../utils/text"
-import StarEntry from "../Star/StarEntry"
+import Balance from "../Balance"
+import Logo from "../Icons/Logo"
 
 interface ConfirmationFormProps {
   starsForDust: boolean
   dust: number
   stars: Star[]
-  onConfirm: () => Promise<void>
+  onConfirm: () => void
   onCancel: () => void
 }
 
-const ConfirmationForm = ({ starsForDust, dust, stars, onConfirm, onCancel }: ConfirmationFormProps) => {
-  const gasPrice: number = useStore((store: any) => store.gasPrice)
+export default function ConfirmationForm ({ starsForDust, stars, dust, onConfirm, onCancel }: ConfirmationFormProps) {
+  const { gasPrice } = useStore()
   
   const amount = starsForDust ? stars.length : dust
+  const starLabelText = `Star${stars.length === 1 ? '' : 's'}`
 
   const txCost = gasPrice * amount * (starsForDust ? APPROX_DEPOSIT_GAS : APPROX_WITHDRAW_GAS) * GWEI
   const formattedTxCost = Math.round(txCost * TEN_THOUSAND) / TEN_THOUSAND
 
   const exchangeRate = getExchangeRate(starsForDust)
 
-  return <form className={`confirmation-form ${starsForDust ? 'star' : 'dust'}`} onSubmit={stopClick}>
-    <Box className="denomination">
-      <Text className="label">{`You will ${starsForDust ? 'deposit' : 'redeem'}`}</Text>
-      <Text className="value">{`${amount} ${starsForDust ? 'STAR' : 'DUST'}`}</Text>
+  const starLabel = <Row className="label-row">
+    <Text className="value">{amount}</Text>
+    <Box className="label">
+      <Text className="star">{starLabelText}</Text>
+      <Balance amount={amount} label={starLabelText} />
     </Box>
-    {starsForDust && <div className="star-container">
-      {stars.map((star) => <StarEntry star={star} key={star.name} selected />)}
-    </div>}
+    {starsForDust && <Box className="stars">{stars.map(({ name }) => name).join(', ')}</Box>}
+  </Row>
 
-    <Box className="denomination">
-      <Text className="label">You will receive</Text>
-      <Text className={`value ${starsForDust ? 'star' : 'dust'}`}>{`${amount} ${starsForDust ? 'DUST' : 'STAR'}`}</Text>
+  const wStrLabel = <Row className="label-row">
+    <Box className="logo-container">
+      <Logo />
     </Box>
+    <Text className="value">{amount}.00</Text>
+    <Box className="label">
+      <Text className="wstr">WSTR</Text>
+      <Balance amount={amount} label="WSTR" />
+    </Box>
+  </Row>
+
+  return <form className="confirmation-form" onSubmit={stopClick}>
+    <Text className="swap-message">You are Swapping</Text>
+    {starsForDust ? starLabel : wStrLabel}
+
+    <Text className="receive-message">You are Receiving</Text>
+    {starsForDust ? wStrLabel : starLabel}
 
     <div className="info-row">
       <div className="left">Rate</div>
@@ -48,9 +63,7 @@ const ConfirmationForm = ({ starsForDust, dust, stars, onConfirm, onCancel }: Co
     </div>
     <div className="buttons">
       <Button className="cancel" onClick={onCancel}>Cancel</Button>
-      <Button className={`confirm ${starsForDust ? 'star' : 'dust'}`} onClick={onConfirm}>Confirm</Button>
+      <Button className={`confirm ${starsForDust ? 'star' : 'wstr'}`} onClick={onConfirm}>Confirm</Button>
     </div>
   </form>
 }
-
-export default ConfirmationForm

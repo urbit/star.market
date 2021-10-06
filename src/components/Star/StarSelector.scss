@@ -1,0 +1,126 @@
+@import '../../styles/variables.scss';
+
+.star-selector {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $form-dark-background;
+  color: $form-grey-text;
+  border-radius: 8px;
+  width: 16rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  
+  .selected-stars {
+    font-weight: 600;
+    position: relative;
+
+    &.selected {
+      color: black;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 13em;
+    }
+  }
+
+  .star-selector-modal {
+    background-color: white;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    max-width: 480px;
+    cursor: default;
+
+    .title {
+      font-size: 20px;
+      line-height: 32px;
+      font-weight: 600;
+    }
+
+    .info {
+      color: $medium-grey;
+      font-weight: 600;
+      line-height: 24px;
+    }
+
+    .title, .info {
+      margin-bottom: 16px;
+    }
+
+    .star-list {
+      max-height: 242px;
+      overflow-y: scroll;
+
+      .star-entry {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: black;
+        padding: 0.125rem;
+        margin: 12px 0px;
+      
+        .sigil-name {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          line-height: 24px;
+          font-weight: 600;
+      
+          .checkbox {
+            margin-right: 8px;
+          }
+      
+          svg {
+            margin-right: 0.5rem;
+            border-radius: 0.5rem;
+          }
+        }
+      
+        .label {
+          margin-left: 2rem;
+          white-space: nowrap;
+        }
+      
+        .select-star {
+          background-color: black;
+          color: white;
+          border: none;
+          cursor: pointer;
+        }
+
+        &.selected .select-star {
+          background-color: $star-green;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      margin-top: 16px;
+
+      .back {
+        margin-right: 8px;
+        border: none;
+        background-color: $form-dark-background;
+        cursor: pointer;
+      }
+
+      .swap {
+        border: none;
+        background-color: $steel-grey;
+        color: $medium-grey;
+        cursor: pointer;
+
+        &.selected {
+          background-color: $star-green;
+          color: white;
+        }
+      }
+    }
+  }
+}

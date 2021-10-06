@@ -1,6 +1,7 @@
-import { useState, useCallback, ChangeEvent, MouseEvent } from "react"
+import { useState, useCallback, ChangeEvent } from "react"
 
-import { Box, Row, Text } from "@tlon/indigo-react"
+import { Box, Button, Row, Text } from "@tlon/indigo-react"
+import { sigil, reactRenderer } from '@tlon/sigil-js'
 import ReceiveDisplay from './ReceiveDisplay'
 import Star from "../../types/Star"
 import { addOrRemove } from "../../utils/array"
@@ -9,6 +10,10 @@ import TradeButton from "./TradeButton"
 import StarSelector from "../Star/StarSelector"
 import ConfirmationForm from "./ConfirmationForm"
 import Swap from "../Icons/Swap"
+import Logo from '../Icons/Logo';
+import { getExchangeRate } from "../../utils/text"
+import Balance from "../Balance"
+import Modal from "../Modal"
 
 export enum Exchange {
   starsForDust,
@@ -20,9 +25,10 @@ interface SwapFormProps {
 }
 
 const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
-  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance, setLoading, setSuccessTxHashes, setErrorMessage } = useStore((store: any) => store)
+  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance, setLoading, setSuccessTxHashes, setErrorMessage } = useStore()
   const [dustInput, setDustInput] = useState('')
   const [showStarSelector, setShowStarSelector] = useState(false)
+  const [showConfirmTrade, setShowConfirmTrade] = useState(false)
   const [selectedStars, setSelectedStars] = useState([] as Star[])
   const [exchange, setExchange] = useState(Exchange.starsForDust)
   const [confirm, setConfirm] = useState(false)
@@ -33,17 +39,9 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     setDustInput(String(max))
   }, [dust, setDustInput])
 
-  const toggleStarSelector = useCallback((event: MouseEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
+  const toggleStarSelector = useCallback(() => {
     setShowStarSelector(!showStarSelector)
-  }, [showStarSelector, setShowStarSelector])
-
-  const hideStarSelector = useCallback((event: MouseEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
-    setShowStarSelector(false)
-  }, [setShowStarSelector])
+  }, [showStarSelector])
 
   const selectStar = (star: Star) => setSelectedStars(star.isUnlinked ? addOrRemove(selectedStars, star) : selectedStars)
 
@@ -65,82 +63,121 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
   />
 
   const refreshValues = useCallback(async () => {
-    const newStars = await api.getStars().catch(console.error)
+    const newStars = await api.getStars().catch((error) => {
+      console.error(error)
+      return []
+    })
     setStars(newStars)
 
-    const newDust = await api.getDust().catch(console.error)
+    const newDust = await api.getDust().catch((error) => {
+      console.error(error)
+      return 0
+    })
     setDust(newDust)
 
-    const newTreasuryBalance = await api.getTreasuryBalance().catch(console.error)
+    const newTreasuryBalance = await api.getTreasuryBalance().catch((error) => {
+      console.error(error)
+      return 0
+    })
     setTreasuryBalance(newTreasuryBalance)
 
     setConfirm(false)
     setExchange(exchange === Exchange.starsForDust ? Exchange.dustForStars : Exchange.starsForDust)
   }, [api, setStars, setDust, setTreasuryBalance, exchange, setExchange])
   
-  const trade = async () => {
+  const confirmTrade = async () => {
     setLoading(true)
 
     if (exchange === Exchange.starsForDust) {
-      if (selectedStars.length && window.confirm('You will need to make 2 transactions for each star. The first to authorize the DUST contract to transfer your star, the second to deposit the star.')) {
-        try {
-          const hashes : string[] = [];
-          for (let i = 0; i < selectedStars.length; i++) {
-            const hash = await api.depositStar(selectedStars[i])
-            hashes.push(hash);
-          }
-          setSuccessTxHashes(hashes)
-          setSelectedStars([])
-          await refreshValues()
-        } catch (e) {
-          setErrorMessage(e)
-          console.warn('ERROR DEPOSITING STARS', e)
+      try {
+        const hashes : string[] = [];
+        for (let i = 0; i < selectedStars.length; i++) {
+          const hash = await api.depositStar(selectedStars[i])
+          hashes.push(hash || '');
         }
+        setSuccessTxHashes(hashes)
+        setSelectedStars([])
+        await refreshValues()
+      } catch (e) {
+        setErrorMessage(String(e))
+        console.warn('ERROR DEPOSITING STARS', e)
       }
     } else {
       try {
-        if (dustInput && Number(dustInput) && window.confirm('Are you sure you want to exchange your DUST for stars?')) {
-          const hashes = await api.redeemTokens(Number(dustInput))
-          setSuccessTxHashes(hashes)
-          setDustInput('0')
-          await refreshValues()
-        }
-      } catch (e) {
-        setErrorMessage(e)
-        console.warn('ERROR REDEEMING DUST', e)
+        const hashes = await api.redeemTokens(Number(dustInput))
+        setSuccessTxHashes(hashes)
+        setDustInput('0')
+        await refreshValues()
+      }
+      catch (e) {
+        setErrorMessage(String(e))
+        console.warn('ERROR REDEEMING WSTR', e)
       }
     }
 
     setLoading(false)
   }
 
-  const assets = starsForDust ? stars.length : dust
-  const depositDenomination = starsForDust ? 'STAR' : 'DUST'
-  const receiveDenomination = starsForDust ? 'DUST' : 'STAR'
-
   const hasAddress = Boolean(account.currentAddress)
   const disableButton = starsForDust ? !selectedStars.length : !Number(dustInput)
 
-  return confirm ?
-  <ConfirmationForm
-    starsForDust={starsForDust}
-    dust={Number(dustInput)}
-    stars={selectedStars}
-    onConfirm={trade}
-    onCancel={() => setConfirm(false)}
-  />:
-  <Box onClick={hideStarSelector} className="form-holder">
+  const starLabel = <Row className="label">
+    {sigil({
+      patp: '~marzod',
+      renderer: reactRenderer,
+      size: 48,
+      colors: ['black', 'white'],
+    })}
+    <Box className="value-balance">
+      <Text className="value">Star</Text>
+      <Balance amount={dust} label={`Star${stars.length === 1 ? '' : 's'}`} />
+    </Box>
+  </Row>
+  const wStrLabel = <Row className="label">
+    <Box className="logo-container">
+      <Logo className="logo" />
+    </Box>
+    <Box className="value-balance">
+      <Text className="value">WSTR</Text>
+      <Balance amount={dust} label="WSTR" />
+    </Box>
+  </Row>
+
+  return confirm
+  ? <Box>
+    <ConfirmationForm
+      starsForDust={starsForDust}
+      dust={Number(dustInput)}
+      stars={selectedStars}
+      onConfirm={() => setShowConfirmTrade(true)}
+      onCancel={() => setConfirm(false)}
+    />
+    {showConfirmTrade && <Modal hideModal={() => setShowConfirmTrade(false)}>
+      <Box className="confirm-trade-modal">
+        <Box className="message">
+          {selectedStars.length
+          ? 'You will need to make 2 transactions per star. The first to authorize the WSTR contract to transfer your star, the second to deposit the star.'
+          : 'You will need to make 1 transaction per star.'}
+        </Box>
+        <Row className="buttons">
+          <Button className="cancel" onClick={() => setShowConfirmTrade(false)}>Cancel</Button>
+          <Button className="confirm" onClick={confirmTrade}>Confirm</Button>
+        </Row>
+      </Box>
+    </Modal>}
+  </Box>
+  : <Box className="form-holder">
     <form className="swap-form">
       <Row className="half deposit">
         <Box className="denomination">
-          <Text className="label">Deposit</Text>
-          <Text className="value">{depositDenomination}</Text>
+          <Text className="action">Deposit</Text>
+          {starsForDust ? starLabel : wStrLabel}
         </Box>
         <Box className="assets">
-          <Text className="exchange-rate">You have {assets} {depositDenomination}</Text>
+          <Text className="exchange-rate">{starsForDust ? 'Select one or more stars to swap' : getExchangeRate(starsForDust)}</Text>
           {
             starsForDust ?
-            <StarSelector {...{toggleStarSelector, selectStar, selectedStars, showStarSelector}} /> :
+            <StarSelector {...{toggleStarSelector, selectStar, selectedStars, showStarSelector, disabled: !stars.length}} /> :
             dustInputField
           }
         </Box>
@@ -152,8 +189,8 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
 
       <Row className="half receive">
         <Box className="denomination">
-          <Text className="label">Receive</Text>
-          <Text className="value">{receiveDenomination}</Text>
+          <Text className="action">Receive</Text>
+          {starsForDust ? wStrLabel : starLabel}
         </Box>
         <ReceiveDisplay amount={starsForDust ? selectedStars.length : Number(dustInput)} exchange={exchange} />
       </Row>

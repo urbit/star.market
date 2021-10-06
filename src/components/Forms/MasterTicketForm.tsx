@@ -16,7 +16,7 @@ interface MasterTicketFormProps extends RefreshProps {
 }
 
 const MasterTicketForm = ({ hideModal, refresh } : MasterTicketFormProps) => {
-  const { setAccount, setLoading } = useStore((store: any) => store)
+  const { setAccount, setLoading } = useStore()
 
   const [ticket, setTicket] = useState('')
   const [ship, setShip] = useState('')

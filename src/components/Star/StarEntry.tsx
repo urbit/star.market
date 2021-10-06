@@ -1,10 +1,17 @@
-import { Box, Row } from "@tlon/indigo-react";
+import { Box, Button, Checkbox, Row } from "@tlon/indigo-react";
 import { sigil, reactRenderer } from '@tlon/sigil-js'
 import { MouseEvent } from "react";
 import Star from "../../types/Star";
 
-const StarEntry = ({ star, selected, onSelect }: { star: Star, selected?: boolean, onSelect?: (star: Star) => void }) => {
-  const { name, point, isUnlinked, getDisabledMessage } = star
+interface StarEntryProps {
+  star: Star
+  selected?: boolean
+  showCheckbox?: boolean
+  onSelect?: (star: Star) => void
+}
+
+const StarEntry = ({ star, selected = false, onSelect, showCheckbox = false }: StarEntryProps) => {
+  const { name, isUnlinked, getDisabledMessage } = star
 
   const select = (event: MouseEvent) => {
     if (onSelect) {
@@ -22,18 +29,19 @@ const StarEntry = ({ star, selected, onSelect }: { star: Star, selected?: boolea
     className = `${className} selected`
   }
 
-  return <Box className={className} onClick={select}>
+  return <Row className={className} onClick={select}>
     <Row className="sigil-name">
+      {/* {isUnlinked && showCheckbox && <Checkbox className="checkbox" selected={selected} />} */}
       {sigil({
-       patp: name,
-       renderer: reactRenderer,
-       size: 16,
-       colors: [isUnlinked ? selected ? 'rgba(0, 177, 113, 1)' : 'black' : '#9a9a9a', 'white'],
-     })}
+        patp: name,
+        renderer: reactRenderer,
+        size: 48,
+        colors: ['black', 'white'],
+      })}
       <div>{name}</div>
     </Row>
-    <div className="label">{isUnlinked ? `AZP ${point}` : getDisabledMessage()}</div>
-  </Box>
+    <Button className="select-star">{selected ? 'Swapping' : 'Swap'}</Button>
+  </Row>
 }
 
 export default StarEntry
