@@ -5,22 +5,16 @@ export default function HomeHeader() {
     return (
         <header className="homeHeader">
             <div className="innerCol">
-                <Link to="/">
-                    <div className="pill-button bg-gray">
-                        <Logo />
-                        <p className="ml-0.5em">Star Market</p>
-                    </div>
+                <Link to="/" className="pill-button bg-gray">
+                    <Logo />
+                    <span className="ml-0.5em">Star Market</span>
                 </Link>
                 <nav>
-                    <Link to="/about">
-                        <div className='pill-button'>
-                            About
-                        </div>
+                    <Link to="/about" className='pill-button'>
+                        About
                     </Link>
-                    <Link to="/app">
-                    <div className="pill-button bg-yellow ml-0.5em">
-                            Launch App
-                        </div>
+                    <Link to="/app" className="pill-button bg-yellow ml-0.5em">
+                        Launch App
                     </Link>
                 </nav>
             </div>

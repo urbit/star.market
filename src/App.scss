@@ -71,13 +71,7 @@ p {
 form {
   background-color: $form-background;
   min-height: 18rem;
-  // width: 32rem;
   border-radius: 1.5rem;
-  margin-top: 3rem;
-  @media screen and (max-width: 767px) {
-    margin-top: 1rem;
-    // width: 26rem;
-  }
 
   .form-header {
     display: flex;
@@ -305,7 +299,7 @@ form {
 }
 
 button.trade-button {
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
   width: 100%;
   border-radius: 1.5rem;
   font-size: 1.25rem;
@@ -428,6 +422,7 @@ form.master-ticket-form {
 }
 
 form.confirmation-form {
+  width: 100%;
   padding: 2.25rem;
   background-color: $preview-gold-light;
 
