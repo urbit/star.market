@@ -159,18 +159,18 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
           ? 'You will need to make 2 transactions per star. The first to authorize the WSTR contract to transfer your star, the second to deposit the star.'
           : 'You will need to make 1 transaction per star.'}
         </Box>
-        <Row className="buttons">
-          <Button className="cancel" onClick={() => setShowConfirmTrade(false)}>Cancel</Button>
-          <Button className="confirm" onClick={confirmTrade}>Confirm</Button>
+        <Row className="buttons" gapX={3}>
+          <Button className="cancel" borderRadius={3} onClick={() => setShowConfirmTrade(false)}>Cancel</Button>
+          <Button className="confirm" borderRadius={3} onClick={confirmTrade}>Confirm</Button>
         </Row>
       </Box>
     </Modal>}
   </Box>
-  : <Box className="form-holder">
+  : <Box className="form-holder" maxWidth="576px">
     <form className="swap-form">
       <Row className="half deposit">
         <Box className="denomination">
-          <Text className="action">Deposit</Text>
+          <Text className="action" bold gray>Deposit</Text>
           {starsForDust ? starLabel : wStrLabel}
         </Box>
         <Box className="assets">
@@ -189,7 +189,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
 
       <Row className="half receive">
         <Box className="denomination">
-          <Text className="action">Receive</Text>
+          <Text className="action" bold gray>Receive</Text>
           {starsForDust ? wStrLabel : starLabel}
         </Box>
         <ReceiveDisplay amount={starsForDust ? selectedStars.length : Number(dustInput)} exchange={exchange} />

@@ -38,9 +38,9 @@ const Container = ({ refresh, connectWalletConnector, connectMetamask } : Contai
   return <div className="layout-container">
     <HeaderBar {...{ refresh, toggleWalletModal }} />
       <section className="layout">
-        <Box display="flex" flexDirection="column" alignItems="center">
-        <SwapForm {...{ refresh, toggleWalletModal }} />
-      </Box>
+        <Box display="flex" flexDirection="column" alignItems="center" paddingBottom={7}>
+          <SwapForm {...{ refresh, toggleWalletModal }} />
+        </Box>
 
       {showWalletModal && <Modal hideModal={() => setShowWalletModal(false)}>
         <WalletForm

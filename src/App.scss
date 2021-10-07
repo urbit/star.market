@@ -4,13 +4,31 @@
 
 * {
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
+  position: relative;
+  min-height: 100%;
   font-size: 16px;
-  font-family: "Inter", "Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
+  font-family: $fontFamily;
   margin: 0;
 };
+
+button {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+}
 
 p {
   line-height: 1.5;
@@ -39,7 +57,7 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-right: 8px;
+  margin-right: 12px;
 
   svg {
     margin: 0 !important;
@@ -50,78 +68,76 @@ p {
 }
 
 
-  form {
-    background-color: $form-background;
-    min-height: 18rem;
-    // width: 32rem;
-    border-radius: 1rem;
-    margin-top: 3rem;
-    @media screen and (max-width: 767px) {
-      margin-top: 1rem;
-      // width: 26rem;
+form {
+  background-color: $form-background;
+  min-height: 18rem;
+  // width: 32rem;
+  border-radius: 1.5rem;
+  margin-top: 3rem;
+  @media screen and (max-width: 767px) {
+    margin-top: 1rem;
+    // width: 26rem;
+  }
+
+  .form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .back {
+      width: 2rem;
+      cursor: pointer;
+      padding: 0.5rem;
     }
 
-    .form-header {
+    .title {
+      font-weight: bold;
+    }
+
+    .close {
+      border: none;
+      width: 2rem;
+      cursor: pointer;
+      text-align: right;
+    }
+  }
+
+  input {
+    font-family: "Inter","Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
+  }
+
+  .denomination {
+    display: flex;
+    flex-direction: column;
+
+    .action {
+      font-size: 16px;
+      margin: 0rem 0rem 0.75rem;
+    }
+    
+    .label {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      min-width: 12rem;
 
-      .back {
-        width: 2rem;
-        cursor: pointer;
-        padding: 0.5rem;
+      svg {
+        border-radius: 8px;
+        margin-right: 12px;
       }
-  
-      .title {
-        font-weight: bold;
-      }
-  
-      .close {
-        border: none;
-        width: 2rem;
-        cursor: pointer;
-        text-align: right;
-      }
-    }
 
-    input {
-      font-family: "Inter","Inter UI",-apple-system,BlinkMacSystemFont,'San Francisco','Helvetica Neue',Arial,sans-serif;
-    }
-
-    .denomination {
-      display: flex;
-      flex-direction: column;
-  
-      .action {
-        font-size: 16px;
-        margin: 1rem 0rem 0.75rem;
-      }
-      
-      .label {
+      .value-balance {
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: 2rem;
-        min-width: 12rem;
-
-        svg {
-          border-radius: 8px;
-          margin-right: 8px;
-        }
-
-        .value-balance {
-          display: flex;
-          flex-direction: column;
-          .value {
-            font-size: 20px;
-            font-weight: 600;
-          }
+        flex-direction: column;
+        .value {
+          font-size: 20px;
+          font-weight: 600;
         }
       }
     }
-  
+  }
 
   .amount {
     display: flex;
@@ -156,6 +172,7 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .toggle-exchange {
@@ -182,14 +199,16 @@ p {
   align-items: center;
   justify-content: space-around;
   width: 100%;
+  margin-top: 0;
 
   .half {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding: 2.25rem;
     width: 100%;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     min-height: 9rem;
 
 
@@ -200,9 +219,13 @@ p {
 
     &.receive {
       background-color: $form-dark-background;
-      padding-top: 2rem;
+      padding-top: 3rem;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
+    }
+
+    @media (max-width: 599px) {
+      padding: 1.75rem;
     }
   }
 }
@@ -214,6 +237,10 @@ p {
 
   @media screen and (max-width: 767px) {
     margin-left: 1rem;
+  }
+
+  @media (max-width: 599px) {
+    margin: 1rem 0;
   }
 
   .exchange-rate {
@@ -233,12 +260,17 @@ p {
     margin-left: 1rem;
   }
 
+  @media (max-width: 599px) {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
   .tx-cost {
     margin-top: 1rem;
   }
 
   .exchange-rate {
-    margin: 1rem 0rem;
+    margin: 0rem 0rem 1rem;
     color: $medium-grey;
     font-weight: 600;
   }
@@ -275,16 +307,17 @@ p {
 button.trade-button {
   margin-top: 0.5rem;
   width: 100%;
-  border-radius: 1rem;
-  font-size: 1.5rem;
-  height: 4rem;
+  border-radius: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  height: 5rem;
   border: none;
   color: white;
   background-color: black;
 
-  @media screen and (max-width: 767px) {
-    width: 26rem;
-  }
+  // @media screen and (max-width: 767px) {
+  //   width: 26rem;
+  // }
 
   &.disabled {
     background-color: $form-dark-background;
@@ -395,7 +428,7 @@ form.master-ticket-form {
 }
 
 form.confirmation-form {
-  padding: 2rem;
+  padding: 2.25rem;
   background-color: $preview-gold-light;
 
   .swap-message, .receive-message {
@@ -412,6 +445,7 @@ form.confirmation-form {
   .label-row {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
 
     &:nth-child(2) {
@@ -444,12 +478,18 @@ form.confirmation-form {
     }
 
     .stars {
+      flex: 1 1 auto;
       margin-left: 12px;
       color: $dark-grey;
       width: 16rem;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+
+      @media (max-width: 599px) {
+        width: 100%;
+        white-space: normal;
+      }
     }
   }
 
@@ -476,7 +516,7 @@ form.confirmation-form {
     margin-top: 2rem;
 
     button {
-      width: 14rem;
+      flex: 1 1 0%;
       color: white;
       border: none;
       cursor: pointer;
@@ -499,11 +539,10 @@ form.confirmation-form {
 }
 
 .layout-container {
-  min-height: 100vh;
-  margin: 0 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin: 0 1rem;
 
   @media screen and (min-width: 1000px) {
     width: 960px;
@@ -548,7 +587,7 @@ form.confirmation-form {
 .layout {
   width: 100%;
   max-width: 60em;
-  margin-top: 8em;
+  margin-top: 6em;
 
   @media screen and (max-width: 767px) {
     margin-top: 4em;
@@ -596,16 +635,14 @@ h3, .gray-title {
 
   .pill-button {
     display: flex;
-    height: 3em;
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding: .5rem 0.75rem;
     color: black;
     text-decoration: none;
-    //styleName: Sans/H3;
-    font-size: 16px;
+    line-height: 32px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 600;
     letter-spacing: 0em;

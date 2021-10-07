@@ -9,5 +9,13 @@ interface BalanceProps {
 }
 
 export default function Balance({ amount, label }: BalanceProps) {
-  return <Text className="balance">Balance: {amount} {label}</Text>
+  return (
+    <Text 
+      className="balance" 
+      color="scales.black40" 
+      fontSize="14px"
+    >
+      Balance: {amount} {label}
+    </Text>
+  );
 }

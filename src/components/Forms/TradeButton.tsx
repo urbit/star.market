@@ -11,7 +11,7 @@ const TradeButton = (
     className = `${className} disabled`
   }
 
-  let text = 'Connect'
+  let text = 'Connect Wallet'
 
   if (hasAddress) {
     if (disabled) {
