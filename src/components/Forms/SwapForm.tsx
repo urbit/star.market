@@ -130,7 +130,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     })}
     <Box className="value-balance">
       <Text className="value">Star</Text>
-      <Balance amount={dust} label={`Star${stars.length === 1 ? '' : 's'}`} />
+      <Balance amount={stars.length} label={`Star${stars.length === 1 ? '' : 's'}`} />
     </Box>
   </Row>
   const wStrLabel = <Row className="label">
