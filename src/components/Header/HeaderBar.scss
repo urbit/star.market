@@ -33,7 +33,47 @@
 
   .treasury {
     background-color: $yellow;
-    margin-left: 8px;
+    text-align: center;
+    cursor: pointer;
+
+    .modal {
+      cursor: default;
+      
+      .message-container {
+        display: flex;
+        flex-direction: column;
+        // justify-content: space-between;
+        align-items: flex-start;
+        padding: 36px;
+        position: absolute;
+        width: 400px;
+        height: 320px;
+        left: 35px;
+        top: 86px;
+        background: #F3C263;
+        border-radius: 24px;
+        text-align: left;
+
+        .title {
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          color: $steel-grey;
+          margin-bottom: 24px;
+        }
+
+        .message, .stars {
+          font-size: 24px;
+          font-weight: 600;
+          line-height: 32px;
+          color: $steel-grey;
+
+          .stars {
+            color: black;
+          }
+        }
+      }
+    }
   }
 
   .walletSection {
