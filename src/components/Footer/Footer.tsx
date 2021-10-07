@@ -31,6 +31,11 @@ export default function Footer() {
                             Disclaimer
                         </div>
                     </Link>
+                    <Link to="/tos">
+                        <div className="toolbar-link">
+                            Terms of Service
+                        </div>
+                    </Link>
                 </nav>
             </div>
         </header>
