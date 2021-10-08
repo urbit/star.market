@@ -39,7 +39,7 @@ export default function ConfirmationForm ({ starsForDust, stars, dust, onConfirm
     <Box className="logo-container">
       <Logo />
     </Box>
-    <Text className="value">{amount}.00</Text>
+    <Text className="value">{amount}.000</Text>
     <Box className="label">
       <Text className="wstr">WSTR</Text>
       <Balance amount={amount} label="WSTR" />

@@ -133,7 +133,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     })}
     <Box className="value-balance">
       <Text className="value">Star</Text>
-      <Balance amount={dust} label={`Star${stars.length === 1 ? '' : 's'}`} />
+      <Balance amount={stars.length} label={`Star${stars.length === 1 ? '' : 's'}`} />
     </Box>
   </Row>
   const wStrLabel = <Row className="label">
@@ -150,7 +150,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     <Col flexDirection={['column', 'column', 'column','row-reverse']}>
       { confirm
         ? <>
-            <Review />
+            <Review count={selectedStars.length ? 2 : 1}/>
             <Box 
               className="form-holder" 
               maxWidth="576px" 

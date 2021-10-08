@@ -14,12 +14,15 @@ import Container from './components/Container'
 import Home from './components/Home'
 import About from './components/About'
 import Disclaimer from './components/Disclaimer'
+import Tos from './components/Tos'
 import NoMatch from './components/NoMatch'
 import './App.scss';
 
 import Account, { WalletType } from './account';
 import { useEffect } from 'react';
 import { getPreferredWallet } from './utils/local-storage';
+// import { toPairsIn } from 'lodash';
+// import { ToggleSwitch } from '@tlon/indigo-react';
 
 const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
 
@@ -144,6 +147,9 @@ const App = () => {
           </Route>
           <Route path="/disclaimer">
             <Disclaimer />
+          </Route>
+          <Route path="/tos">
+            <Tos />
           </Route>
           <Route exact path="/">
             <Home />
