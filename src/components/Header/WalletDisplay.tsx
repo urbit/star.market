@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Icon, Row, Text } from "@tlon/indigo-react"
+import { Icon, Row } from "@tlon/indigo-react"
 import Account from "../../account"
 import { useEffect } from "react"
 
