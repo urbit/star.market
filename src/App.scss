@@ -601,7 +601,7 @@ form.confirmation-form {
   padding-bottom: 2em;
 
   @media screen and (max-width: 767px) {
-    padding-top: 1em;
+    padding-top: 3em;
     padding-bottom: 1em;
   }
 }
@@ -812,7 +812,8 @@ h3, .gray-title {
 
 .confirm-trade-modal {
   padding: 24px;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   background-color: white;
   border-radius: 24px;
 
