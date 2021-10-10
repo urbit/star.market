@@ -1,4 +1,4 @@
-import { Button, Icon, Row } from "@tlon/indigo-react"
+import { Anchor, Button, Icon, Row } from "@tlon/indigo-react"
 import { useStore } from "../../store"
 import { stopClick } from "../../utils/modal"
 
@@ -31,14 +31,14 @@ const SuccessDisplay = ({ onClose } : { onClose: () => void }) => {
       {firstSentence}. You can see your {transaction} on etherscan:
       <br />
       <div className="transactions">
-        {successTxHashes.map((hash: string, index: number) => <a href="/#" onClick={openLink(`${ETHERSCAN_TX_URL}${hash}`)} key={hash}>
+        {successTxHashes.map((hash: string, index: number) => <Anchor href="/#" onClick={openLink(`${ETHERSCAN_TX_URL}${hash}`)} key={hash}>
           Transaction {index + 1}
-        </a>)}
+        </Anchor>)}
       </div>
       <br />
       {completionClause}, you will need to refresh the page using the button in the upper right of the screen.
     </div>
-    <Button onClick={onClose}>Close</Button>
+    <Button borderRadius={3} onClick={onClose}>Close</Button>
   </div>
 }
 

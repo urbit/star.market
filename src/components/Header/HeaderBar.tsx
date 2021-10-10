@@ -21,11 +21,9 @@ export default function HeaderBar (props: WalletDisplayProps) {
       <header className="homeHeader">
           <div className="innerCol">
               <Row>
-                <Link to="/">
-                  <div className="pill-button bg-gray">
-                    <Logo />
-                    <p className="ml-0.5em">Star Market</p>
-                  </div>
+                <Link to="/" className="pill-button bg-gray">
+                  <Logo />
+                  <span className="ml-0.5em">Star Market</span>
                 </Link>
                 <Row className="treasury pill-button ml-0.5em" onClick={toggleShowTreasuryInfo}>
                   <Text className="ml-0.5em mr-0.5em">{balanceText}</Text>

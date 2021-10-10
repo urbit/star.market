@@ -8,7 +8,7 @@ const Modal = ({ children, hideModal }: { children: JSX.Element, hideModal: () =
     hideModal()
   }
 
-  return <Box className="modal" onClick={onClick}>
+  return <Box className="modal" padding={3} onClick={onClick}>
     {children}
   </Box>
 }

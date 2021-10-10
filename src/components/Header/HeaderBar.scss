@@ -20,11 +20,17 @@
 .homeHeader {
   width: 100%;
 
+  @media (max-width: 899px) {
+    max-width: 576px;
+  }
+
   .innerCol {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 2em;
+    gap: 1rem;
+    margin-top: 5.5em;
     
     @media screen and (max-width: 767px) {
       margin-top: 3em;
@@ -78,6 +84,14 @@
 
   .walletSection {
     margin-left: 3rem;
+
+    @media (max-width: 899px) {
+      margin-left: 0;
+    }
+
+    @media (max-width: 599px) {
+      width: 100%;
+    }
   }
 
   nav {
