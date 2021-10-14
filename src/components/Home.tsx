@@ -51,12 +51,10 @@ export default function Home() {
                 <div className="hero-rect" style={{backgroundImage: "url('/assets/hero.jpg')"}}>
                     <Logo className="logo" />
                     <div className="inner-text measure-narrow timer">
-                        <p>Star Market is the easiest 
-way to obtain an Urbit star.</p>
+                        <p>Star Market is the only place to swap to your Urbit star for a WSTR.
+</p>
 
-                        <p>Stars are gateways to building businesses, supernodes, and 
-                        other provider services on 
-                        the Urbit Network.</p>
+                        <p>Stars are businesses, supermodels, and service providers on the Urbit Network. </p>
 
                         <p className="timer bg-yellow text-black table">
                             Launching in <b>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
@@ -69,13 +67,13 @@ way to obtain an Urbit star.</p>
             <section className="layout">
                 <div className="flex justify-between">
                     <div className="measure mr-1em">
-                        <h3 className="gray-title">Why Urbit ID?</h3>
+                        <h3 className="gray-title">What is Urbit ID?</h3>
                         <h2>
-                            A key to the world’s only personal computer
+                            A key to a new digital world
                         </h2>
-                        <p>Urbit IDs are nonfungible assets that represent an identity, a namespace, a key to a unit of personal computation built on Urbit OS.
+                        <p>Urbit ID is a decentralized addressing system and public key infrastructure designed for Urbit OS. It is a unique number, a username, an avatar, a piece of a collectively owned network, and a key to a new digital world. Sort of like DNS, IP and a username system combined into one thing. Each Urbit ID is an ERC-721 NFT on the Ethereum blockchain.
                         </p>
-                            <a rel="noreferrer" target="/blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                            <a rel="noreferrer" target="_blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/sigil-grid.png')",
@@ -92,13 +90,14 @@ way to obtain an Urbit star.</p>
             <section className="layout">
                 <div className="flex justify-between">
                     <div className="measure mr-1em">
-                        <h3 className="gray-title">Why Urbit ID?</h3>
+                        <h3 className="gray-title">What is a star?</h3>
                         <h2>
-                            A key to the world’s only personal computer
+                            Infrastructure for businesses and communities
                         </h2>
-                        <p>Urbit IDs are nonfungible assets that represent an identity, a namespace, a key to a unit of personal computation built on Urbit OS.
+                        <p>There are 5 different types of Urbit IDs. A star is an infrastructure node and as such is for businesses, communities, or metropolises. Stars spawn and sponsor planets, perform peer routing, provide services, and swap for WSTR. (You can swap stars for WSTR
+                        <a rel="noreferrer" target="_blank" href="https://star.market">heree</a>. There are 2^16 (~65K) stars and each can sponsor ~65K planets.
                         </p>
-                            <a rel="noreferrer" target="/blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                            <a rel="noreferrer" target="_blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/sigil-grid.png')",
@@ -144,11 +143,11 @@ way to obtain an Urbit star.</p>
             <section className="layout">
                 <div className="flex justify-between">
                     <div className="measure mr-1em">
-                        <h3 className="gray-title">Urbit IDs for Star Operators</h3>
+                        <h3 className="gray-title">What is a WSTR?</h3>
                         <h2>
-                            Stars are businesses, supernodes, providers etc
+                            1 WSTR = 1 star
                         </h2>
-                        <p>Obtaining a Star-class Urbit ID is an immediate entrypoint to building a business on the Urbit Network. There are a variety of modular tools developed to get provider businesses set up. 
+                        <p>Urbit Wrapped Star (WSTR) is an ERC-20 token that represents 1 Urbit star. Through Star Market, 1 star, an ERC-721 token, can be converted to 1 wrapped star, and vice-versa. The stars redeemed by a wrapped star are dolled out on a last in first out basis.
                         </p>
                             <a href="https://operators.urbit.org" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
