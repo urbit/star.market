@@ -14,7 +14,7 @@ function padZero(str:string) {
 export default function Home() {
     const calculateTimeLeft = () => {
         let year = new Date().getFullYear();
-        const difference = +new Date(`${year}-10-30`) - +new Date();
+        const difference = +new Date(`${year}-10-25`) - +new Date();
         let timeLeft = {
             days: '00',
             hours: '00',
