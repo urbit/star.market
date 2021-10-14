@@ -13,9 +13,9 @@ export default function HomeHeader() {
                     <Link to="/about" className='pill-button'>
                         About
                     </Link>
-                    <Link to="/app" className="pill-button bg-yellow ml-0.5em">
+                    {/* <Link to="/app" className="pill-button bg-yellow ml-0.5em">
                         Launch App
-                    </Link>
+                    </Link> */}
                 </nav>
             </div>
         </header>

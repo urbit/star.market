@@ -6,7 +6,7 @@ import { useStore } from '../../store'
 import Logo from '../Icons/Logo';
 import WalletDisplay, { WalletDisplayProps } from './WalletDisplay'
 
-import './HeaderBar.scss'
+
 import { formatComma } from '../../utils/text';
 import Modal from '../Modal';
 
