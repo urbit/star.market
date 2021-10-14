@@ -45,7 +45,7 @@ export default function About() {
                         </tr>
                         <tr>
                             <td>Token Icon</td>
-                            <td><img alt="wstr-logo" style={{width:'96px', height: '96px'}}src="/assets/wstr-logo-192.png" /></td>
+                            <td><img alt="wstr-logo" style={{width:'96px', height: '96px'}} src="/assets/wstr-logo-192.png" /></td>
                         </tr>
                     </tbody>
                 </table>
