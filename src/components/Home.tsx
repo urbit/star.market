@@ -73,7 +73,7 @@ export default function Home() {
                         </h2>
                         <p>Urbit ID is a decentralized addressing system and public key infrastructure designed for Urbit OS. It is a unique number, a username, an avatar, a piece of a collectively owned network, and a key to a new digital world. Sort of like DNS, IP and a username system combined into one thing. Each Urbit ID is an ERC-721 NFT on the Ethereum blockchain.
                         </p>
-                            <a rel="noreferrer" target="_blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                            <a rel="noreferrer" target="_blank" href="https://urbit.org/understanding-urbit/urbit-id" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/sigil-grid.png')",
@@ -95,7 +95,7 @@ export default function Home() {
                             Infrastructure for businesses and communities
                         </h2>
                         <p>There are 5 different types of Urbit IDs. A star is an infrastructure node and as such is for businesses, communities, or metropolises. Stars spawn and sponsor planets, perform peer routing, provide services, and swap for WSTR. (You can swap stars for WSTR
-                        <a rel="noreferrer" target="_blank" href="https://star.market">heree</a>. There are 2^16 (~65K) stars and each can sponsor ~65K planets.
+                        <a rel="noreferrer" target="_blank" href="https://operators.urbit.org/guides/running-a-star">heree</a>. There are 2^16 (~65K) stars and each can sponsor ~65K planets.
                         </p>
                             <a rel="noreferrer" target="_blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
