@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&text=↑→↓←↗&family=Source+Code+Pro:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&text=↑→↓←↗?family=Source+Code+Pro:wght@400;500;600;700;800&display=swap");
+
 
 @import './styles/variables.scss';
 
@@ -1035,3 +1036,40 @@ button:hover {
   }
 }
 
+.timer {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-radius: 99em;
+  font-weight: 500;
+}
+
+.timer p b {
+  font-weight: 600;
+  font-family: 'Source Code Pro';
+}
+
+// .timer .blinky {
+//   animation: blink-animation 2s steps(2, start) infinite;
+// }
+
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+.text-black {
+  color: black
+}
+
+.table {
+  display: table
+}
