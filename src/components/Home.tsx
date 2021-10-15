@@ -50,14 +50,14 @@ export default function Home() {
             <section className="layout">
                 <div className="hero-rect" style={{backgroundImage: "url('/assets/hero.jpg')"}}>
                     <Logo className="logo" />
-                    <div className="inner-text measure-narrow timer">
+                    <div className="inner-text measure-narrow">
                         <p>Star Market is the only place to swap to your Urbit star for a WSTR.
 </p>
 
                         <p>Stars are businesses, supernodes, and service providers on the Urbit Network. </p>
 
-                        <p className="timer bg-yellow text-black table">
-                            Launching in <b>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
+                        <p className="timer bg-yellow text-black">
+                            Launching in <b className='ml-0.25em'>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
                         </p>
 
                     </div>
@@ -100,7 +100,7 @@ export default function Home() {
                             <a rel="noreferrer" target="_blank" href="https://operators.urbit.org/guides/running-a-star" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
-                        backgroundImage:"url('/assets/sigil-grid.png')",
+                        backgroundImage:"url('/assets/floaty-sigil.png')",
                         backgroundSize:"cover",
                         backgroundPosition:"center",
                         width: '300px',
@@ -149,7 +149,7 @@ export default function Home() {
                         </h2>
                         <p>Urbit Wrapped Star (WSTR) is an ERC-20 token that represents 1 Urbit star. Through Star Market, 1 star, an ERC-721 token, can be converted to 1 wrapped star, and vice-versa. The stars redeemed by a wrapped star are dolled out on a last-in-first-out basis.
                         </p>
-                            <a href="https://star.market/about" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                        <a href="https://star.market/about" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/network-graph.png')",
