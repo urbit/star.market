@@ -54,7 +54,7 @@ export default function Home() {
                         <p>Star Market is the only place to swap to your Urbit star for a WSTR.
 </p>
 
-                        <p>Stars are businesses, supermodels, and service providers on the Urbit Network. </p>
+                        <p>Stars are businesses, supernodes, and service providers on the Urbit Network. </p>
 
                         <p className="timer bg-yellow text-black table">
                             Launching in <b>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
