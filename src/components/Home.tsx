@@ -94,10 +94,10 @@ export default function Home() {
                         <h2>
                             Infrastructure for businesses and communities
                         </h2>
-                        <p>There are 5 different types of Urbit IDs. A star is an infrastructure node and as such is for businesses, communities, or metropolises. Stars spawn and sponsor planets, perform peer routing, provide services, and swap for WSTR. (You can swap stars for WSTR
-                        <a rel="noreferrer" target="_blank" href="https://operators.urbit.org/guides/running-a-star">heree</a>. There are 2^16 (~65K) stars and each can sponsor ~65K planets.
+                        <p>There are 5 different types of Urbit IDs. A star is an infrastructure node and as such is for businesses, communities, or metropolises. Stars spawn and sponsor planets, perform peer routing, provide services, and swap for WSTR. There are 2^16 (~65K) stars and each can sponsor ~65K planets.
+                       
                         </p>
-                            <a rel="noreferrer" target="_blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                            <a rel="noreferrer" target="_blank" href="https://operators.urbit.org/guides/running-a-star" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/sigil-grid.png')",
@@ -149,7 +149,7 @@ export default function Home() {
                         </h2>
                         <p>Urbit Wrapped Star (WSTR) is an ERC-20 token that represents 1 Urbit star. Through Star Market, 1 star, an ERC-721 token, can be converted to 1 wrapped star, and vice-versa. The stars redeemed by a wrapped star are dolled out on a last in first out basis.
                         </p>
-                            <a href="https://operators.urbit.org" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                            <a href="https://star.market/about" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/network-graph.png')",
