@@ -9,10 +9,10 @@ export default function About() {
 
             <section className="layout">
                 <div className="measure-narrow hero-text">
-                <p>Star Market is the only place to swap to your Urbit star for a WSTR.
+                <p>Star Market is the only place to swap your Urbit star for a WSTR.
                 </p>
                 <p>
-                Stars are gateways to building businesses, supernodes, and other provider services on 
+                Stars are gateways to building businesses, communities, supernodes, and other provider services on 
                     the Urbit Network.
                 </p>
 
