@@ -53,7 +53,7 @@ export default function About() {
                     <tbody>
                         <tr>
                             <td>Token Description</td>
-                            <td><p>WSTR is a token representing a 'wrapped urbit star', with 1 (fungible) WSTR representing one (nonfungible) star. $WSTR is intended to bring liquidity to the star asset class, which is a primary investment mechanism on the Urbit network.</p></td>
+                            <td><p>Urbit Wrapped Star (WSTR) is an ERC-20 token that represents one Urbit star which is an ERC-721 token. Through Star Market, one star can be converted to one wrapped star, and vice-versa. The stars redeemed by a wrapped star are doled out on a last-in-first-out basis.</p></td>
                         </tr>
                     </tbody>
                 </table>
