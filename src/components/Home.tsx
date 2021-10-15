@@ -147,9 +147,9 @@ export default function Home() {
                         <h2>
                             1 WSTR = 1 star
                         </h2>
-                        <p>Urbit Wrapped Star (WSTR) is an ERC-20 token that represents 1 Urbit star which is an ERC-721 token. Through Star Market, 1 star can be converted to 1 wrapped star, and vice-versa. The stars redeemed by a wrapped star are doled out on a last-in-first-out basis.
+                        <p>Urbit Wrapped Star (WSTR) is an ERC-20 token that represents one Urbit star which is an ERC-721 token. Through Star Market, one star can be converted to one wrapped star, and vice-versa. The stars redeemed by a wrapped star are doled out on a last-in-first-out basis.
                         </p>
-                        <a href="https://star.market/about" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">Visit Star Market</a>
+                        <a href="https://star.market/about" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">About WSTR</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/network-graph.png')",
