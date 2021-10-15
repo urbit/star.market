@@ -63,7 +63,7 @@ export default function About() {
                         <tr>
                             <td>Contract Address</td>
                             <td>
-                                <a rel="noreferrer" target="_blank" href="https://github.com/ransonhobbes/stardust">etherscan link to contract address goes here once launched</a>
+                                Coming Soon
                             </td>
                         </tr>
                         <tr>
