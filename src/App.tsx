@@ -139,12 +139,12 @@ const App = () => {
     <BrowserRouter>
       <ThemeProvider theme={false ? dark : light}>
       <Switch>
-          <Route path="/app">
-            {/* <Container/> refers to the swap app */}
-            {/* <Container {...{ refresh, connectMetamask, connectWalletConnector }} />
-            */}
+          {/* <Container/> refers to the swap app */}
+          {/* <Route path="/app">
             
-          </Route>
+          <Container {...{ refresh, connectMetamask, connectWalletConnector }} />
+            
+          </Route> */}
           <Route path="/about">
             <About />
           </Route>
