@@ -54,7 +54,7 @@ export default function Home() {
                         <p>Star Market is the only place to swap to your Urbit star for a WSTR.
 </p>
 
-                        <p>Stars are businesses, supermodels, and service providers on the Urbit Network. </p>
+                        <p>Stars are businesses, supernodes, and service providers on the Urbit Network. </p>
 
                         <p className="timer bg-yellow text-black">
                             Launching in <b className='ml-0.25em'>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
@@ -73,7 +73,7 @@ export default function Home() {
                         </h2>
                         <p>Urbit ID is a decentralized addressing system and public key infrastructure designed for Urbit OS. It is a unique number, a username, an avatar, a piece of a collectively owned network, and a key to a new digital world. Sort of like DNS, IP and a username system combined into one thing. Each Urbit ID is an ERC-721 NFT on the Ethereum blockchain.
                         </p>
-                            <a rel="noreferrer" target="_blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                            <a rel="noreferrer" target="_blank" href="https://urbit.org/understanding-urbit/urbit-id" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/sigil-grid.png')",
@@ -94,10 +94,10 @@ export default function Home() {
                         <h2>
                             Infrastructure for businesses and communities
                         </h2>
-                        <p>There are 5 different types of Urbit IDs. A star is an infrastructure node and as such is for businesses, communities, or metropolises. Stars spawn and sponsor planets, perform peer routing, provide services, and swap for WSTR. (You can swap stars for WSTR
-                        <a rel="noreferrer" target="_blank" href="https://star.market">heree</a>. There are 2^16 (~65K) stars and each can sponsor ~65K planets.
+                        <p>There are 5 different types of Urbit IDs. A star is an infrastructure node and, as such, is for businesses, communities, or metropolises. Stars spawn and sponsor planets, perform peer routing, provide services, and swap for WSTR. There are 2^16 (~65K) stars and each can sponsor ~65K planets.
+                       
                         </p>
-                            <a rel="noreferrer" target="_blank" href="https://urbit.org" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                            <a rel="noreferrer" target="_blank" href="https://operators.urbit.org/guides/running-a-star" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/floaty-sigil.png')",
@@ -147,10 +147,9 @@ export default function Home() {
                         <h2>
                             1 WSTR = 1 star
                         </h2>
-                        <p>
-                            Urbit Wrapped Star (WSTR) is an ERC-20 token that represents 1 Urbit star. Through Star Market, 1 star, an ERC-721 token, can be converted to 1 wrapped star, and vice-versa. The stars redeemed by a wrapped star are dolled out on a last in first out basis.
+                        <p>Urbit Wrapped Star (WSTR) is an ERC-20 token that represents 1 Urbit star. Through Star Market, 1 star, an ERC-721 token, can be converted to 1 wrapped star, and vice-versa. The stars redeemed by a wrapped star are dolled out on a last-in-first-out basis.
                         </p>
-                        <a href="https://operators.urbit.org" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
+                        <a href="https://star.market/about" rel="noreferrer" className="inline-block mt-1 button-sm button-bg-black">Learn More</a>
                     </div>
                     <div style={{
                         backgroundImage:"url('/assets/network-graph.png')",
