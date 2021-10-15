@@ -9,8 +9,7 @@ export default function About() {
 
             <section className="layout">
                 <div className="measure-narrow hero-text">
-                <p>Star Market is the easiest 
-                    way to obtain a Star.
+                <p>Star Market is the only place to swap to your Urbit star for a WSTR.
                 </p>
                 <p>
                 Stars are gateways to building businesses, supernodes, and other provider services on 
@@ -18,7 +17,7 @@ export default function About() {
                 </p>
 
                 <p>
-                    Urbit is a clean-slate OS and network.
+                    Urbit is a peer-to-peer network of personal servers in the cloud.
                     Learn more about Urbit at <a href="urbit.org" rel="noreferrer" target="_blank">Urbit.org</a>.
                 </p>
             </div>
