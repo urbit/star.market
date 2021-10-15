@@ -1043,16 +1043,15 @@ button:hover {
   padding-bottom: 0.5em;
   border-radius: 99em;
   font-weight: 500;
+  width: 290px;
+  display: flex;
+  justify-content: center;
 }
 
 .timer p b {
   font-weight: 600;
-  font-family: 'Source Code Pro';
+  // font-family: 'Source Code Pro';
 }
-
-// .timer .blinky {
-//   animation: blink-animation 2s steps(2, start) infinite;
-// }
 
 @keyframes blink-animation {
   to {
@@ -1067,9 +1066,13 @@ button:hover {
 }
 
 .text-black {
-  color: black
+  color: black;
 }
 
 .table {
-  display: table
+  display: table;
+}
+
+.ml-0\.25em {
+  margin-left: 0.25em;
 }
