@@ -51,13 +51,13 @@ export default function Home() {
                 <div className="hero-rect" style={{backgroundImage: "url('/assets/hero.jpg')"}}>
                     <Logo className="logo" />
                     <div className="inner-text measure-narrow">
-                        <p>Star Market is the only place to swap to your Urbit star for a WSTR.
+                        <p>Star Market is the only place to swap your Urbit star for a WSTR.
 </p>
 
                         <p>Stars are businesses, supernodes, and service providers on the Urbit Network. </p>
 
                         <p className="timer bg-yellow text-black">
-                            Launching in <b className='ml-0.25em'>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
+                            Launching soon
                         </p>
 
                     </div>
