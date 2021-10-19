@@ -57,7 +57,7 @@ export default function Home() {
                         <p>Stars are businesses, supernodes, and service providers on the Urbit Network. </p>
 
                         <p className="timer bg-yellow text-black">
-                            Launching in <b className='ml-0.25em'>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
+                            Launching soon.
                         </p>
 
                     </div>
