@@ -10,7 +10,7 @@ import dark from './components/themes/dark'
 
 import { useStore } from './store';
 import Api from './api';
-// import Container from './components/Container'
+import Container from './components/Container'
 
 import Home from './components/Home'
 import About from './components/About'
@@ -140,11 +140,11 @@ const App = () => {
       <ThemeProvider theme={false ? dark : light}>
       <Switch>
           {/* <Container/> refers to the swap app */}
-          {/* <Route path="/app">
+          <Route path="/app">
             
           <Container {...{ refresh, connectMetamask, connectWalletConnector }} />
             
-          </Route> */}
+          </Route>
           <Route path="/about">
             <About />
           </Route>

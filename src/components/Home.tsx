@@ -55,11 +55,7 @@ export default function Home() {
 </p>
 
                         <p>Stars are businesses, supernodes, and service providers on the Urbit Network. </p>
-
-                        <p className="timer bg-yellow text-black">
-                            Launching soon
-                        </p>
-
+                        
                     </div>
                 </div>
             </section>

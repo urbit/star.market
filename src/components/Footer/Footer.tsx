@@ -21,11 +21,11 @@ export default function Footer() {
                             About
                         </div>
                     </Link>
-                    {/* <Link to="/app">
+                    <Link to="/app">
                         <div className="toolbar-link">
                             Launch App
                         </div>
-                    </Link> */}
+                    </Link>
                     <Link to="/disclaimer">
                         <div className="toolbar-link">
                             Disclaimer
