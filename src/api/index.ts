@@ -10,7 +10,6 @@ const ajs = require('azimuth-js')
 
 const {
   REACT_APP_AZIMUTH_ADDRESS,
-  REACT_APP_ECLIPTIC_ADDRESS,
   REACT_APP_TREASURY_ADDRESS,
 } = process.env
 
@@ -24,7 +23,9 @@ const showNotConnectedAlert = () =>
 export default class Api {
   web3: Web3
   account: Account
-  ecliptic: Contract
+  contracts?: any
+  eclipticAddress?: string
+  ecliptic?: Contract
   treasury: Contract
 
   constructor(account: Account) {
@@ -37,8 +38,17 @@ export default class Api {
     }
 
     this.web3 = new Web3(ethereum); // use infura connection if ethereum isn't available?
-    this.ecliptic = new this.web3.eth.Contract(ECLIPTIC_ABI, REACT_APP_ECLIPTIC_ADDRESS)
     this.treasury = new this.web3.eth.Contract(TREASURY_ABI, REACT_APP_TREASURY_ADDRESS)
+
+    ajs.initContractsPartial(this.web3, REACT_APP_AZIMUTH_ADDRESS)
+      .then((contracts: any) => {
+        this.contracts = contracts
+        return ajs.azimuth.owner(contracts)
+      })
+      .then((eclipticAddress: string) => {
+        this.eclipticAddress = eclipticAddress
+        this.ecliptic = new this.web3.eth.Contract(ECLIPTIC_ABI, eclipticAddress)
+      })
   }
 
   connectMetamask = async () => {
@@ -49,8 +59,6 @@ export default class Api {
 
       this.account.currentAddress = ethereum.selectedAddress
 
-      this.web3 = new Web3(ethereum);
-      this.ecliptic = new this.web3.eth.Contract(ECLIPTIC_ABI, REACT_APP_ECLIPTIC_ADDRESS)
       this.treasury = new this.web3.eth.Contract(TREASURY_ABI, REACT_APP_TREASURY_ADDRESS)
     }
   }
@@ -64,15 +72,17 @@ export default class Api {
 
   getStars = async () : Promise<Star[]> => {
     this.checkConnection()
-
-    const contracts = await ajs.initContractsPartial(this.web3, REACT_APP_AZIMUTH_ADDRESS)
-    const points = await ajs.azimuth.getOwnedPoints(contracts, this.account.currentAddress)
+    if (!this.contracts) {
+      return []
+    }
+    
+    const points = await ajs.azimuth.getOwnedPoints(this.contracts, this.account.currentAddress)
   
     const stars : Star[] = await Promise.all(points
       .map(Number)
       .filter(ajs.check.isStar)
       .map(async (point: number) => {
-        const isUnlinked = !(await ajs.azimuth.hasBeenLinked(contracts, point))
+        const isUnlinked = !(await ajs.azimuth.hasBeenLinked(this.contracts, point))
   
         return new Star({
           point,
@@ -101,10 +111,13 @@ export default class Api {
 
   depositStar = async (star: Star, gasPrice?: number) : Promise<string | undefined> =>  {
     this.checkConnection()
+    if (!this.ecliptic || !this.eclipticAddress) {
+      return;
+    }
 
     const rawProxyTxn = {
       from: this.account.currentAddress!, 
-      to: REACT_APP_ECLIPTIC_ADDRESS, 
+      to: this.eclipticAddress,
       data: this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).encodeABI(),
       gas: SET_TRANSFER_PROXY_GAS_LIMIT, 
       gasPrice,
