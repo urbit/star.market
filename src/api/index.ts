@@ -10,8 +10,6 @@ const ajs = require('azimuth-js')
 
 const {
   REACT_APP_AZIMUTH_ADDRESS,
-  REACT_APP_POLLS_ADDRESS,
-  REACT_APP_CLAIMS_ADDRESS,
   REACT_APP_ECLIPTIC_ADDRESS,
   REACT_APP_TREASURY_ADDRESS,
 } = process.env
@@ -26,7 +24,7 @@ const showNotConnectedAlert = () =>
 export default class Api {
   web3: Web3
   account: Account
-  ecliptic: Contract
+  ecliptic?: Contract
   treasury: Contract
 
   constructor(account: Account) {
@@ -67,12 +65,7 @@ export default class Api {
   getStars = async () : Promise<Star[]> => {
     this.checkConnection()
 
-    const contracts = await ajs.initContracts(this.web3, {
-      azimuth: REACT_APP_AZIMUTH_ADDRESS,
-      polls: REACT_APP_POLLS_ADDRESS,
-      claims: REACT_APP_CLAIMS_ADDRESS,
-      ecliptic: REACT_APP_ECLIPTIC_ADDRESS,
-    })
+    const contracts = await ajs.initContractsPartial(this.web3, REACT_APP_AZIMUTH_ADDRESS)
     const points = await ajs.azimuth.getOwnedPoints(contracts, this.account.currentAddress)
   
     const stars : Star[] = await Promise.all(points
@@ -108,55 +101,55 @@ export default class Api {
 
   depositStar = async (star: Star, gasPrice?: number) : Promise<string | undefined> =>  {
     this.checkConnection()
+    return
 
-    const rawProxyTxn = {
-      from: this.account.currentAddress!, 
-      to: REACT_APP_ECLIPTIC_ADDRESS, 
-      data: this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).encodeABI(),
-      gas: SET_TRANSFER_PROXY_GAS_LIMIT, 
-      gasPrice,
-    }
+    // const rawProxyTxn = {
+    //   from: this.account.currentAddress!, 
+    //   to: REACT_APP_ECLIPTIC_ADDRESS, 
+    //   data: this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).encodeABI(),
+    //   gas: SET_TRANSFER_PROXY_GAS_LIMIT, 
+    //   gasPrice,
+    // }
 
-    const rawDepositTxn = {
-      from: this.account.currentAddress!, 
-      to: REACT_APP_TREASURY_ADDRESS, 
-      data: this.treasury.methods.deposit(star.point).encodeABI(),
-      gas: DEPOSIT_GAS_LIMIT, 
-      gasPrice,
-    }
+    // const rawDepositTxn = {
+    //   from: this.account.currentAddress!, 
+    //   to: REACT_APP_TREASURY_ADDRESS, 
+    //   data: this.treasury.methods.deposit(star.point).encodeABI(),
+    //   gas: DEPOSIT_GAS_LIMIT, 
+    //   gasPrice,
+    // }
 
-    if (this.account.urbitWallet) {
-      const privateKey = this.account.urbitWallet.ownership.keys.private
+    // if (this.account.urbitWallet) {
+    //   const privateKey = this.account.urbitWallet.ownership.keys.private
 
-      const signedProxyTx = await this.web3.eth.accounts.signTransaction(rawProxyTxn, privateKey)
+    //   const signedProxyTx = await this.web3.eth.accounts.signTransaction(rawProxyTxn, privateKey)
 
-      if (signedProxyTx?.rawTransaction) {
-        await this.web3.eth.sendSignedTransaction(signedProxyTx.rawTransaction)
+    //   if (signedProxyTx?.rawTransaction) {
+    //     await this.web3.eth.sendSignedTransaction(signedProxyTx.rawTransaction)
 
-        const signedDepositTxn = await this.web3.eth.accounts.signTransaction(rawDepositTxn, privateKey)
+    //     const signedDepositTxn = await this.web3.eth.accounts.signTransaction(rawDepositTxn, privateKey)
   
-        if (signedDepositTxn?.rawTransaction) {
-          const { transactionHash } = await this.web3.eth.sendSignedTransaction(signedDepositTxn.rawTransaction)
-          return transactionHash
-        }
-      }
+    //     if (signedDepositTxn?.rawTransaction) {
+    //       const { transactionHash } = await this.web3.eth.sendSignedTransaction(signedDepositTxn.rawTransaction)
+    //       return transactionHash
+    //     }
+    //   }
 
-    } else if (this.account.walletConnection) {
-      await this.account.walletConnection.sendTransaction(rawProxyTxn)
-      const transactionHash = await this.account.walletConnection.sendTransaction(rawDepositTxn)
-      return transactionHash
+    // } else if (this.account.walletConnection) {
+    //   await this.account.walletConnection.sendTransaction(rawProxyTxn)
+    //   const transactionHash = await this.account.walletConnection.sendTransaction(rawDepositTxn)
+    //   return transactionHash
 
-    } else {
-      await this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
-        from: this.account.currentAddress
-      })
+    // } else {
+    //   await this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
+    //     from: this.account.currentAddress
+    //   })
   
-      const { transactionHash } = await this.treasury.methods.deposit(star.point).send({
-        from: this.account.currentAddress
-      })
-      return transactionHash
-    }
-    
+    //   const { transactionHash } = await this.treasury.methods.deposit(star.point).send({
+    //     from: this.account.currentAddress
+    //   })
+    //   return transactionHash
+    // }
   }
 
   redeemTokens = async (tokens: number, gasPrice?: number) : Promise<string[]> => {
