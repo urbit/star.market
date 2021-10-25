@@ -66,6 +66,8 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
   />
 
   const refreshValues = useCallback(async () => {
+    await api.loadContracts()
+
     const newStars = await api.getStars().catch((error) => {
       console.error(error)
       return []
@@ -88,16 +90,22 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     setExchange(exchange === Exchange.starsForDust ? Exchange.dustForStars : Exchange.starsForDust)
   }, [api, setStars, setDust, setTreasuryBalance, exchange, setExchange])
   
-  const confirmTrade = async () => {
+  const confirmTrade = useCallback(async () => {
     setLoading(true)
 
     if (exchange === Exchange.starsForDust) {
       try {
-        const hashes : string[] = [];
-        for (let i = 0; i < selectedStars.length; i++) {
-          const hash = await api.depositStar(selectedStars[i])
-          hashes.push(hash || '');
-        }
+        await api.loadContracts()
+        await Promise.all(
+          selectedStars.map(api.setTransferProxy)
+        )
+        const hashes = await Promise.all(
+          selectedStars.map(async (star) => {
+            const hash = await api.depositStar(star)
+            return hash || ''
+          })
+        )
+
         setSuccessTxHashes(hashes)
         setSelectedStars([])
         await refreshValues()
@@ -119,7 +127,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     }
 
     setLoading(false)
-  }
+  }, [api, dustInput, exchange, refreshValues, selectedStars, setErrorMessage, setLoading, setSuccessTxHashes])
 
   const hasAddress = Boolean(account.currentAddress)
   const disableButton = starsForDust ? !selectedStars.length : !Number(dustInput)
@@ -168,7 +176,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
                 <Box className="confirm-trade-modal">
                   <Box className="message">
                     {selectedStars.length
-                    ? 'You will need to make 2 transactions per star. The first to authorize the WSTR contract to transfer your star, the second to deposit the star.'
+                    ? 'You will need to make 2 transactions per star if the star\'s transfer proxy is not already set to the WSTR treasury contract. The first to authorize the WSTR contract to transfer your star, the second to deposit the star.'
                     : 'You will need to make 1 transaction per star.'}
                   </Box>
                   <Row className="buttons" gapX={3}>

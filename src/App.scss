@@ -381,6 +381,7 @@ form.master-ticket-form {
   background-color: $form-background;
   display: flex;
   flex-direction: column;
+  min-width: 400px;
 
   button.close {
     background-color: $form-background;
