@@ -45,6 +45,8 @@ const App = () => {
     if (account.currentAddress) {
       setLoading(true)
       const api = new Api(account)
+
+      await api.loadContracts()
   
       const stars = await api.getStars().catch(console.error)
       setStars(stars || [])

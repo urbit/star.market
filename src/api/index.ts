@@ -2,7 +2,7 @@ import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract'
 
 import Account from '../account'
-import { DUST_ABI, ECLIPTIC_ABI, TREASURY_ABI } from '../constants/abi'
+import { DUST_ABI, TREASURY_ABI } from '../constants/abi'
 import { TOKENS_PER_STAR } from '../constants/token'
 import Star from '../types/Star'
 
@@ -39,16 +39,14 @@ export default class Api {
 
     this.web3 = new Web3(ethereum); // use infura connection if ethereum isn't available?
     this.treasury = new this.web3.eth.Contract(TREASURY_ABI, REACT_APP_TREASURY_ADDRESS)
+  }
 
-    ajs.initContractsPartial(this.web3, REACT_APP_AZIMUTH_ADDRESS)
-      .then((contracts: any) => {
-        this.contracts = contracts
-        return ajs.azimuth.owner(contracts)
-      })
-      .then((eclipticAddress: string) => {
-        this.eclipticAddress = eclipticAddress
-        this.ecliptic = new this.web3.eth.Contract(ECLIPTIC_ABI, eclipticAddress)
-      })
+  loadContracts = async () => {
+    const contracts = await ajs.initContractsPartial(this.web3, REACT_APP_AZIMUTH_ADDRESS)
+    this.contracts = contracts
+    this.ecliptic = contracts.ecliptic
+    const eclipticAddress = await ajs.azimuth.owner(contracts)
+    this.eclipticAddress = eclipticAddress
   }
 
   connectMetamask = async () => {
@@ -56,10 +54,8 @@ export default class Api {
 
     if (ethereum) {
       await ethereum.request({ method: 'eth_requestAccounts' });
-
       this.account.currentAddress = ethereum.selectedAddress
-
-      this.treasury = new this.web3.eth.Contract(TREASURY_ABI, REACT_APP_TREASURY_ADDRESS)
+      this.loadContracts()
     }
   }
 
@@ -109,18 +105,45 @@ export default class Api {
     return (dust / TOKENS_PER_STAR)
   }
 
-  depositStar = async (star: Star, gasPrice?: number) : Promise<string | undefined> =>  {
-    this.checkConnection()
-    if (!this.ecliptic || !this.eclipticAddress) {
-      return;
+  setTransferProxy = async (star: Star, gasPrice?: number) : Promise<string | undefined> =>  {
+    if (!this.contracts || !this.ecliptic || !this.eclipticAddress) {
+      throw new Error('You must refresh the page.')
+    }
+    const transferProxy : string = await ajs.azimuth.getTransferProxy(this.contracts, star.point)
+    
+    if (transferProxy === REACT_APP_TREASURY_ADDRESS) { // Already set
+      return
     }
 
     const rawProxyTxn = {
       from: this.account.currentAddress!, 
       to: this.eclipticAddress,
       data: this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).encodeABI(),
-      gas: SET_TRANSFER_PROXY_GAS_LIMIT, 
+      gas: SET_TRANSFER_PROXY_GAS_LIMIT,
       gasPrice,
+    }
+
+    if (this.account.urbitWallet) {
+      const privateKey = this.account.urbitWallet.ownership.keys.private
+
+      const signedProxyTx = await this.web3.eth.accounts.signTransaction(rawProxyTxn, privateKey)
+
+      if (signedProxyTx?.rawTransaction) {
+        return (await this.web3.eth.sendSignedTransaction(signedProxyTx.rawTransaction)).transactionHash
+      }
+    } else if (this.account.walletConnection) {
+      return this.account.walletConnection.sendTransaction(rawProxyTxn)
+    } else {
+      return this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
+        from: this.account.currentAddress
+      })
+    }
+  }
+
+  depositStar = async (star: Star, gasPrice?: number) : Promise<string | undefined> =>  {
+    this.checkConnection()
+    if (!this.ecliptic || !this.eclipticAddress) {
+      throw new Error('Ecliptic address not set')
     }
 
     const rawDepositTxn = {
@@ -133,30 +156,18 @@ export default class Api {
 
     if (this.account.urbitWallet) {
       const privateKey = this.account.urbitWallet.ownership.keys.private
+      const signedDepositTxn = await this.web3.eth.accounts.signTransaction(rawDepositTxn, privateKey)
 
-      const signedProxyTx = await this.web3.eth.accounts.signTransaction(rawProxyTxn, privateKey)
-
-      if (signedProxyTx?.rawTransaction) {
-        await this.web3.eth.sendSignedTransaction(signedProxyTx.rawTransaction)
-
-        const signedDepositTxn = await this.web3.eth.accounts.signTransaction(rawDepositTxn, privateKey)
-  
-        if (signedDepositTxn?.rawTransaction) {
-          const { transactionHash } = await this.web3.eth.sendSignedTransaction(signedDepositTxn.rawTransaction)
-          return transactionHash
-        }
+      if (signedDepositTxn?.rawTransaction) {
+        const { transactionHash } = await this.web3.eth.sendSignedTransaction(signedDepositTxn.rawTransaction)
+        return transactionHash
       }
 
     } else if (this.account.walletConnection) {
-      await this.account.walletConnection.sendTransaction(rawProxyTxn)
       const transactionHash = await this.account.walletConnection.sendTransaction(rawDepositTxn)
       return transactionHash
 
     } else {
-      await this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
-        from: this.account.currentAddress
-      })
-  
       const { transactionHash } = await this.treasury.methods.deposit(star.point).send({
         from: this.account.currentAddress
       })

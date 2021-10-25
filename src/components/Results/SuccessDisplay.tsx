@@ -14,13 +14,13 @@ const SuccessDisplay = ({ onClose } : { onClose: () => void }) => {
     return false
   }
 
-  const firstSentence = successTxHashes.length > 1
-    ? 'Your transactions have been sent and are now pending'
-    : 'Your transaction has been sent and is now pending'
+  // const firstSentence = successTxHashes.length > 1
+  //   ? 'Your transactions have been sent and are now pending'
+  //   : 'Your transaction has been sent and is now pending'
   const transaction = successTxHashes.length > 1 ? 'transactions' : 'transaction'
-  const completionClause = successTxHashes.length > 1
-    ? 'Once the transactions complete'
-    : 'Once the transaction completes'
+  // const completionClause = successTxHashes.length > 1
+  //   ? 'Once the transactions complete'
+  //   : 'Once the transaction completes'
 
   return <div className="display-container success" onClick={stopClick}>
     <Row className="title">
@@ -28,7 +28,7 @@ const SuccessDisplay = ({ onClose } : { onClose: () => void }) => {
       <h1>Success!</h1>
     </Row>
     <div className="message">
-      {firstSentence}. You can see your {transaction} on etherscan:
+      {/* {firstSentence}. */}You can see your {transaction} on etherscan:
       <br />
       <div className="transactions">
         {successTxHashes.map((hash: string, index: number) => <Anchor href="/#" onClick={openLink(`${ETHERSCAN_TX_URL}${hash}`)} key={hash}>
@@ -36,7 +36,7 @@ const SuccessDisplay = ({ onClose } : { onClose: () => void }) => {
         </Anchor>)}
       </div>
       <br />
-      {completionClause}, you will need to refresh the page using the button in the upper right of the screen.
+      {/* {completionClause}, you will need to refresh the page using the button in the upper right of the screen. */}
     </div>
     <Button borderRadius={3} onClick={onClose}>Close</Button>
   </div>
