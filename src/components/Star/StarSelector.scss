@@ -11,13 +11,14 @@
   width: 16rem;
   padding: 0.5rem 0.75rem;
   cursor: pointer;
+  background-color: white;
   
   .selected-stars {
     font-weight: 600;
     position: relative;
+    color: black;
 
     &.selected {
-      color: black;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

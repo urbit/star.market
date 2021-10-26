@@ -63,7 +63,7 @@ export default function ConfirmationForm ({ starsForDust, stars, dust, onConfirm
     </div>
     <div className="buttons">
       <Button className="cancel" onClick={onCancel} borderRadius={3}>Cancel</Button>
-      <Button className={`confirm ${starsForDust ? 'star' : 'wstr'}`} borderRadius={3} onClick={onConfirm}>Confirm</Button>
+      <Button className={`confirm ${starsForDust ? 'star' : 'wstr'}`} borderRadius={3} onClick={onConfirm}>Execute</Button>
     </div>
   </form>
 }

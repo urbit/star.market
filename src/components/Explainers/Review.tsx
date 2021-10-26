@@ -2,11 +2,7 @@ import { Box, Text, Paragraph, Image, Anchor, Ul, Li } from '@tlon/indigo-react'
 import stalagmites from '../Icons/stalagmites.png';
 import go from '../Icons/go.png';
 
-interface ReviewProps {
-  count: 1 | 2;
-}
-
-export const Review = ({ count }: ReviewProps) => {
+export const Review = () => {
   return (
     <Box
       alignSelf="start"
@@ -19,7 +15,7 @@ export const Review = ({ count }: ReviewProps) => {
     >
       <Text display="block" bold marginBottom="50px" opacity={.6}>Review</Text>
       <Paragraph fontWeight="bold" fontSize="20px" marginBottom="50px">
-        You’ll need to accept {count} transaction{count === 1 ? '' : 's'} in your wallet in order to receive your swapped assets.
+        You’ll need to accept a transaction in your wallet in order to receive your swapped assets.
       </Paragraph>
       <Ul listStyle="none">
         <Li marginBottom={3}>

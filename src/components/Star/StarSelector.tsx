@@ -1,4 +1,4 @@
-import React from "react"
+import React, { MouseEvent } from "react"
 
 import { Icon, Row, Box, Text, Button } from "@tlon/indigo-react"
 import StarList from "./StarList"
@@ -15,6 +15,10 @@ interface StarSelectorProps {
   disabled: boolean
 }
 
+const stop = (e: MouseEvent) => {
+  e.stopPropagation()
+}
+
 export default function StarSelector (
   { toggleStarSelector, selectedStars, selectStar, showStarSelector, disabled } : StarSelectorProps
 ) {
@@ -26,7 +30,7 @@ export default function StarSelector (
     </div>
     <Icon icon="ChevronSouth" />
     {showStarSelector && <Modal hideModal={toggleStarSelector}>
-      <Box className="star-selector-modal">
+      <Box className="star-selector-modal" onClick={stop}>
         <Text className="title">Select stars to swap</Text>
         <Text className="info">
           You can only select unbooted stars to swap with wrapped token assets.
