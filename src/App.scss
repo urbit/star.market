@@ -151,7 +151,8 @@ form {
     
     background: white;
     border-radius: 8px;
-    color: $medium-grey;
+    color: black;
+    font-weight: bold;
 
     &.wstr {
       color: $dust-blue;
@@ -241,7 +242,7 @@ form {
 
   .exchange-rate {
     margin: 1rem 0rem;
-    color: $medium-grey;
+    // color: $medium-grey;
     font-weight: 600;
   }
 }

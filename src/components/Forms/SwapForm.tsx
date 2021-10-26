@@ -1,6 +1,6 @@
 import { useState, useCallback, ChangeEvent } from "react"
 
-import { Box, Button, Col, Row, Text } from "@tlon/indigo-react"
+import { Box, Col, Row, Text } from "@tlon/indigo-react"
 import { sigil, reactRenderer } from '@tlon/sigil-js'
 import ReceiveDisplay from './ReceiveDisplay'
 import Star from "../../types/Star"
@@ -13,7 +13,6 @@ import Swap from "../Icons/Swap"
 import Logo from '../Icons/Logo';
 import { getExchangeRate } from "../../utils/text"
 import Balance from "../Balance"
-import Modal from "../Modal"
 import { SwapStars } from "../Explainers/SwapStars"
 import { SwapWSTR } from "../Explainers/SwapWSTR"
 import { Review } from "../Explainers/Review"
@@ -87,8 +86,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     setTreasuryBalance(newTreasuryBalance)
 
     setConfirm(false)
-    setExchange(exchange === Exchange.starsForDust ? Exchange.dustForStars : Exchange.starsForDust)
-  }, [api, setStars, setDust, setTreasuryBalance, exchange, setExchange])
+  }, [api, setStars, setDust, setTreasuryBalance])
   
   const confirmTrade = useCallback(async () => {
     setLoading(true)
@@ -158,7 +156,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     <Col flexDirection={['column', 'column', 'column','row-reverse']}>
       { confirm
         ? <>
-            <Review count={selectedStars.length ? 2 : 1}/>
+            <Review/>
             <Box 
               className="form-holder" 
               maxWidth="576px" 
@@ -169,10 +167,10 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
                 starsForDust={starsForDust}
                 dust={Number(dustInput)}
                 stars={selectedStars}
-                onConfirm={() => setShowConfirmTrade(true)}
+                onConfirm={confirmTrade}
                 onCancel={() => setConfirm(false)}
               />
-              {showConfirmTrade && <Modal hideModal={() => setShowConfirmTrade(false)}>
+              {/* {showConfirmTrade && <Modal hideModal={() => setShowConfirmTrade(false)}>
                 <Box className="confirm-trade-modal">
                   <Box className="message">
                     {selectedStars.length
@@ -181,10 +179,10 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
                   </Box>
                   <Row className="buttons" gapX={3}>
                     <Button className="cancel" borderRadius={3} onClick={() => setShowConfirmTrade(false)}>Cancel</Button>
-                    <Button className="confirm" borderRadius={3} onClick={confirmTrade}>Confirm</Button>
+                    <Button className="confirm" borderRadius={3} onClick={confirmTrade}>Execute</Button>
                   </Row>
                 </Box>
-              </Modal>}
+              </Modal>} */}
             </Box>
           </>
         :

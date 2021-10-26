@@ -44,7 +44,7 @@ const StarEntry = ({ star, selected = false, onSelect, showCheckbox = false }: S
       })}
       <div>{name}</div>
     </Row>
-    <Button className="select-star">{selected ? 'Swapping' : 'Swap'}</Button>
+    <Button className="select-star">{selected ? 'Selected' : 'Select'}</Button>
   </Row>
 }
 
