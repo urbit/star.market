@@ -27,7 +27,7 @@ interface SwapFormProps {
 }
 
 const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
-  const { account, api, dust, stars, gasPrice, setStars, setDust, setTreasuryBalance, setLoading, setSuccessTxHashes, setErrorMessage } = useStore()
+  const { account, api, dust, stars, gasPrice, setStars, setDust, setTreasuryBalance, setLoading, setLoadingText, setSuccessTxHashes, setErrorMessage } = useStore()
   const [dustInput, setDustInput] = useState('')
   const [showStarSelector, setShowStarSelector] = useState(false)
   const [showConfirmTrade, setShowConfirmTrade] = useState(false)
@@ -89,7 +89,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
   }, [api, setStars, setDust, setTreasuryBalance])
   
   const confirmTrade = useCallback(async () => {
-    setLoading(true)
+    setLoadingText('Waiting for setTransferProxy to complete...')
 
     if (exchange === Exchange.starsForDust) {
       try {
@@ -97,6 +97,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
         await Promise.all(
           selectedStars.map(api.setTransferProxy, gasPrice)
         )
+        setLoadingText('Waiting for star deposit to complete...')
         const hashes = await Promise.all(
           selectedStars.map(async (star) => {
             const hash = await api.depositStar(star, gasPrice)
@@ -113,6 +114,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
       }
     } else {
       try {
+        setLoadingText('Waiting for star redemption to complete...')
         const hashes = await api.redeemTokens(Number(dustInput), gasPrice)
         setSuccessTxHashes(hashes)
         setDustInput('0')
@@ -125,7 +127,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     }
 
     setLoading(false)
-  }, [api, dustInput, exchange, refreshValues, selectedStars, gasPrice, setErrorMessage, setLoading, setSuccessTxHashes])
+  }, [api, dustInput, exchange, refreshValues, selectedStars, gasPrice, setErrorMessage, setLoading, setLoadingText, setSuccessTxHashes])
 
   const hasAddress = Boolean(account.currentAddress)
   const disableButton = starsForDust ? !selectedStars.length : !Number(dustInput)
