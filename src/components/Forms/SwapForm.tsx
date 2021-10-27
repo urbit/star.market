@@ -27,7 +27,7 @@ interface SwapFormProps {
 }
 
 const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
-  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance, setLoading, setSuccessTxHashes, setErrorMessage } = useStore()
+  const { account, api, dust, stars, gasPrice, setStars, setDust, setTreasuryBalance, setLoading, setSuccessTxHashes, setErrorMessage } = useStore()
   const [dustInput, setDustInput] = useState('')
   const [showStarSelector, setShowStarSelector] = useState(false)
   const [showConfirmTrade, setShowConfirmTrade] = useState(false)
@@ -95,11 +95,11 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
       try {
         await api.loadContracts()
         await Promise.all(
-          selectedStars.map(api.setTransferProxy)
+          selectedStars.map(api.setTransferProxy, gasPrice)
         )
         const hashes = await Promise.all(
           selectedStars.map(async (star) => {
-            const hash = await api.depositStar(star)
+            const hash = await api.depositStar(star, gasPrice)
             return hash || ''
           })
         )
@@ -113,7 +113,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
       }
     } else {
       try {
-        const hashes = await api.redeemTokens(Number(dustInput))
+        const hashes = await api.redeemTokens(Number(dustInput), gasPrice)
         setSuccessTxHashes(hashes)
         setDustInput('0')
         await refreshValues()
@@ -125,7 +125,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     }
 
     setLoading(false)
-  }, [api, dustInput, exchange, refreshValues, selectedStars, setErrorMessage, setLoading, setSuccessTxHashes])
+  }, [api, dustInput, exchange, refreshValues, selectedStars, gasPrice, setErrorMessage, setLoading, setSuccessTxHashes])
 
   const hasAddress = Boolean(account.currentAddress)
   const disableButton = starsForDust ? !selectedStars.length : !Number(dustInput)

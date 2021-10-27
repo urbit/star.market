@@ -135,7 +135,8 @@ export default class Api {
       return this.account.walletConnection.sendTransaction(rawProxyTxn)
     } else {
       return this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
-        from: this.account.currentAddress
+        from: this.account.currentAddress,
+        gasPrice,
       })
     }
   }
@@ -169,7 +170,8 @@ export default class Api {
 
     } else {
       const { transactionHash } = await this.treasury.methods.deposit(star.point).send({
-        from: this.account.currentAddress
+        from: this.account.currentAddress,
+        gasPrice,
       })
       return transactionHash
     }
@@ -204,7 +206,8 @@ export default class Api {
 
       } else {
         const { transactionHash } = await this.treasury.methods.redeem().send({
-          from: this.account.currentAddress
+          from: this.account.currentAddress,
+          gasPrice,
         })
         hashes.push(transactionHash)
       }

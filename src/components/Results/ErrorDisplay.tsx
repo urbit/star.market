@@ -5,7 +5,7 @@ import { stopClick } from "../../utils/modal"
 import './ResultsDisplays.scss'
 
 const ErrorDisplay = ({ onClose } : { onClose: () => void }) => {
-  const errorMessage = useStore((state: any) => state.errorMessage)
+  const { errorMessage } = useStore()
 
   return <div className="display-container error" onClick={stopClick}>
     <Row className="title">
@@ -15,7 +15,7 @@ const ErrorDisplay = ({ onClose } : { onClose: () => void }) => {
     <div className="message">
       There was an error executing the transaction.
       <br /><br />
-      {errorMessage.toString()}.
+      {errorMessage?.toString()}.
       <br /><br />
       Please check your connection and wallet and try again.
     </div>
