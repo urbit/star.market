@@ -663,6 +663,7 @@ h3, .gray-title {
     font-weight: 600;
     letter-spacing: 0em;
     border: none;
+    cursor: pointer;
   }
 
   .toolbar-link {
@@ -977,50 +978,50 @@ button:hover {
     }
   }
 
-  .treasury {
-    background-color: $yellow;
-    text-align: center;
-    cursor: pointer;
+  // .treasury {
+  //   background-color: $yellow;
+  //   text-align: center;
+  //   cursor: pointer;
 
-    .modal {
-      cursor: default;
+  //   .modal {
+  //     cursor: default;
       
-      .message-container {
-        display: flex;
-        flex-direction: column;
-        // justify-content: space-between;
-        align-items: flex-start;
-        padding: 36px;
-        position: absolute;
-        width: 400px;
-        height: 320px;
-        left: 35px;
-        top: 86px;
-        background: #F3C263;
-        border-radius: 24px;
-        text-align: left;
+  //     .message-container {
+  //       display: flex;
+  //       flex-direction: column;
+  //       // justify-content: space-between;
+  //       align-items: flex-start;
+  //       padding: 36px;
+  //       position: absolute;
+  //       width: 400px;
+  //       height: 320px;
+  //       left: 35px;
+  //       top: 86px;
+  //       background: #F3C263;
+  //       border-radius: 24px;
+  //       text-align: left;
 
-        .title {
-          font-size: 16px;
-          font-weight: 600;
-          line-height: 24px;
-          color: $steel-grey;
-          margin-bottom: 24px;
-        }
+  //       .title {
+  //         font-size: 16px;
+  //         font-weight: 600;
+  //         line-height: 24px;
+  //         color: $steel-grey;
+  //         margin-bottom: 24px;
+  //       }
 
-        .message, .stars {
-          font-size: 24px;
-          font-weight: 600;
-          line-height: 32px;
-          color: $steel-grey;
+  //       .message, .stars {
+  //         font-size: 24px;
+  //         font-weight: 600;
+  //         line-height: 32px;
+  //         color: $steel-grey;
 
-          .stars {
-            color: black;
-          }
-        }
-      }
-    }
-  }
+  //         .stars {
+  //           color: black;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   .walletSection {
     margin-left: 3rem;
@@ -1088,3 +1089,40 @@ button:hover {
   height: 5rem;
   border: none;
 }
+
+.text-gray {
+  color: rgba(0,0,0,0.6);
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-between;
+  // align-items: flex-start;
+  padding: 24px;
+  // position: absolute;
+  width: 400px;
+  // height: 320px;
+  // left: 35px;
+  // top: 86px;
+  background: #F3C263;
+  border-radius: 24px;
+  text-align: left;
+}
+
+.relative {
+  position: relative;
+}
+
+.light-dismiss {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top:0;
+  left:0;
+  background-color: rgba(0,0,0,0.2);
+  content: "";
+  z-index: 100;
+}
+
+

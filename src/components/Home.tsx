@@ -1,48 +1,46 @@
-import { useEffect, useState } from 'react'
 import HomeHeader from './Header/HomeHeader';
 import Footer from './Footer/Footer';
 import Logo from './Icons/LightLogo';
 import BubbleLink from './Generics/BubbleLink';
 
-function padZero(str:string) {
-    if (str.length < 2) {
-        return `0${str}`
-    }
-    return str
-}
+// function padZero(str:string) {
+//     if (str.length < 2) {
+//         return `0${str}`
+//     }
+//     return str
+// }
 
 export default function Home() {
-    const calculateTimeLeft = () => {
-        let year = new Date().getFullYear();
-        const difference = +new Date(`${year}-10-25`) - +new Date();
-        let timeLeft = {
-            days: '00',
-            hours: '00',
-            minutes: '00',
-            seconds: '00'
-        };
+    // const calculateTimeLeft = () => {
+    //     let year = new Date().getFullYear();
+    //     const difference = +new Date(`${year}-10-25`) - +new Date();
+    //     let timeLeft = {
+    //         days: '00',
+    //         hours: '00',
+    //         minutes: '00',
+    //         seconds: '00'
+    //     };
     
-        if (difference > 0) {
-          timeLeft = {
-            days: padZero(`${Math.floor(difference / (1000 * 60 * 60 * 24))}`),
-            hours: padZero(`${Math.floor((difference / (1000 * 60 * 60)) % 24)}`),
-            minutes: padZero(`${Math.floor((difference / 1000 / 60) % 60)}`),
-            seconds: padZero(`${Math.floor((difference / 1000) % 60)}`),
-          };
-        }
+    //     if (difference > 0) {
+    //       timeLeft = {
+    //         days: padZero(`${Math.floor(difference / (1000 * 60 * 60 * 24))}`),
+    //         hours: padZero(`${Math.floor((difference / (1000 * 60 * 60)) % 24)}`),
+    //         minutes: padZero(`${Math.floor((difference / 1000 / 60) % 60)}`),
+    //         seconds: padZero(`${Math.floor((difference / 1000) % 60)}`),
+    //       };
+    //     }
     
-        return timeLeft;
-      };
+    //     return timeLeft;
+    //   };
 
-      const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    //   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-      useEffect(() => {
-        setTimeout(() => {
-          setTimeLeft(calculateTimeLeft());
-        }, 1000);
-      });
+    //   useEffect(() => {
+    //     setTimeout(() => {
+    //       setTimeLeft(calculateTimeLeft());
+    //     }, 1000);
+    //   });
 
-      console.log(timeLeft)
 
     return (
         <div className="layout-container">
