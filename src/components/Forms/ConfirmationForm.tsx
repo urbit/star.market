@@ -67,8 +67,8 @@ export default function ConfirmationForm ({ starsForDust, stars, dust, onConfirm
       <div className="right">{formattedTxCost} ETH</div>
     </div>
     <div className="buttons">
-      <Button className="cancel" onClick={onCancel} borderRadius={3}>Cancel</Button>
-      <Button className={`confirm ${starsForDust ? 'star' : 'wstr'}`} borderRadius={3} onClick={onConfirm}>Execute</Button>
+      <Button className="button-lg cancel" onClick={onCancel} borderRadius={3}>Cancel</Button>
+      <Button className={`button-lg confirm ${starsForDust ? 'star' : 'wstr'}`} borderRadius={3} onClick={onConfirm}>Execute</Button>
     </div>
   </form>
 }
