@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { Box, Icon } from '@tlon/indigo-react';
 
 import './Dropdown.scss';
@@ -18,18 +18,26 @@ const Dropdown = ({
   toggleOpen,
   className = '',
 }: DropdownProps) => {
+  const toggleDropdown = (e: MouseEvent) => {
+    e.stopPropagation()
+    toggleOpen()
+  }
+
   return (
-    <Box className={`dropdown ${className}`}>
-      <Box className={`selector ${open ? 'open' : ''}`} onClick={toggleOpen}>
-        {value}
-        <Icon icon="ChevronSouth" />
-      </Box>
-      {open && (
-        <Box className="content-border">
-          <Box className="dropdown-content">{children}</Box>
+    <>
+      {open && <Box className="dropdown-background" onClick={toggleDropdown} />}
+      <Box className={`dropdown ${className}`}>
+        <Box className={`selector ${open ? 'open' : ''}`} onClick={toggleDropdown}>
+          {value}
+          <Icon icon="ChevronSouth" />
         </Box>
-      )}
-    </Box>
+        {open && (
+          <Box className="content-border">
+            <Box className="dropdown-content">{children}</Box>
+          </Box>
+        )}
+      </Box>
+    </>
   );
 };
 

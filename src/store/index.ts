@@ -17,6 +17,7 @@ export interface Store {
   successTxHashes: string[]
   errorMessage?: string
   suggestedGasPrices: SuggestedGasPrices
+  loadingText: null | string
   setAccount: (account: Account) => void
   setDust: (dust: number) => void
   setStars: (stars: Star[]) => void
@@ -26,6 +27,7 @@ export interface Store {
   setSuccessTxHashes: (successTxHashes: string[]) => void
   setErrorMessage: (errorMessage: string) => void
   setSuggestedGasPrices: (prices: SuggestedGasPrices) => void
+  setLoadingText: (loadingText: null | string) => void
 }
 
 export const useStore = create<Store>(set => ({
@@ -38,13 +40,15 @@ export const useStore = create<Store>(set => ({
   loading: false,
   successTxHashes: [],
   suggestedGasPrices: defaultGasValues(DEFAULT_GAS_PRICE_GWEI),
+  loadingText: null,
   setAccount: (account: Account) => set(() => ({ account, api: new Api(account) })),
   setDust: (dust: number) => set(() => ({ dust })),
   setStars: (stars: Star[]) => set(() => ({ stars: stars.sort((a, b) => Number(b.isUnlinked) - Number(a.isUnlinked) ) })),
   setTreasuryBalance: (treasuryBalance: number) => set(() => ({ treasuryBalance })),
   setGasPrice: (gasPrice: number) => set(() => ({ gasPrice })),
-  setLoading: (loading: boolean) => set(() => ({ loading })),
+  setLoading: (loading: boolean) => set(({ loadingText }) => ({ loading, loadingText: !loading ? null : loadingText })),
   setSuccessTxHashes: (successTxHashes: string[]) => set(() => ({ successTxHashes })),
   setErrorMessage: (errorMessage: string) => set(() => ({ errorMessage })),
   setSuggestedGasPrices: (suggestedGasPrices: SuggestedGasPrices) => set(() => ({ suggestedGasPrices })),
+  setLoadingText: (loadingText: null | string) => set(() => ({ loadingText, loading: true })),
 }))
