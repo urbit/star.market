@@ -22,10 +22,12 @@ import './App.scss';
 import Account, { WalletType } from './account';
 import { useEffect } from 'react';
 import { getPreferredWallet } from './utils/local-storage';
+import { defaultGasValues, formatWait, minGas } from './utils/gas-prices';
+import { DEFAULT_GAS_PRICE_GWEI } from './constants/gas';
 // import { toPairsIn } from 'lodash';
 // import { ToggleSwitch } from '@tlon/indigo-react';
 
-const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
+// const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
 
 interface WalletConnectParams {
   accounts: string[]
@@ -33,13 +35,46 @@ interface WalletConnectParams {
 }
 
 const App = () => {
-  const { account, setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading } = useStore()
+  const { account, setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading, setSuggestedGasPrices } = useStore()
 
-  // TODO: REMOVE THIS BEFORE FINAL VERSION
-  // console.log(
-  //   'Connect to Hardhat network running on http://65.108.49.124:8545',
-  //   'Use PK: 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d'
-  // )
+  const loadGasPrices = useCallback(async () => {
+    try {
+      // const { result } = await fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`)
+      //   .then(result => result.json())
+      // const { FastGasPrice, ProposeGasPrice, SafeGasPrice } = result
+      // setGasPrice(Number(SafeGasPrice))
+      // const [fastTime, proposeTime, safeTime] = await Promise.all([FastGasPrice, ProposeGasPrice, SafeGasPrice].map((price) =>
+      //   fetch(`https://api.etherscan.io/api?module=gastracker&action=gasestimate&gasprice=${2000}&apikey=${ETHERSCAN_API_KEY}`)
+      //     .then(result => result.json())
+      // ))
+
+      const json = await fetch('https://ethgasstation.info/json/ethgasAPI.json',
+        {
+          method: 'GET',
+          cache: 'no-cache',
+        }
+      ).then(response => response.json())
+
+      setGasPrice(json.average)
+
+      setSuggestedGasPrices({
+        fast: {
+          price: minGas(json.fast),
+          wait: formatWait(json.fastWait),
+        },
+        average: {
+          price: minGas(json.average),
+          wait: formatWait(json.avgWait),
+        },
+        low: {
+          price: minGas(json.safeLow),
+          wait: formatWait(json.safeLowWait),
+        },
+      })
+    } catch (e) {
+      setSuggestedGasPrices(defaultGasValues(DEFAULT_GAS_PRICE_GWEI));
+    }
+  }, [setGasPrice, setSuggestedGasPrices])
 
   const refresh = useCallback(async (account: Account) => {
     if (account.currentAddress) {
@@ -57,17 +92,10 @@ const App = () => {
       const treasuryBalance = await api.getTreasuryBalance().catch(console.error)
       setTreasuryBalance(treasuryBalance || 0)
   
-      try {
-        const { result: { SafeGasPrice } } = await fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`)
-          .then(result => result.json())
-        setGasPrice(Number(SafeGasPrice))
-      } catch (e) {
-        console.warn(e)
-      }
-  
+      loadGasPrices()
       setLoading(false)
     }
-  }, [setStars, setDust, setTreasuryBalance, setGasPrice, setLoading])
+  }, [setStars, setDust, setTreasuryBalance, setLoading, loadGasPrices])
 
   const updateCurrentAddress = useCallback((error, payload) => {
     if (error) {
@@ -135,6 +163,8 @@ const App = () => {
     }
 
     loadPreferredWallet()
+
+    loadGasPrices()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

@@ -6,6 +6,7 @@ import { stopClick } from "../../utils/modal"
 import { getExchangeRate } from "../../utils/text"
 import Balance from "../Balance"
 import Logo from "../Icons/Logo"
+import FeeDropdown from "./FeeDropdown"
 
 interface ConfirmationFormProps {
   starsForDust: boolean
@@ -56,6 +57,10 @@ export default function ConfirmationForm ({ starsForDust, stars, dust, onConfirm
     <div className="info-row">
       <div className="left">Rate</div>
       <div className="right">{exchangeRate}</div>
+    </div>
+    <div className="info-row">
+      <div className="left">Gas Price</div>
+      <FeeDropdown />
     </div>
     <div className="info-row">
       <div className="left">Estimated Fee</div>

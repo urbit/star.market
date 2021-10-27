@@ -6,7 +6,7 @@ import { stopClick } from "../../utils/modal"
 import './ResultsDisplays.scss'
 
 const ETHERSCAN_TX_URL = 'https://etherscan.io/tx/'
-const ETHERSCAN_TX_URL_ROPSTEN = 'https://ropsten.etherscan.io/'
+const ETHERSCAN_TX_URL_ROPSTEN = 'https://ropsten.etherscan.io/tx/'
 
 const getEtherscanUrl = (isRopsten: boolean) => isRopsten ? ETHERSCAN_TX_URL_ROPSTEN : ETHERSCAN_TX_URL
 
