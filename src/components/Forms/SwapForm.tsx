@@ -30,7 +30,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
   const { account, api, dust, stars, gasPrice, setStars, setDust, setTreasuryBalance, setLoading, setLoadingText, setSuccessTxHashes, setErrorMessage } = useStore()
   const [dustInput, setDustInput] = useState('')
   const [showStarSelector, setShowStarSelector] = useState(false)
-  const [showConfirmTrade, setShowConfirmTrade] = useState(false)
+  // const [showConfirmTrade, setShowConfirmTrade] = useState(false)
   const [selectedStars, setSelectedStars] = useState([] as Star[])
   const [exchange, setExchange] = useState(Exchange.starsForDust)
   const [confirm, setConfirm] = useState(false)
