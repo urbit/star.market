@@ -1,8 +1,15 @@
 @import '../../styles/variables.scss';
 
 .loading {
+  .loading-text {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
   .lds-ring {
-    margin-bottom: 10vh;
+    margin: 0 auto 10vh;
     width: 5rem;
     height: 5rem;
   }

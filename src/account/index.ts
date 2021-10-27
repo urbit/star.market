@@ -48,12 +48,10 @@ export default class Account {
       this.currentAddress = undefined
       this.currentWalletType = undefined
     }
-    console.log(5, this.currentWalletType)
     setPreferredWallet(this.currentWalletType)
   }
 
   setCurrentAddress = (currentAddress: string) => {
-    console.log('SETTING CURRENT ADDRESS', currentAddress)
     this.currentAddress = currentAddress
     return this
   }

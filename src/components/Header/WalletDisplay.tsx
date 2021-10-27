@@ -19,11 +19,15 @@ const WalletDisplay = ({ toggleWalletModal, refresh } : WalletDisplayProps) => {
 
   useEffect(() => {
     const getBalance = async () => {
-      if (account && account.getBalance) {
-        const weiBalance = await account.getBalance()
-
-        const inEth = Math.round(parseInt(weiBalance, 16) * GWEI * GWEI * TEN_THOUSAND) / TEN_THOUSAND
-        setEthBalance(inEth)
+      try {
+        if (account && account.currentWalletType) {
+          const weiBalance = await account.getBalance()
+  
+          const inEth = Math.round(parseInt(weiBalance, 16) * GWEI * GWEI * TEN_THOUSAND) / TEN_THOUSAND
+          setEthBalance(inEth)
+        }
+      } catch (e) {
+        console.warn(e)
       }
     }
 

@@ -151,7 +151,8 @@ form {
     
     background: white;
     border-radius: 8px;
-    color: $medium-grey;
+    color: black;
+    font-weight: bold;
 
     &.wstr {
       color: $dust-blue;
@@ -241,7 +242,7 @@ form {
 
   .exchange-rate {
     margin: 1rem 0rem;
-    color: $medium-grey;
+    // color: $medium-grey;
     font-weight: 600;
   }
 }
@@ -381,6 +382,7 @@ form.master-ticket-form {
   background-color: $form-background;
   display: flex;
   flex-direction: column;
+  min-width: 400px;
 
   button.close {
     background-color: $form-background;
@@ -494,6 +496,7 @@ form.confirmation-form {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     margin-top: 1rem;
 
     .left {

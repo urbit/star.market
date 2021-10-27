@@ -25,15 +25,17 @@ const WalletForm = (
     switch (type) {
       case WalletType.Metamask:
         connectMetamask()
+        hideModal()
         break
       case WalletType.MasterTicket:
         showMasterTicketModal()
         break
       case WalletType.WalletConnect:
         connectWalletConnector()
+        hideModal()
         break
     }
-  }, [connectMetamask, showMasterTicketModal, connectWalletConnector])
+  }, [hideModal, connectMetamask, showMasterTicketModal, connectWalletConnector])
 
   return <form className="wallet-form" onClick={stopClick}>
     <FormHeader title="Select Wallet" hideModal={hideModal} />

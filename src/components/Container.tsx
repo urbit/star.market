@@ -35,6 +35,8 @@ const Container = ({ refresh, connectWalletConnector, connectMetamask } : Contai
     setPromptForMasterTicket(false)
   }, [setPromptForMasterTicket])
 
+  const hideWalletModal = () => setShowWalletModal(false)
+
   return <div className="layout-container">
     <HeaderBar {...{ refresh, toggleWalletModal }} />
       <section className="app-layout">
@@ -42,10 +44,10 @@ const Container = ({ refresh, connectWalletConnector, connectMetamask } : Contai
         <SwapForm {...{ refresh, toggleWalletModal }} />
       </Box>
 
-      {showWalletModal && <Modal hideModal={() => setShowWalletModal(false)}>
+      {showWalletModal && <Modal hideModal={hideWalletModal}>
         <WalletForm
-          {...{ refresh, connectWalletConnector, connectMetamask }}
-          hideModal={() => setShowWalletModal(false)}
+          {...{ refresh, connectWalletConnector, connectMetamask,  }}
+          hideModal={hideWalletModal}
           showMasterTicketModal={() => setPromptForMasterTicket(true)}
         />
       </Modal>}
