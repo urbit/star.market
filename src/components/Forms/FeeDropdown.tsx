@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Box, Row, StatelessTextInput, Text, Paragraph, Icon } from '@tlon/indigo-react';
+import { Row, StatelessTextInput, Icon } from '@tlon/indigo-react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { useStore } from '../../store';
-import Dropdown from './Dropdown';
 import './FeeDropdown.scss';
 import { GasPrice } from '../../types/SuggestedGasPrices';
 
@@ -16,7 +15,6 @@ export const formatDisplay = ({ price, wait }: GasPrice) =>
 export default function FeeDropdown() {
   const { suggestedGasPrices, setGasPrice } = useStore();
 
-  const [open, setOpen] = useState(false);
   const [custom, setCustom] = useState<string>('0');
   const [selected, setSelected] = useState<GasPrice>(
     suggestedGasPrices.average
@@ -53,10 +51,10 @@ export default function FeeDropdown() {
     (value: GasPrice) => () => {
       setSelected(value);
       setGasPrice(value.price);
-      setOpen(false);
     },
-    [setGasPrice, setSelected, setOpen]
+    [setGasPrice, setSelected]
   );
+
 
   return (
     <div className="flex gas-container">
@@ -70,13 +68,13 @@ export default function FeeDropdown() {
       <DropdownMenu.Content className="dropdown-menu" sideOffset={5}>
         {Object.values(suggestedGasPrices).map(
           (value: GasPrice, ind: number) => (
-            <Row
+            <DropdownMenu.Item
               className="dropdown-item"
-              onClick={selectPrice(value)}
+              onSelect={selectPrice(value)}
               key={value.wait}>
                 <p className="label">{PRICE_LABELS[ind]}:</p>
                 <p>{formatDisplay(value)}</p>
-            </Row>
+            </DropdownMenu.Item >
           )
         )}
         <Row className="dropdown-input-container">
@@ -92,37 +90,5 @@ export default function FeeDropdown() {
       </DropdownMenu.Content>
       </DropdownMenu.Root>
     </div>
-    
   )
-
-//   return (
-//     <Dropdown
-//       className="fee-dropdown"
-//       open={open}
-//       value={formatDisplay(selected)}
-//       toggleOpen={() => setOpen(!open)}>
-//       <Box className="prices">
-//         {Object.values(suggestedGasPrices).map(
-//           (value: GasPrice, ind: number) => (
-//             <Row
-//               className="price"
-//               onClick={selectPrice(value)}
-//               key={value.wait}>
-//               {PRICE_LABELS[ind]}: {formatDisplay(value)}
-//             </Row>
-//           )
-//         )}
-//         <Row className="price">
-//           <Box className="label">Custom:</Box>
-//           <StatelessTextInput
-//             value={custom}
-//             className="custom-input"
-//             placeholder="0"
-//             onChange={handleCustom}
-//           />
-//           <Box className="unit">gwei</Box>
-//         </Row>
-//       </Box>
-//     </Dropdown>
-//   );
 };
