@@ -518,7 +518,7 @@ form.confirmation-form {
 
     button {
       flex: 1 1 0%;
-      color: white;
+      // color: white;
       border: none;
       cursor: pointer;
 
@@ -1124,6 +1124,77 @@ button:hover {
   background-color: rgba(0,0,0,0.2);
   content: "";
   z-index: 100;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.dropdown-button {
+  color: $medium-grey;
+  background-color: #FCE7C0;
+  border-radius: 8px;
+  padding: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.gas-container {
+  align-items: center;
+
+}
+
+.text-lightGray {
+  color: $medium-grey;
+}
+
+.dropdown-menu {
+  background-color: #FCE7C0;
+  border-radius: 16px;
+  padding: 0.5em;
+}
+
+.dropdown-item {
+  padding: 0.5em;
+  margin-bottom: 0.25em;
+  border-radius: 8px;
+  display: flex;
+  cursor:pointer;
+}
+
+.dropdown-input-container {
+  padding-left: 0.5em;
+  padding-right: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-input-container input {
+  width: 100px;
+  margin-right: 8px;
+  border-radius: 8px;
+  border: none;
+}
+
+
+.dropdown-item:hover {
+  background-color: #FEF9F0;
+}
+
+p.label {
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.dropdown-item p {
+  line-height: 16px;
+  margin-top: 0;
+  padding-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 

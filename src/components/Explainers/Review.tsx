@@ -13,9 +13,9 @@ export const Review = () => {
       borderRadius="1.5rem"
       background="#51D721"
     >
-      <Text display="block" bold marginBottom="50px" opacity={.6}>Review</Text>
+      <Text display="block" bold marginBottom="25px" opacity={.6}>Review</Text>
       <Paragraph fontWeight="bold" fontSize="20px" marginBottom="50px">
-        You’ll need to accept a transaction in your wallet in order to receive your swapped assets.
+        You’ll need to accept one transaction per star in your wallet to receive your swapped assets.
       </Paragraph>
       <Ul listStyle="none">
         <Li marginBottom={3}>

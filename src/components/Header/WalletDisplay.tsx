@@ -5,7 +5,7 @@ import { useEffect } from "react"
 
 import { useStore } from "../../store"
 import { GWEI, TEN_THOUSAND } from "../../utils/constants"
-import { RefreshProps } from "../Container"
+import { RefreshProps } from "../SwapApp"
 
 import './WalletDisplay.scss'
 
