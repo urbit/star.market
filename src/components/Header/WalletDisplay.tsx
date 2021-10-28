@@ -69,7 +69,11 @@ const WalletDisplay = ({ toggleWalletModal, refresh } : WalletDisplayProps) => {
           icon="ArrowRefresh"                
           height={4} 
           width={4} 
-          onClick={() => refresh(account)} 
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            refresh(account)
+          }} 
         />
       </Row>
     </Row>
