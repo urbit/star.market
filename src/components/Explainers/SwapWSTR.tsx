@@ -14,9 +14,12 @@ export const SwapWSTR = () => {
       borderRadius="1.5rem"
       background="#A9ECF5"
     >
-      <Text display="block" bold marginBottom="50px" opacity={.6}>Swapping WSTR for Stars</Text>
-      <Paragraph fontWeight="bold" fontSize="20px" marginBottom="50px">
+      <Text display="block" bold marginBottom="25px" opacity={.6}>Swapping WSTR for Stars</Text>
+      <Paragraph fontWeight="bold" fontSize="20px" marginBottom="25px">
         You’re currently swapping WSTR for Stars (Urbit IDs), a nonfungible token.
+      </Paragraph>
+      <Paragraph fontWeight="regular" fontSize="16px" marginBottom="50px">
+        You will need to make one transaction per star swapped.
       </Paragraph>
       <Ul listStyle="none">
         <Li marginBottom={3}>
