@@ -5,7 +5,7 @@ import { useStore } from "../../store"
 import Account from "../../account"
 import FormHeader from "./FormHeader"
 import { stopClick } from "../../utils/modal"
-import { RefreshProps } from "../Container"
+import { RefreshProps } from "../SwapApp"
 import { UrbitWallet } from "../../types/UrbitWallet"
 
 const ob = require('urbit-ob')
