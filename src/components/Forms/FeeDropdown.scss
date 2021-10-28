@@ -27,11 +27,13 @@
 
           .label {
             margin-right: 8px;
+            font-weight: 500;
           }
 
           .custom-input {
             text-align: right;
             height: 24px;
+            max-width: 100px;
           }
 
           .unit {
