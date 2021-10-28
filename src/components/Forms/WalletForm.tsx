@@ -7,9 +7,9 @@ import { useStore } from '../../store'
 import WalletEntry from './WalletEntry'
 import FormHeader from './FormHeader'
 import { stopClick } from '../../utils/modal'
-import { ContainerProps } from '../Container'
+import { SwapAppProps } from '../SwapApp'
 
-interface WalletFormProps extends ContainerProps {
+interface WalletFormProps extends SwapAppProps {
   hideModal: () => void
   showMasterTicketModal: () => void
 }
