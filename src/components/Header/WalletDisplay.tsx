@@ -1,38 +1,23 @@
-import { useState } from "react"
 import { Icon, Row } from "@tlon/indigo-react"
 import Account from "../../account"
 import { useEffect } from "react"
 
 import { useStore } from "../../store"
-import { GWEI, TEN_THOUSAND } from "../../utils/constants"
 import { RefreshProps } from "../SwapApp"
 
 import './WalletDisplay.scss'
+import { getEthBalance } from "../../utils/eth"
 
 export interface WalletDisplayProps extends RefreshProps {
   toggleWalletModal: () => void
 }
 
 const WalletDisplay = ({ toggleWalletModal, refresh } : WalletDisplayProps) => {
-  const { account, stars, dust } = useStore()
-  const [ethBalance, setEthBalance] = useState(0)
+  const { account, stars, dust, ethBalance, setEthBalance } = useStore()
 
   useEffect(() => {
-    const getBalance = async () => {
-      try {
-        if (account && account.currentWalletType) {
-          const weiBalance = await account.getBalance()
-  
-          const inEth = Math.round(parseInt(weiBalance, 16) * GWEI * GWEI * TEN_THOUSAND) / TEN_THOUSAND
-          setEthBalance(inEth)
-        }
-      } catch (e) {
-        console.warn(e)
-      }
-    }
-
-    getBalance()
-  }, [account])
+    getEthBalance(account, setEthBalance)
+  }, [account, setEthBalance])
 
   const address = account.currentAddress;
   const isValidNetwork = Account.isValidNetwork()

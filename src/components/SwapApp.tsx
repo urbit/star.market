@@ -53,7 +53,7 @@ const SwapApp = ({ refresh, connectWalletConnector, connectMetamask } : SwapAppP
       </Modal>}
 
       {promptForMasterTicket && <Modal hideModal={toggleMasterTicketModal}>
-        <MasterTicketForm refresh={refresh} hideModal={() => setPromptForMasterTicket(false)} />
+        <MasterTicketForm refresh={refresh} hideModal={() => setPromptForMasterTicket(false)} hideParentModal={hideWalletModal} />
       </Modal>}
 
       {!!successTxHashes.length && <Modal hideModal={() => setSuccessTxHashes([])}>
