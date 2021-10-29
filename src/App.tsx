@@ -35,7 +35,7 @@ interface WalletConnectParams {
 }
 
 const App = () => {
-  const { account, setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading, setSuggestedGasPrices } = useStore()
+  const { setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading, setSuggestedGasPrices } = useStore()
 
   const loadGasPrices = useCallback(async () => {
     try {
@@ -55,7 +55,7 @@ const App = () => {
         }
       ).then(response => response.json())
 
-      setGasPrice(json.average)
+      setGasPrice(minGas(json.average))
 
       setSuggestedGasPrices({
         fast: {
@@ -97,17 +97,20 @@ const App = () => {
     }
   }, [setStars, setDust, setTreasuryBalance, setLoading, loadGasPrices])
 
-  const updateCurrentAddress = useCallback((error, payload) => {
+  const updateCurrentAddress = useCallback((connector) => (error: any, payload: any) => {
     if (error) {
       throw error // need to handle
     }
 
+    
     const data: WalletConnectParams = payload.params[0]
 
-    if (account) {
-      setAccount(account.setCurrentAddress(data.accounts[0]))
-    }
-  }, [account, setAccount])
+    const newAccount = new Account({ walletConnection: connector })
+    newAccount.setCurrentAddress(data.accounts[0])
+    
+    setAccount(newAccount)
+    refresh(newAccount)
+  }, [setAccount, refresh])
 
   const connectWalletConnector = useCallback(() => {
     const connector = new WalletConnect({
@@ -119,8 +122,8 @@ const App = () => {
       connector.createSession()
     }
 
-    connector.on("connect", updateCurrentAddress)
-    connector.on("session_update", updateCurrentAddress)
+    connector.on("connect", updateCurrentAddress(connector))
+    connector.on("session_update", updateCurrentAddress(connector))
   
     connector.on("disconnect", (error, payload) => {
       if (error) {
@@ -128,15 +131,8 @@ const App = () => {
       }
 
       setAccount(new Account({}))
-  
-      // Delete connector
     })
-
-    // create new Account
-    const newAccount = new Account({ walletConnection: connector })
-    setAccount(newAccount)
-    refresh(newAccount)
-  }, [setAccount, refresh, updateCurrentAddress])
+  }, [updateCurrentAddress, setAccount])
 
   const setMetamask = useCallback(() => {
     const newAccount = new Account({ useMetamask: true })
@@ -146,7 +142,9 @@ const App = () => {
 
   const connectMetamask = useCallback(() => {
     const ethereum = (window as any).ethereum
-    setMetamask()
+    if (ethereum.selectedAddress) {
+      setMetamask()
+    }
     ethereum.on('accountsChanged', () => setMetamask())
     ethereum.request({ method: 'eth_requestAccounts' })
   }, [setMetamask])
@@ -163,7 +161,6 @@ const App = () => {
     }
 
     loadPreferredWallet()
-
     loadGasPrices()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
