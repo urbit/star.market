@@ -18,6 +18,7 @@ export interface Store {
   errorMessage?: string
   suggestedGasPrices: SuggestedGasPrices
   loadingText: null | string
+  ethBalance: number
   setAccount: (account: Account) => void
   setDust: (dust: number) => void
   setStars: (stars: Star[]) => void
@@ -28,6 +29,7 @@ export interface Store {
   setErrorMessage: (errorMessage: string) => void
   setSuggestedGasPrices: (prices: SuggestedGasPrices) => void
   setLoadingText: (loadingText: null | string) => void
+  setEthBalance: (ethBalance: number) => void
 }
 
 export const useStore = create<Store>(set => ({
@@ -41,6 +43,7 @@ export const useStore = create<Store>(set => ({
   successTxHashes: [],
   suggestedGasPrices: defaultGasValues(DEFAULT_GAS_PRICE_GWEI),
   loadingText: null,
+  ethBalance: 0,
   setAccount: (account: Account) => set(() => ({ account, api: new Api(account) })),
   setDust: (dust: number) => set(() => ({ dust })),
   setStars: (stars: Star[]) => set(() => ({ stars: stars.sort((a, b) => Number(b.isUnlinked) - Number(a.isUnlinked) ) })),
@@ -51,4 +54,5 @@ export const useStore = create<Store>(set => ({
   setErrorMessage: (errorMessage: string) => set(() => ({ errorMessage })),
   setSuggestedGasPrices: (suggestedGasPrices: SuggestedGasPrices) => set(() => ({ suggestedGasPrices })),
   setLoadingText: (loadingText: null | string) => set(() => ({ loadingText, loading: true })),
+  setEthBalance: (ethBalance: number) => set(() => ({ ethBalance })),
 }))

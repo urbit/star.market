@@ -109,7 +109,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
         setSelectedStars([])
         await refreshValues()
       } catch (e) {
-        setErrorMessage(String(e))
+        setErrorMessage(JSON.stringify(e))
         console.warn('ERROR DEPOSITING STARS', e)
       }
     } else {
@@ -121,7 +121,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
         await refreshValues()
       }
       catch (e) {
-        setErrorMessage(String(e))
+        setErrorMessage(JSON.stringify(e))
         console.warn('ERROR REDEEMING WSTR', e)
       }
     }
@@ -158,7 +158,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     <Col flexDirection={['column', 'column', 'column','row-reverse']}>
       { confirm
         ? <>
-            <Review/>
+            <Review exchange={exchange} />
             <Box 
               className="form-holder" 
               maxWidth="576px" 

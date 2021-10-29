@@ -7,15 +7,17 @@ import FormHeader from "./FormHeader"
 import { stopClick } from "../../utils/modal"
 import { RefreshProps } from "../SwapApp"
 import { UrbitWallet } from "../../types/UrbitWallet"
+import { formatTicket } from "../../utils/ticket"
 
 const ob = require('urbit-ob')
 const { generateWallet } = require('urbit-key-generation')
 
 interface MasterTicketFormProps extends RefreshProps {
   hideModal: () => void
+  hideParentModal: () => void
 }
 
-const MasterTicketForm = ({ hideModal, refresh } : MasterTicketFormProps) => {
+const MasterTicketForm = ({ hideModal, hideParentModal, refresh } : MasterTicketFormProps) => {
   const { setAccount, setLoading } = useStore()
 
   const [ticket, setTicket] = useState('')
@@ -28,21 +30,22 @@ const MasterTicketForm = ({ hideModal, refresh } : MasterTicketFormProps) => {
     // TODO: form validation on all components
     setLoading(true)
     
-    const formattedShip = ob.patp2dec(`~${ship}`)
+    const formattedShip = ob.patp2dec(ship)
 
     const urbitWallet: UrbitWallet = await generateWallet({
-      ticket: `~${ticket}`, ship: formattedShip, passphrase
+      ticket, ship: formattedShip, passphrase
     })
 
     const newAccount = new Account({ urbitWallet })
     setAccount(newAccount)
 
     hideModal()
+    hideParentModal()
     refresh(newAccount)
-  }, [ticket, ship, passphrase, hideModal, setAccount, setLoading, refresh])
+  }, [ticket, ship, passphrase, hideModal, hideParentModal, setAccount, setLoading, refresh])
 
-  const changeTicket = (event: ChangeEvent<HTMLInputElement>) => setTicket(event.target.value.replace(/[^a-zA-Z-]/g,'').toLowerCase())
-  const changeShip = (event: ChangeEvent<HTMLInputElement>) => setShip(event.target.value.replace(/[^a-zA-Z-]/g,'').toLowerCase())
+  const changeTicket = (event: ChangeEvent<HTMLInputElement>) => setTicket(formatTicket(event.target.value))
+  const changeShip = (event: ChangeEvent<HTMLInputElement>) => setShip(formatTicket(event.target.value))
   const changePassphrase = (event: ChangeEvent<HTMLInputElement>) => setPassphrase(event.target.value)
   // const changeRevision = (event: ChangeEvent<HTMLInputElement>) => setRevision(event.target.value.replace(/\D/g,''))
   // const toggleBoot = () => setBoot(!boot)
@@ -53,7 +56,7 @@ const MasterTicketForm = ({ hideModal, refresh } : MasterTicketFormProps) => {
     <FormHeader title="Enter Master Ticket" hideModal={hideModal} />
     <label>Ticket</label>
     <input
-      placeholder="Ticket (lowercase, no leading tilda)"
+      placeholder="Ticket (lowercase)"
       value={ticket}
       onChange={changeTicket}
       type="text"
@@ -61,7 +64,7 @@ const MasterTicketForm = ({ hideModal, refresh } : MasterTicketFormProps) => {
     />
     <label>Ship</label>
     <input
-      placeholder="Ship (lowercase, no leading tilda)"
+      placeholder="Ship (lowercase)"
       value={ship}
       onChange={changeShip}
       type="text"

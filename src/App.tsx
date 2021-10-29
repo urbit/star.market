@@ -24,6 +24,7 @@ import { useEffect } from 'react';
 import { getPreferredWallet } from './utils/local-storage';
 import { defaultGasValues, formatWait, minGas } from './utils/gas-prices';
 import { DEFAULT_GAS_PRICE_GWEI } from './constants/gas';
+import { getEthBalance } from './utils/eth';
 // import { toPairsIn } from 'lodash';
 // import { ToggleSwitch } from '@tlon/indigo-react';
 
@@ -35,7 +36,7 @@ interface WalletConnectParams {
 }
 
 const App = () => {
-  const { setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading, setSuggestedGasPrices } = useStore()
+  const { setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading, setSuggestedGasPrices, setEthBalance } = useStore()
 
   const loadGasPrices = useCallback(async () => {
     try {
@@ -93,9 +94,12 @@ const App = () => {
       setTreasuryBalance(treasuryBalance || 0)
   
       loadGasPrices()
+
+      setTimeout(() => getEthBalance(account, setEthBalance), 3000)
+
       setLoading(false)
     }
-  }, [setStars, setDust, setTreasuryBalance, setLoading, loadGasPrices])
+  }, [setStars, setDust, setTreasuryBalance, setLoading, loadGasPrices, setEthBalance])
 
   const updateCurrentAddress = useCallback((connector) => (error: any, payload: any) => {
     if (error) {
