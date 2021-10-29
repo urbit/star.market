@@ -19,7 +19,7 @@ const WalletForm = (
 ) => {
   const { account } = useStore()
 
-  const walletTypes = Object.values(WalletType)
+  const walletTypes = Object.values(WalletType).filter((value) => value !== WalletType.WalletConnect)
 
   const selectWallet = useCallback((type: WalletType) => () => {
     switch (type) {
