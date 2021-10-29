@@ -1,6 +1,12 @@
 @import '../../styles/variables.scss';
 
 .loading {
+  &.has-text {
+    background-color: rgb(81, 81, 81);
+    padding: 2rem;
+    border-radius: 24px;
+  }
+
   .loading-text {
     color: white;
     font-weight: bold;
@@ -9,7 +15,7 @@
   }
 
   .lds-ring {
-    margin: 0 auto 10vh;
+    margin: 2rem auto;
     width: 5rem;
     height: 5rem;
   }

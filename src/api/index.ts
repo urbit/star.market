@@ -105,10 +105,12 @@ export default class Api {
     return (dust / TOKENS_PER_STAR)
   }
 
-  setTransferProxy = async (star: Star, gasPrice?: number) : Promise<string | undefined> =>  {
+  setTransferProxy = async (star: Star, gwei: number) : Promise<string | undefined> =>  {
     if (!this.contracts || !this.ecliptic || !this.eclipticAddress) {
       throw new Error('You must refresh the page.')
     }
+
+    const gasPrice = this.web3.utils.toWei(gwei.toString(), 'gwei')
     const transferProxy : string = await ajs.azimuth.getTransferProxy(this.contracts, star.point)
     
     if (transferProxy === REACT_APP_TREASURY_ADDRESS) { // Already set
@@ -141,12 +143,13 @@ export default class Api {
     }
   }
 
-  depositStar = async (star: Star, gasPrice?: number) : Promise<string | undefined> =>  {
+  depositStar = async (star: Star, gwei: number) : Promise<string | undefined> =>  {
     this.checkConnection()
     if (!this.ecliptic || !this.eclipticAddress) {
       throw new Error('Ecliptic address not set')
     }
 
+    const gasPrice = this.web3.utils.toWei(gwei.toString(), 'gwei')
     const rawDepositTxn = {
       from: this.account.currentAddress!, 
       to: REACT_APP_TREASURY_ADDRESS, 
@@ -177,9 +180,10 @@ export default class Api {
     }
   }
 
-  redeemTokens = async (tokens: number, gasPrice?: number) : Promise<string[]> => {
+  redeemTokens = async (tokens: number, gwei: number) : Promise<string[]> => {
     this.checkConnection()
 
+    const gasPrice = this.web3.utils.toWei(gwei.toString(), 'gwei')
     const hashes = []
 
     for (let i = 0; i < tokens; i++) {

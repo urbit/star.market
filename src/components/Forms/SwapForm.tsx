@@ -87,17 +87,17 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
 
     setConfirm(false)
   }, [api, setStars, setDust, setTreasuryBalance])
-  
+
   const confirmTrade = useCallback(async () => {
-    setLoadingText('Waiting for setTransferProxy to complete...')
+    setLoadingText('Waiting for transfer proxy to be set (1/2)...')
 
     if (exchange === Exchange.starsForDust) {
       try {
         await api.loadContracts()
         await Promise.all(
-          selectedStars.map(api.setTransferProxy, gasPrice)
+          selectedStars.map((star) => api.setTransferProxy(star, gasPrice))
         )
-        setLoadingText('Waiting for star deposit to complete...')
+        setLoadingText('Waiting for star to deposit (2/2)...')
         const hashes = await Promise.all(
           selectedStars.map(async (star) => {
             const hash = await api.depositStar(star, gasPrice)
