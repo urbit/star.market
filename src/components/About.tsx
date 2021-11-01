@@ -36,7 +36,7 @@ export default function About() {
                         </tr>
                         <tr>
                                 <td>Max Supply</td>
-                                <td>65,218</td>
+                                <td>65,280</td>
                         </tr>
                         <tr>
                                 <td>Social</td>
