@@ -54,7 +54,7 @@ export default function Home() {
                         <p>Star Market is the only place to swap your Urbit star for a WSTR.
 </p>
 
-                        <p>Stars are businesses, supernodes, and service providers on the Urbit Network. </p>
+                        <p>Star Market is a community driven project audited by Urbit.</p>
 
                         <p className="timer bg-yellow text-black">
                             Launching soon
