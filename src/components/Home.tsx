@@ -1,45 +1,64 @@
+import {useState, useEffect} from 'react'
 import HomeHeader from './Header/HomeHeader';
 import Footer from './Footer/Footer';
 import Logo from './Icons/LightLogo';
 import BubbleLink from './Generics/BubbleLink';
 
-// function padZero(str:string) {
-//     if (str.length < 2) {
-//         return `0${str}`
-//     }
-//     return str
-// }
+function padZero(str:string) {
+    if (str.length < 2) {
+        return `0${str}`
+    }
+    return str
+}
+
+// function addMinutesToDate(date, minutes) {
+//     return new Date(new Date().getTime() + minutes * 60000);
+//   }
 
 export default function Home() {
-    // const calculateTimeLeft = () => {
-    //     let year = new Date().getFullYear();
-    //     const difference = +new Date(`${year}-10-25`) - +new Date();
-    //     let timeLeft = {
-    //         days: '00',
-    //         hours: '00',
-    //         minutes: '00',
-    //         seconds: '00'
-    //     };
-    
-    //     if (difference > 0) {
-    //       timeLeft = {
-    //         days: padZero(`${Math.floor(difference / (1000 * 60 * 60 * 24))}`),
-    //         hours: padZero(`${Math.floor((difference / (1000 * 60 * 60)) % 24)}`),
-    //         minutes: padZero(`${Math.floor((difference / 1000 / 60) % 60)}`),
-    //         seconds: padZero(`${Math.floor((difference / 1000) % 60)}`),
-    //       };
-    //     }
-    
-    //     return timeLeft;
-    //   };
+    const calculateTimeLeft = () => {
 
-    //   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+        const now = new Date();
+ 
+        // Get the localized end date for your countdown
+        const end = new Date(Date.UTC(
+            2021, // Year
+            11-1,  // Month (0 is January, so 3 minus 1 is 2, which is March)
+            23,   // Day
+            9,   // Hour
+            0,    // Minutes
+            0,    // Seconds
+            0     // Milliseconds
+        ));
 
-    //   useEffect(() => {
-    //     setTimeout(() => {
-    //       setTimeLeft(calculateTimeLeft());
-    //     }, 1000);
-    //   });
+        const difference = +end - +now
+
+        let timeLeft = {
+            days: '00',
+            hours: '00',
+            minutes: '00',
+            seconds: '00'
+        };
+    
+        if (now < end) {
+          timeLeft = {
+            days: padZero(`${Math.floor(difference / (1000 * 60 * 60 * 24))}`),
+            hours: padZero(`${Math.floor((difference / (1000 * 60 * 60)) % 24)}`),
+            minutes: padZero(`${Math.floor((difference / 1000 / 60) % 60)}`),
+            seconds: padZero(`${Math.floor((difference / 1000) % 60)}`),
+          };
+        }
+    
+        return timeLeft;
+      };
+
+      const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+      useEffect(() => {
+        setTimeout(() => {
+          setTimeLeft(calculateTimeLeft());
+        }, 1000);
+      });
 
 
     return (
@@ -53,6 +72,10 @@ export default function Home() {
 </p>
 
                         <p>Stars are businesses, supernodes, and service providers on the Urbit Network. </p>
+
+                        <p className="timer bg-yellow text-black table">
+                            Launching in <b>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
+                        </p>
                         
                     </div>
                 </div>
