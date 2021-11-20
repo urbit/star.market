@@ -19,13 +19,16 @@ export default function Home() {
     const calculateTimeLeft = () => {
 
         const now = new Date();
+        const offset = new Date().getTimezoneOffset() / 60
+
+        console.log(offset)
  
         // Get the localized end date for your countdown
         const end = new Date(Date.UTC(
             2021, // Year
             11-1,  // Month (0 is January, so 3 minus 1 is 2, which is March)
             23,   // Day
-            9,   // Hour
+            9 + offset,   // Hour
             0,    // Minutes
             0,    // Seconds
             0     // Milliseconds
