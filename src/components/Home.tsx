@@ -13,8 +13,25 @@ function padZero(str:string) {
 
 export default function Home() {
     const calculateTimeLeft = () => {
-        let year = new Date().getFullYear();
-        const difference = +new Date(`${year}-10-25`) - +new Date();
+
+        const now = new Date();
+        const offset = new Date().getTimezoneOffset() / 60
+
+        console.log(offset)
+ 
+        // Get the localized end date for your countdown
+        const end = new Date(Date.UTC(
+            2021, // Year
+            11-1,  // Month (0 is January, so 3 minus 1 is 2, which is March)
+            23,   // Day
+            9 + offset,   // Hour
+            0,    // Minutes
+            0,    // Seconds
+            0     // Milliseconds
+        ));
+
+        const difference = +end - +now
+
         let timeLeft = {
             days: '00',
             hours: '00',
@@ -22,7 +39,7 @@ export default function Home() {
             seconds: '00'
         };
     
-        if (difference > 0) {
+        if (now < end) {
           timeLeft = {
             days: padZero(`${Math.floor(difference / (1000 * 60 * 60 * 24))}`),
             hours: padZero(`${Math.floor((difference / (1000 * 60 * 60)) % 24)}`),
@@ -42,8 +59,6 @@ export default function Home() {
         }, 1000);
       });
 
-      console.log(timeLeft)
-
     return (
         <div className="layout-container">
             <HomeHeader />
@@ -56,8 +71,8 @@ export default function Home() {
 
                         <p>Star Market is a community driven project audited by Urbit.</p>
 
-                        <p className="timer bg-yellow text-black">
-                            Launching soon
+                        <p className="timer bg-yellow text-black table">
+                            Launching in <b>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
                         </p>
 
                     </div>
