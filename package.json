@@ -64,8 +64,9 @@
     "zustand": "^3.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "cp .ropsten-env .env && react-scripts build",
+    "start": "cp .ropsten-env .env && react-scripts start",
+    "build": "cp .mainnet-env .env && react-scripts build",
+    "build:ropsten": "cp .ropsten-env .env && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

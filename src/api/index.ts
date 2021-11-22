@@ -110,6 +110,7 @@ export default class Api {
       data: this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).encodeABI(),
       gas: SET_TRANSFER_PROXY_GAS_LIMIT,
       gasPrice,
+      nonce: await this.web3.eth.getTransactionCount(this.account.currentAddress!),
     }
 
     if (this.account.urbitWallet) {
@@ -142,6 +143,7 @@ export default class Api {
       data: this.treasury.methods.deposit(star.point).encodeABI(),
       gas: DEPOSIT_GAS_LIMIT, 
       gasPrice,
+      nonce: await this.web3.eth.getTransactionCount(this.account.currentAddress!),
     }
 
     if (this.account.urbitWallet) {
@@ -177,6 +179,7 @@ export default class Api {
         data: this.treasury.methods.redeem().encodeABI(),
         gas: REDEEM_GAS_LIMIT, 
         gasPrice,
+        nonce: await this.web3.eth.getTransactionCount(this.account.currentAddress!),
       }
 
       if (this.account.urbitWallet) {
