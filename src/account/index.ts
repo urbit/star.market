@@ -56,8 +56,6 @@ export default class Account {
     return this
   }
 
-  getBalance = async () => (window as any).ethereum.request({ method: 'eth_getBalance', params: [this.currentAddress, "latest"] })
-
   static isValidNetwork = () => {
     // TODO: REMOVE THIS BEFORE FINAL VERSION
     return true

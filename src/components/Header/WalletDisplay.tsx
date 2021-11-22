@@ -3,7 +3,7 @@ import Account from "../../account"
 import { useEffect } from "react"
 
 import { useStore } from "../../store"
-import { RefreshProps } from "../SwapApp"
+import { RefreshProps } from "../Container"
 
 import './WalletDisplay.scss'
 import { getEthBalance } from "../../utils/eth"
@@ -13,11 +13,11 @@ export interface WalletDisplayProps extends RefreshProps {
 }
 
 const WalletDisplay = ({ toggleWalletModal, refresh } : WalletDisplayProps) => {
-  const { account, stars, dust, ethBalance, setEthBalance } = useStore()
+  const { account, api, stars, dust, ethBalance, setEthBalance } = useStore()
 
   useEffect(() => {
-    getEthBalance(account, setEthBalance)
-  }, [account, setEthBalance])
+    getEthBalance(api, setEthBalance)
+  }, [api, setEthBalance])
 
   const address = account.currentAddress;
   const isValidNetwork = Account.isValidNetwork()

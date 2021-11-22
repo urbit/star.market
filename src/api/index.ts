@@ -11,6 +11,7 @@ const ajs = require('azimuth-js')
 const {
   REACT_APP_AZIMUTH_ADDRESS,
   REACT_APP_TREASURY_ADDRESS,
+  REACT_APP_INFURA_URL,
 } = process.env
 
 export const SET_TRANSFER_PROXY_GAS_LIMIT = 400000
@@ -33,11 +34,10 @@ export default class Api {
     
     const ethereum = (window as any).ethereum // default is to use metamask
 
-    if (!ethereum) {
-      showNotConnectedAlert()
-    }
+    // Use infura connection if ethereum isn't available
+    const connection = ethereum || REACT_APP_INFURA_URL;
 
-    this.web3 = new Web3(ethereum); // use infura connection if ethereum isn't available?
+    this.web3 = new Web3(connection);
     this.treasury = new this.web3.eth.Contract(TREASURY_ABI, REACT_APP_TREASURY_ADDRESS)
   }
 
@@ -48,6 +48,8 @@ export default class Api {
     const eclipticAddress = await ajs.azimuth.owner(contracts)
     this.eclipticAddress = eclipticAddress
   }
+
+  getBalance = async () => this.account.currentAddress ? this.web3.eth.getBalance(this.account.currentAddress) : '0'
 
   connectMetamask = async () => {
     const ethereum = (window as any).ethereum
@@ -78,11 +80,11 @@ export default class Api {
       .map(Number)
       .filter(ajs.check.isStar)
       .map(async (point: number) => {
-        const isUnlinked = !(await ajs.azimuth.hasBeenLinked(this.contracts, point))
-  
+        const isEligible = 0 === Number(await ajs.azimuth.getSpawnCount(this.contracts, point))
+
         return new Star({
           point,
-          isUnlinked,
+          isEligible,
         })
       }))
     return stars
