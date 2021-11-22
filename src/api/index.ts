@@ -18,9 +18,6 @@ export const SET_TRANSFER_PROXY_GAS_LIMIT = 400000
 export const DEPOSIT_GAS_LIMIT = 800000
 export const REDEEM_GAS_LIMIT = 600000
 
-const showNotConnectedAlert = () =>
-  alert('You must have Metamask or another extension installed and active to connect to the Ethereum network. Please reload the page when ready.')
-
 export default class Api {
   web3: Web3
   account: Account
@@ -61,15 +58,7 @@ export default class Api {
     }
   }
 
-  checkConnection = () => {
-    if (!(window as any).ethereum) {
-      showNotConnectedAlert()
-      throw new Error('No Ethereum connection available')
-    }
-  }
-
   getStars = async () : Promise<Star[]> => {
-    this.checkConnection()
     if (!this.contracts) {
       return []
     }
@@ -91,15 +80,11 @@ export default class Api {
   }
 
   getTreasuryBalance = async (): Promise<number> => {
-    this.checkConnection()
-
     const assetCount = await this.treasury.methods.getAssetCount().call()
     return assetCount
   }
 
   getDust = async () : Promise<number> => {
-    this.checkConnection()
-
     const tokenAddress = await this.treasury.methods.startoken().call()
     const starToken = new this.web3.eth.Contract(DUST_ABI, tokenAddress)
 
@@ -146,7 +131,6 @@ export default class Api {
   }
 
   depositStar = async (star: Star, gwei: number) : Promise<string | undefined> =>  {
-    this.checkConnection()
     if (!this.ecliptic || !this.eclipticAddress) {
       throw new Error('Ecliptic address not set')
     }
@@ -183,8 +167,6 @@ export default class Api {
   }
 
   redeemTokens = async (tokens: number, gwei: number) : Promise<string[]> => {
-    this.checkConnection()
-
     const gasPrice = this.web3.utils.toWei(gwei.toString(), 'gwei')
     const hashes = []
 
