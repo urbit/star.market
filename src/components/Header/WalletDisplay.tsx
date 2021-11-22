@@ -3,21 +3,35 @@ import Account from "../../account"
 import { useEffect } from "react"
 
 import { useStore } from "../../store"
-import { RefreshProps } from "../SwapApp"
+import { RefreshProps } from "../Container"
 
 import './WalletDisplay.scss'
 import { getEthBalance } from "../../utils/eth"
+import { GWEI, TEN_THOUSAND } from "../../utils/constants"
 
 export interface WalletDisplayProps extends RefreshProps {
   toggleWalletModal: () => void
 }
 
 const WalletDisplay = ({ toggleWalletModal, refresh } : WalletDisplayProps) => {
-  const { account, stars, dust, ethBalance, setEthBalance } = useStore()
+  const { account, api, stars, dust, ethBalance, setEthBalance } = useStore()
 
   useEffect(() => {
     getEthBalance(account, setEthBalance)
   }, [account, setEthBalance])
+
+  useEffect(() => {
+    const getBalance = async () => {
+      if (api && api.getBalance) {
+        const weiBalance = await api.getBalance()
+
+        const inEth = Math.round(parseInt(weiBalance, 16) * GWEI * GWEI * TEN_THOUSAND) / TEN_THOUSAND
+        setEthBalance(inEth)
+      }
+    }
+
+    getBalance()
+  }, [api, setEthBalance])
 
   const address = account.currentAddress;
   const isValidNetwork = Account.isValidNetwork()
