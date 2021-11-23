@@ -15,10 +15,10 @@ export const SwapStars = () => {
     >
       <Text display="block" bold marginBottom="25px" opacity={.6}>Swapping Stars for WSTR</Text>
       <Paragraph fontWeight="bold" fontSize="20px" marginBottom="25px">
-        You’re currently swapping Stars (Urbit&nbsp;ID) for WSTR, a fungible token.
+        You’re currently swapping Stars for WSTR.
       </Paragraph>
       <Paragraph fontWeight="regular" fontSize="16px" marginBottom="50px">
-        You will need to make one transaction per star swapped.
+        You will need to make two transactions per star swapped.
       </Paragraph>
       <Ul listStyle="none">
         <Li marginBottom={3}>

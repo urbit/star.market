@@ -16,7 +16,7 @@ export const SwapWSTR = () => {
     >
       <Text display="block" bold marginBottom="25px" opacity={.6}>Swapping WSTR for Stars</Text>
       <Paragraph fontWeight="bold" fontSize="20px" marginBottom="25px">
-        You’re currently swapping WSTR (ERC-20) for stars (NFT), Urbit IDs.
+        You’re currently swapping WSTR for stars.
       </Paragraph>
       <Paragraph fontWeight="regular" fontSize="16px" marginBottom="50px">
         You will need to make one transaction per WSTR swapped.
