@@ -210,7 +210,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
                       dustInputField
                     }
                   </Box>
-
+ 
                   <Box className="toggle-exchange" onClick={toggleExchange}>
                     <Swap />
                   </Box>
