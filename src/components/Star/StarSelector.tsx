@@ -24,9 +24,11 @@ export default function StarSelector (
 ) {
   const numStars = selectedStars.length
 
+  const buttonText = disabled ? 'No eligible stars' : 'No stars selected'
+
   return <Row className="star-selector" onClick={disabled ? undefined : toggleStarSelector}>
     <div className={`selected-stars ${numStars ? 'selected' : ''}`}>
-      {!numStars ? 'No stars selected' : selectedStars.map(({ name }) => name).join(', ')}
+      {!numStars ? buttonText : selectedStars.map(({ name }) => name).join(', ')}
     </div>
     <Icon icon="ChevronSouth" />
     {showStarSelector && <Modal hideModal={toggleStarSelector}>

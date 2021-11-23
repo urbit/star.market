@@ -9,7 +9,7 @@ import WalletDisplay, { WalletDisplayProps } from './WalletDisplay'
 import { formatComma } from '../../utils/text';
 
 export default function HeaderBar (props: WalletDisplayProps) {
-  const { treasuryBalance } = useStore((store: any) => store)
+  const { treasuryBalance } = useStore()
   const balanceText = formatComma(treasuryBalance)
 
   const [isModalOpen, setModal] = useState(false);

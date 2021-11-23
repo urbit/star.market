@@ -36,7 +36,12 @@ interface WalletConnectParams {
 }
 
 const App = () => {
-  const { setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading, setSuggestedGasPrices, setEthBalance } = useStore()
+  const { api, setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading, setSuggestedGasPrices, setEthBalance } = useStore()
+
+  const loadTreasuryBalance = useCallback(async () => {
+    const treasuryBalance = await api.getTreasuryBalance().catch(console.error)
+    setTreasuryBalance(treasuryBalance || 0)
+  }, [api, setTreasuryBalance])
 
   const loadGasPrices = useCallback(async () => {
     try {
@@ -90,22 +95,19 @@ const App = () => {
       const dust = await api.getDust().catch(console.error)
       setDust(dust || 0)
   
-      const treasuryBalance = await api.getTreasuryBalance().catch(console.error)
-      setTreasuryBalance(treasuryBalance || 0)
-  
+      loadTreasuryBalance()
       loadGasPrices()
 
       setTimeout(() => getEthBalance(api, setEthBalance), 3000)
 
       setLoading(false)
     }
-  }, [setStars, setDust, setTreasuryBalance, setLoading, loadGasPrices, setEthBalance])
+  }, [setStars, setDust, loadTreasuryBalance, setLoading, loadGasPrices, setEthBalance])
 
   const updateCurrentAddress = useCallback((connector) => (error: any, payload: any) => {
     if (error) {
       throw error // need to handle
     }
-
     
     const data: WalletConnectParams = payload.params[0]
 
@@ -166,6 +168,7 @@ const App = () => {
 
     loadPreferredWallet()
     loadGasPrices()
+    loadTreasuryBalance()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

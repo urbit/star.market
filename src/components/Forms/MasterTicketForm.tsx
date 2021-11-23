@@ -54,14 +54,6 @@ const MasterTicketForm = ({ hideModal, hideParentModal, refresh } : MasterTicket
 
   return <form className="master-ticket-form" onClick={stopClick}>
     <FormHeader title="Enter Master Ticket" hideModal={hideModal} />
-    <label>Ticket</label>
-    <input
-      placeholder="Ticket (lowercase)"
-      value={ticket}
-      onChange={changeTicket}
-      type="text"
-      maxLength={27}
-    />
     <label>Ship</label>
     <input
       placeholder="Ship (lowercase)"
@@ -70,12 +62,20 @@ const MasterTicketForm = ({ hideModal, hideParentModal, refresh } : MasterTicket
       type="text"
       maxLength={13}
     />
+    <label>Ticket</label>
+    <input
+      placeholder="Ticket (lowercase)"
+      value={ticket}
+      onChange={changeTicket}
+      type="text"
+      // maxLength={27}
+    />
     <label>Passphrase</label>
     <input
       placeholder="Passphrase (optional)"
       value={passphrase}
       onChange={changePassphrase}
-      type="text"
+      type="password"
     />
     {/* <label>Revision</label>
     <input
