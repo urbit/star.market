@@ -24,16 +24,16 @@ export default function StarSelector (
 ) {
   const numStars = selectedStars.length
 
-  const buttonText = disabled ? 'No eligible stars' : 'Select stars to swap'
+  const buttonText = disabled ? 'No eligible stars' : 'No stars selected'
 
   return <Row className="star-selector" onClick={disabled ? undefined : toggleStarSelector}>
     <div className={`selected-stars ${numStars ? 'selected' : ''}`}>
-      {!numStars ? 'No stars selected' : selectedStars.map(({ name }) => name).join(', ')}
+      {!numStars ? buttonText : selectedStars.map(({ name }) => name).join(', ')}
     </div>
     <Icon icon="ChevronSouth" />
     {showStarSelector && <Modal hideModal={toggleStarSelector}>
       <Box className="star-selector-modal" onClick={stop}>
-        <Text className="title">{buttonText}</Text>
+        <Text className="title">Select stars to swap</Text>
         <Text className="info">
           You may only select stars which have never spawned planets to swap with wrapped token assets.
         </Text>
