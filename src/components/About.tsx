@@ -63,7 +63,7 @@ export default function About() {
                         <tr>
                             <td>Contract Address</td>
                             <td>
-                                Coming Soon
+                                <a href="https://etherscan.io/token/0xf0dc76c22139ab22618ddfb498be1283254612b1" rel="noreferrer" target="_blank">0xf0dc76c22139ab22618ddfb498be1283254612b1</a>
                             </td>
                         </tr>
                         <tr>
