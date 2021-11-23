@@ -33,7 +33,7 @@ export default function StarSelector (
       <Box className="star-selector-modal" onClick={stop}>
         <Text className="title">Select stars to swap</Text>
         <Text className="info">
-          You can only select unbooted stars to swap with wrapped token assets.
+          You may only select stars which have never spawned planets to swap with wrapped token assets.
         </Text>
         <StarList selected={selectedStars} onSelect={selectStar} showCheckbox />
         <Row className="buttons">
