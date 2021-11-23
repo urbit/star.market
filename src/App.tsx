@@ -10,7 +10,6 @@ import dark from './components/themes/dark'
 
 import { useStore } from './store';
 import Api from './api';
-// import Container from './components/Container'
 
 import Home from './components/Home'
 import About from './components/About'
@@ -22,10 +21,14 @@ import './App.scss';
 import Account, { WalletType } from './account';
 import { useEffect } from 'react';
 import { getPreferredWallet } from './utils/local-storage';
+import { defaultGasValues, formatWait, minGas } from './utils/gas-prices';
+import { DEFAULT_GAS_PRICE_GWEI } from './constants/gas';
+import { getEthBalance } from './utils/eth';
+import Container from './components/Container';
 // import { toPairsIn } from 'lodash';
 // import { ToggleSwitch } from '@tlon/indigo-react';
 
-const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
+// const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
 
 interface WalletConnectParams {
   accounts: string[]
@@ -33,18 +36,53 @@ interface WalletConnectParams {
 }
 
 const App = () => {
-  const { account, setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading } = useStore()
+  const { setAccount, setStars, setDust, setTreasuryBalance, setGasPrice, setLoading, setSuggestedGasPrices, setEthBalance } = useStore()
 
-  // TODO: REMOVE THIS BEFORE FINAL VERSION
-  // console.log(
-  //   'Connect to Hardhat network running on http://65.108.49.124:8545',
-  //   'Use PK: 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d'
-  // )
+  const loadGasPrices = useCallback(async () => {
+    try {
+      // const { result } = await fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`)
+      //   .then(result => result.json())
+      // const { FastGasPrice, ProposeGasPrice, SafeGasPrice } = result
+      // setGasPrice(Number(SafeGasPrice))
+      // const [fastTime, proposeTime, safeTime] = await Promise.all([FastGasPrice, ProposeGasPrice, SafeGasPrice].map((price) =>
+      //   fetch(`https://api.etherscan.io/api?module=gastracker&action=gasestimate&gasprice=${2000}&apikey=${ETHERSCAN_API_KEY}`)
+      //     .then(result => result.json())
+      // ))
+
+      const json = await fetch('https://ethgasstation.info/json/ethgasAPI.json',
+        {
+          method: 'GET',
+          cache: 'no-cache',
+        }
+      ).then(response => response.json())
+
+      setGasPrice(minGas(json.average))
+
+      setSuggestedGasPrices({
+        fast: {
+          price: minGas(json.fast),
+          wait: formatWait(json.fastWait),
+        },
+        average: {
+          price: minGas(json.average),
+          wait: formatWait(json.avgWait),
+        },
+        low: {
+          price: minGas(json.safeLow),
+          wait: formatWait(json.safeLowWait),
+        },
+      })
+    } catch (e) {
+      setSuggestedGasPrices(defaultGasValues(DEFAULT_GAS_PRICE_GWEI));
+    }
+  }, [setGasPrice, setSuggestedGasPrices])
 
   const refresh = useCallback(async (account: Account) => {
     if (account.currentAddress) {
       setLoading(true)
       const api = new Api(account)
+
+      await api.loadContracts()
   
       const stars = await api.getStars().catch(console.error)
       setStars(stars || [])
@@ -55,29 +93,28 @@ const App = () => {
       const treasuryBalance = await api.getTreasuryBalance().catch(console.error)
       setTreasuryBalance(treasuryBalance || 0)
   
-      try {
-        const { result: { SafeGasPrice } } = await fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`)
-          .then(result => result.json())
-        setGasPrice(Number(SafeGasPrice))
-      } catch (e) {
-        console.warn(e)
-      }
-  
+      loadGasPrices()
+
+      setTimeout(() => getEthBalance(api, setEthBalance), 3000)
+
       setLoading(false)
     }
-  }, [setStars, setDust, setTreasuryBalance, setGasPrice, setLoading])
+  }, [setStars, setDust, setTreasuryBalance, setLoading, loadGasPrices, setEthBalance])
 
-  const updateCurrentAddress = useCallback((error, payload) => {
+  const updateCurrentAddress = useCallback((connector) => (error: any, payload: any) => {
     if (error) {
       throw error // need to handle
     }
 
+    
     const data: WalletConnectParams = payload.params[0]
 
-    if (account) {
-      setAccount(account.setCurrentAddress(data.accounts[0]))
-    }
-  }, [account, setAccount])
+    const newAccount = new Account({ walletConnection: connector })
+    newAccount.setCurrentAddress(data.accounts[0])
+    
+    setAccount(newAccount)
+    refresh(newAccount)
+  }, [setAccount, refresh])
 
   const connectWalletConnector = useCallback(() => {
     const connector = new WalletConnect({
@@ -89,8 +126,8 @@ const App = () => {
       connector.createSession()
     }
 
-    connector.on("connect", updateCurrentAddress)
-    connector.on("session_update", updateCurrentAddress)
+    connector.on("connect", updateCurrentAddress(connector))
+    connector.on("session_update", updateCurrentAddress(connector))
   
     connector.on("disconnect", (error, payload) => {
       if (error) {
@@ -98,15 +135,8 @@ const App = () => {
       }
 
       setAccount(new Account({}))
-  
-      // Delete connector
     })
-
-    // create new Account
-    const newAccount = new Account({ walletConnection: connector })
-    setAccount(newAccount)
-    refresh(newAccount)
-  }, [setAccount, refresh, updateCurrentAddress])
+  }, [updateCurrentAddress, setAccount])
 
   const setMetamask = useCallback(() => {
     const newAccount = new Account({ useMetamask: true })
@@ -116,7 +146,9 @@ const App = () => {
 
   const connectMetamask = useCallback(() => {
     const ethereum = (window as any).ethereum
-    setMetamask()
+    if (ethereum.selectedAddress) {
+      setMetamask()
+    }
     ethereum.on('accountsChanged', () => setMetamask())
     ethereum.request({ method: 'eth_requestAccounts' })
   }, [setMetamask])
@@ -133,6 +165,7 @@ const App = () => {
     }
 
     loadPreferredWallet()
+    loadGasPrices()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -140,11 +173,11 @@ const App = () => {
       <ThemeProvider theme={false ? dark : light}>
       <Switch>
           {/* <Container/> refers to the swap app */}
-          {/* <Route path="/app">
+          <Route path="/app">
             
-          <Container {...{ refresh, connectMetamask, connectWalletConnector }} />
+            <Container {...{ refresh, connectMetamask, connectWalletConnector }} />
             
-          </Route> */}
+          </Route>
           <Route path="/about">
             <About />
           </Route>

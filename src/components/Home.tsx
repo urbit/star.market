@@ -1,63 +1,64 @@
-import { useEffect, useState } from 'react'
 import HomeHeader from './Header/HomeHeader';
 import Footer from './Footer/Footer';
 import Logo from './Icons/LightLogo';
 import BubbleLink from './Generics/BubbleLink';
 
-function padZero(str:string) {
-    if (str.length < 2) {
-        return `0${str}`
-    }
-    return str
-}
+// function padZero(str:string) {
+//     if (str.length < 2) {
+//         return `0${str}`
+//     }
+//     return str
+// }
 
 export default function Home() {
-    const calculateTimeLeft = () => {
 
-        const now = new Date();
-        const offset = new Date().getTimezoneOffset() / 60
+//     const calculateTimeLeft = () => {
 
-        console.log(offset)
+//         const now = new Date();
+//         const offset = new Date().getTimezoneOffset() / 60
+
+//         console.log(offset)
  
-        // Get the localized end date for your countdown
-        const end = new Date(Date.UTC(
-            2021, // Year
-            11-1,  // Month (0 is January, so 3 minus 1 is 2, which is March)
-            23,   // Day
-            9 + offset,   // Hour
-            0,    // Minutes
-            0,    // Seconds
-            0     // Milliseconds
-        ));
+//         // Get the localized end date for your countdown
+//         const end = new Date(Date.UTC(
+//             2021, // Year
+//             11-1,  // Month (0 is January, so 3 minus 1 is 2, which is March)
+//             23,   // Day
+//             9 + offset,   // Hour
+//             0,    // Minutes
+//             0,    // Seconds
+//             0     // Milliseconds
+//         ));
 
-        const difference = +end - +now
+//         const difference = +end - +now
 
-        let timeLeft = {
-            days: '00',
-            hours: '00',
-            minutes: '00',
-            seconds: '00'
-        };
+//         let timeLeft = {
+//             days: '00',
+//             hours: '00',
+//             minutes: '00',
+//             seconds: '00'
+//         };
     
-        if (now < end) {
-          timeLeft = {
-            days: padZero(`${Math.floor(difference / (1000 * 60 * 60 * 24))}`),
-            hours: padZero(`${Math.floor((difference / (1000 * 60 * 60)) % 24)}`),
-            minutes: padZero(`${Math.floor((difference / 1000 / 60) % 60)}`),
-            seconds: padZero(`${Math.floor((difference / 1000) % 60)}`),
-          };
-        }
+//         if (now < end) {
+//           timeLeft = {
+//             days: padZero(`${Math.floor(difference / (1000 * 60 * 60 * 24))}`),
+//             hours: padZero(`${Math.floor((difference / (1000 * 60 * 60)) % 24)}`),
+//             minutes: padZero(`${Math.floor((difference / 1000 / 60) % 60)}`),
+//             seconds: padZero(`${Math.floor((difference / 1000) % 60)}`),
+//           };
+//         }
+
     
-        return timeLeft;
-      };
+    //     return timeLeft;
+    //   };
 
-      const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    //   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-      useEffect(() => {
-        setTimeout(() => {
-          setTimeLeft(calculateTimeLeft());
-        }, 1000);
-      });
+    //   useEffect(() => {
+    //     setTimeout(() => {
+    //       setTimeLeft(calculateTimeLeft());
+    //     }, 1000);
+    //   });
 
     return (
         <div className="layout-container">
@@ -68,12 +69,7 @@ export default function Home() {
                     <div className="inner-text measure-narrow">
                         <p>Star Market is the only place to swap your Urbit star for a WSTR.
 </p>
-
                         <p>Star Market is a community driven project audited by Urbit.</p>
-
-                        <p className="timer bg-yellow text-black table">
-                            Launching in <b>{timeLeft.days}</b><b>:</b><b>{timeLeft.hours}</b><b>:</b><b>{timeLeft.minutes}</b><b>:</b><b>{timeLeft.seconds}</b>
-                        </p>
 
                     </div>
                 </div>

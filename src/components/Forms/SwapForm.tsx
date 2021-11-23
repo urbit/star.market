@@ -1,6 +1,6 @@
 import { useState, useCallback, ChangeEvent } from "react"
 
-import { Box, Button, Col, Row, Text } from "@tlon/indigo-react"
+import { Box, Col, Row, Text } from "@tlon/indigo-react"
 import { sigil, reactRenderer } from '@tlon/sigil-js'
 import ReceiveDisplay from './ReceiveDisplay'
 import Star from "../../types/Star"
@@ -13,7 +13,6 @@ import Swap from "../Icons/Swap"
 import Logo from '../Icons/Logo';
 import { getExchangeRate } from "../../utils/text"
 import Balance from "../Balance"
-import Modal from "../Modal"
 import { SwapStars } from "../Explainers/SwapStars"
 import { SwapWSTR } from "../Explainers/SwapWSTR"
 import { Review } from "../Explainers/Review"
@@ -28,10 +27,10 @@ interface SwapFormProps {
 }
 
 const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
-  const { account, api, dust, stars, setStars, setDust, setTreasuryBalance, setLoading, setSuccessTxHashes, setErrorMessage } = useStore()
+  const { account, api, dust, stars, gasPrice, setStars, setDust, setTreasuryBalance, setLoading, setLoadingText, setSuccessTxHashes, setErrorMessage } = useStore()
   const [dustInput, setDustInput] = useState('')
   const [showStarSelector, setShowStarSelector] = useState(false)
-  const [showConfirmTrade, setShowConfirmTrade] = useState(false)
+  // const [showConfirmTrade, setShowConfirmTrade] = useState(false)
   const [selectedStars, setSelectedStars] = useState([] as Star[])
   const [exchange, setExchange] = useState(Exchange.starsForDust)
   const [confirm, setConfirm] = useState(false)
@@ -46,7 +45,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     setShowStarSelector(!showStarSelector)
   }, [showStarSelector])
 
-  const selectStar = (star: Star) => setSelectedStars(star.isUnlinked ? addOrRemove(selectedStars, star) : selectedStars)
+  const selectStar = (star: Star) => setSelectedStars(star.isEligible ? addOrRemove(selectedStars, star) : selectedStars)
 
   const toggleExchange = () => 
     setExchange(
@@ -66,6 +65,8 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
   />
 
   const refreshValues = useCallback(async () => {
+    await api.loadContracts()
+
     const newStars = await api.getStars().catch((error) => {
       console.error(error)
       return []
@@ -85,41 +86,48 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     setTreasuryBalance(newTreasuryBalance)
 
     setConfirm(false)
-    setExchange(exchange === Exchange.starsForDust ? Exchange.dustForStars : Exchange.starsForDust)
-  }, [api, setStars, setDust, setTreasuryBalance, exchange, setExchange])
-  
-  const confirmTrade = async () => {
-    setLoading(true)
+  }, [api, setStars, setDust, setTreasuryBalance])
+
+  const confirmTrade = useCallback(async () => {
+    setLoadingText('Waiting for transfer proxy to be set (1/2)...')
 
     if (exchange === Exchange.starsForDust) {
       try {
-        const hashes : string[] = [];
-        for (let i = 0; i < selectedStars.length; i++) {
-          const hash = await api.depositStar(selectedStars[i])
-          hashes.push(hash || '');
-        }
+        await api.loadContracts()
+        await Promise.all(
+          selectedStars.map((star) => api.setTransferProxy(star, gasPrice))
+        )
+        setLoadingText('Waiting for star to deposit (2/2)...')
+        const hashes = await Promise.all(
+          selectedStars.map(async (star) => {
+            const hash = await api.depositStar(star, gasPrice)
+            return hash || ''
+          })
+        )
+
         setSuccessTxHashes(hashes)
         setSelectedStars([])
         await refreshValues()
       } catch (e) {
-        setErrorMessage(String(e))
+        setErrorMessage(JSON.stringify(e))
         console.warn('ERROR DEPOSITING STARS', e)
       }
     } else {
       try {
-        const hashes = await api.redeemTokens(Number(dustInput))
+        setLoadingText('Waiting for star redemption to complete...')
+        const hashes = await api.redeemTokens(Number(dustInput), gasPrice)
         setSuccessTxHashes(hashes)
         setDustInput('0')
         await refreshValues()
       }
       catch (e) {
-        setErrorMessage(String(e))
+        setErrorMessage(JSON.stringify(e))
         console.warn('ERROR REDEEMING WSTR', e)
       }
     }
 
     setLoading(false)
-  }
+  }, [api, dustInput, exchange, refreshValues, selectedStars, gasPrice, setErrorMessage, setLoading, setLoadingText, setSuccessTxHashes])
 
   const hasAddress = Boolean(account.currentAddress)
   const disableButton = starsForDust ? !selectedStars.length : !Number(dustInput)
@@ -150,7 +158,7 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
     <Col flexDirection={['column', 'column', 'column','row-reverse']}>
       { confirm
         ? <>
-            <Review count={selectedStars.length ? 2 : 1}/>
+            <Review exchange={exchange} />
             <Box 
               className="form-holder" 
               maxWidth="576px" 
@@ -161,22 +169,22 @@ const SwapForm = ({ toggleWalletModal } : SwapFormProps) => {
                 starsForDust={starsForDust}
                 dust={Number(dustInput)}
                 stars={selectedStars}
-                onConfirm={() => setShowConfirmTrade(true)}
+                onConfirm={confirmTrade}
                 onCancel={() => setConfirm(false)}
               />
-              {showConfirmTrade && <Modal hideModal={() => setShowConfirmTrade(false)}>
+              {/* {showConfirmTrade && <Modal hideModal={() => setShowConfirmTrade(false)}>
                 <Box className="confirm-trade-modal">
                   <Box className="message">
                     {selectedStars.length
-                    ? 'You will need to make 2 transactions per star. The first to authorize the WSTR contract to transfer your star, the second to deposit the star.'
+                    ? 'You will need to make 2 transactions per star if the star\'s transfer proxy is not already set to the WSTR treasury contract. The first to authorize the WSTR contract to transfer your star, the second to deposit the star.'
                     : 'You will need to make 1 transaction per star.'}
                   </Box>
                   <Row className="buttons" gapX={3}>
                     <Button className="cancel" borderRadius={3} onClick={() => setShowConfirmTrade(false)}>Cancel</Button>
-                    <Button className="confirm" borderRadius={3} onClick={confirmTrade}>Confirm</Button>
+                    <Button className="confirm" borderRadius={3} onClick={confirmTrade}>Execute</Button>
                   </Row>
                 </Box>
-              </Modal>}
+              </Modal>} */}
             </Box>
           </>
         :

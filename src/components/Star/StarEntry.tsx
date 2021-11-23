@@ -13,7 +13,7 @@ interface StarEntryProps {
 const StarEntry = ({ star, selected = false, onSelect, showCheckbox = false }: StarEntryProps) => {
   const { 
     name, 
-    isUnlinked, 
+    isEligible, 
     // getDisabledMessage
   } = star
 
@@ -27,7 +27,7 @@ const StarEntry = ({ star, selected = false, onSelect, showCheckbox = false }: S
 
   let className = 'star-entry'
 
-  if (!isUnlinked) {
+  if (!isEligible) {
     className = `${className} disabled`
   } else if (selected) {
     className = `${className} selected`
@@ -35,7 +35,7 @@ const StarEntry = ({ star, selected = false, onSelect, showCheckbox = false }: S
 
   return <Row className={className} onClick={select}>
     <Row className="sigil-name">
-      {/* {isUnlinked && showCheckbox && <Checkbox className="checkbox" selected={selected} />} */}
+      {/* {isEligible && showCheckbox && <Checkbox className="checkbox" selected={selected} />} */}
       {sigil({
         patp: name,
         renderer: reactRenderer,
@@ -44,7 +44,7 @@ const StarEntry = ({ star, selected = false, onSelect, showCheckbox = false }: S
       })}
       <div>{name}</div>
     </Row>
-    <Button className="select-star">{selected ? 'Swapping' : 'Swap'}</Button>
+    <Button className="select-star">{selected ? 'Selected' : 'Select'}</Button>
   </Row>
 }
 

@@ -30,6 +30,7 @@ button {
   margin: 0;
   border: 0;
   cursor: pointer;
+  user-select: none;
 }
 
 p {
@@ -151,7 +152,8 @@ form {
     
     background: white;
     border-radius: 8px;
-    color: $medium-grey;
+    color: black;
+    font-weight: bold;
 
     &.wstr {
       color: $dust-blue;
@@ -241,7 +243,7 @@ form {
 
   .exchange-rate {
     margin: 1rem 0rem;
-    color: $medium-grey;
+    // color: $medium-grey;
     font-weight: 600;
   }
 }
@@ -381,6 +383,7 @@ form.master-ticket-form {
   background-color: $form-background;
   display: flex;
   flex-direction: column;
+  min-width: 400px;
 
   button.close {
     background-color: $form-background;
@@ -494,6 +497,7 @@ form.confirmation-form {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     margin-top: 1rem;
 
     .left {
@@ -514,7 +518,7 @@ form.confirmation-form {
 
     button {
       flex: 1 1 0%;
-      color: white;
+      // color: white;
       border: none;
       cursor: pointer;
 
@@ -660,6 +664,7 @@ h3, .gray-title {
     font-weight: 600;
     letter-spacing: 0em;
     border: none;
+    cursor: pointer;
   }
 
   .toolbar-link {
@@ -974,50 +979,50 @@ button:hover {
     }
   }
 
-  .treasury {
-    background-color: $yellow;
-    text-align: center;
-    cursor: pointer;
+  // .treasury {
+  //   background-color: $yellow;
+  //   text-align: center;
+  //   cursor: pointer;
 
-    .modal {
-      cursor: default;
+  //   .modal {
+  //     cursor: default;
       
-      .message-container {
-        display: flex;
-        flex-direction: column;
-        // justify-content: space-between;
-        align-items: flex-start;
-        padding: 36px;
-        position: absolute;
-        width: 400px;
-        height: 320px;
-        left: 35px;
-        top: 86px;
-        background: #F3C263;
-        border-radius: 24px;
-        text-align: left;
+  //     .message-container {
+  //       display: flex;
+  //       flex-direction: column;
+  //       // justify-content: space-between;
+  //       align-items: flex-start;
+  //       padding: 36px;
+  //       position: absolute;
+  //       width: 400px;
+  //       height: 320px;
+  //       left: 35px;
+  //       top: 86px;
+  //       background: #F3C263;
+  //       border-radius: 24px;
+  //       text-align: left;
 
-        .title {
-          font-size: 16px;
-          font-weight: 600;
-          line-height: 24px;
-          color: $steel-grey;
-          margin-bottom: 24px;
-        }
+  //       .title {
+  //         font-size: 16px;
+  //         font-weight: 600;
+  //         line-height: 24px;
+  //         color: $steel-grey;
+  //         margin-bottom: 24px;
+  //       }
 
-        .message, .stars {
-          font-size: 24px;
-          font-weight: 600;
-          line-height: 32px;
-          color: $steel-grey;
+  //       .message, .stars {
+  //         font-size: 24px;
+  //         font-weight: 600;
+  //         line-height: 32px;
+  //         color: $steel-grey;
 
-          .stars {
-            color: black;
-          }
-        }
-      }
-    }
-  }
+  //         .stars {
+  //           color: black;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   .walletSection {
     margin-left: 3rem;
@@ -1076,3 +1081,120 @@ button:hover {
 .ml-0\.25em {
   margin-left: 0.25em;
 }
+
+.button-lg {
+  width: 100%;
+  border-radius: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  height: 5rem;
+  border: none;
+}
+
+.text-gray {
+  color: rgba(0,0,0,0.6);
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-between;
+  // align-items: flex-start;
+  padding: 24px;
+  // position: absolute;
+  width: 400px;
+  // height: 320px;
+  // left: 35px;
+  // top: 86px;
+  background: #F3C263;
+  border-radius: 24px;
+  text-align: left;
+}
+
+.relative {
+  position: relative;
+}
+
+.light-dismiss {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top:0;
+  left:0;
+  background-color: rgba(0,0,0,0.2);
+  content: "";
+  z-index: 100;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.dropdown-button {
+  color: $medium-grey;
+  background-color: #FCE7C0;
+  border-radius: 8px;
+  padding: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.gas-container {
+  align-items: center;
+
+}
+
+.text-lightGray {
+  color: $medium-grey;
+}
+
+.dropdown-menu {
+  background-color: #FCE7C0;
+  border-radius: 16px;
+  padding: 0.5em;
+}
+
+.dropdown-item {
+  padding: 0.5em;
+  margin-bottom: 0.25em;
+  border-radius: 8px;
+  display: flex;
+  cursor:pointer;
+}
+
+.dropdown-input-container {
+  padding-left: 0.5em;
+  padding-right: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-input-container input {
+  width: 100px;
+  margin-right: 8px;
+  border-radius: 8px;
+  border: none;
+}
+
+
+.dropdown-item:hover {
+  background-color: #FEF9F0;
+}
+
+p.label {
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.dropdown-item p {
+  line-height: 16px;
+  margin-top: 0;
+  padding-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+

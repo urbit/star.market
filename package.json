@@ -12,6 +12,7 @@
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.12.7",
     "@babel/runtime": "^7.10.5",
+    "@radix-ui/react-dropdown-menu": "^0.1.1",
     "@reach/disclosure": "^0.10.5",
     "@reach/menu-button": "^0.10.5",
     "@reach/tabs": "^0.10.5",
@@ -64,7 +65,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start:ropsten": "cp .ropsten-env .env && react-scripts start",
+    "start:mainnet": "cp .mainnet-env .env && react-scripts start",
+    "build": "cp .mainnet-env .env && react-scripts build",
+    "build:ropsten": "cp .ropsten-env .env && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

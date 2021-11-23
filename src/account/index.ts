@@ -48,17 +48,13 @@ export default class Account {
       this.currentAddress = undefined
       this.currentWalletType = undefined
     }
-    console.log(5, this.currentWalletType)
     setPreferredWallet(this.currentWalletType)
   }
 
   setCurrentAddress = (currentAddress: string) => {
-    console.log('SETTING CURRENT ADDRESS', currentAddress)
     this.currentAddress = currentAddress
     return this
   }
-
-  getBalance = async () => (window as any).ethereum.request({ method: 'eth_getBalance', params: [this.currentAddress, "latest"] })
 
   static isValidNetwork = () => {
     // TODO: REMOVE THIS BEFORE FINAL VERSION
