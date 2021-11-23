@@ -4,14 +4,14 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  padding-top: 8em;
+  padding-bottom: 0em;
 }
 
 .footer .innerCol {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-top: 8em;
-  padding-bottom: 12em;
   max-width: 60em;
 
   @media screen and (max-width: 767px) {
@@ -27,4 +27,8 @@
     flex-direction: column;
     justify-content: flex-start;
   }
+}
+
+.footer-home {
+  padding-bottom: 12em;
 }
