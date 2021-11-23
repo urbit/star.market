@@ -180,19 +180,21 @@ export default function Home() {
                     <h2>
                         Trade WSTR on a variety of distributed exchanges
                     </h2>
-
-                    <p>Coming Soon</p>
-
                     <ul>
-                        {/* <BubbleLink
-                            href="https://app.uniswap.org/"
-                            title="Uniswap V2"
+                        <BubbleLink
+                            href="https://info.uniswap.org/#/pools/0x7f4a0822a6e3c085df795a8d78acbcd36f210ebf/"
+                            title="Uniswap V3"
                             caption="A decentralized finance protocol"
                         >
                             <img 
                             alt="uniswap logo"
                             className="bubble" src="/assets/uniswap-logo.png" />
-                        </BubbleLink> */}
+                        </BubbleLink>
+                     
+                     
+                    <p>More Coming Soon</p>
+
+
 
                         {/* <BubbleLink
                             href="https://sushi.com/"
