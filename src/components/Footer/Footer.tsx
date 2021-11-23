@@ -3,9 +3,14 @@ import Logo from '../Icons/Logo';
 
 import './Footer.scss'
 
-export default function Footer() {
+type FooterProps = {
+    className: string,
+    style: any,
+}
+
+export default function Footer({className, style}:FooterProps) {
     return (
-        <header className="footer">
+        <footer className={`footer ${className}`} style={{...style}}>
             <div className="innerCol">
                 <Link to="/">
                     <div className="toolbar-link">
@@ -23,7 +28,7 @@ export default function Footer() {
                     </Link>
                     <Link to="/app">
                         <div className="toolbar-link">
-                            Launch App
+                            App
                         </div>
                     </Link>
                     <Link to="/disclaimer">
@@ -36,8 +41,16 @@ export default function Footer() {
                             Terms of Service
                         </div>
                     </Link>
+                    <a href="https://github.com/urbit/starketplace/issues" target="_blank" rel="noreferrer"className="toolbar-link">
+                        Bug Reports
+                    </a>
                 </nav>
             </div>
-        </header>
+        </footer>
     )
+}
+
+Footer.defaultProps = {
+    className: "",
+    style: {},
 }

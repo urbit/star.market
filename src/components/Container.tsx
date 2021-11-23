@@ -11,6 +11,7 @@ import Account from '../account'
 import LoadingIndicator from './Results/LoadingIndicator'
 import SuccessDisplay from './Results/SuccessDisplay'
 import ErrorDisplay from './Results/ErrorDisplay'
+import Footer from './Footer/Footer'
 
 export interface RefreshProps {
   refresh: (account: Account) => void
@@ -42,6 +43,8 @@ const Container = ({ refresh, connectWalletConnector, connectMetamask } : Contai
       <section className="app-layout">
         <Box display="flex" flexDirection="column" alignItems="center" paddingBottom={7}>
         <SwapForm {...{ refresh, toggleWalletModal }} />
+
+        <Footer style={{alignSelf:"flex-end"}}/>
       </Box>
 
       {showWalletModal && <Modal hideModal={hideWalletModal}>
@@ -66,7 +69,7 @@ const Container = ({ refresh, connectWalletConnector, connectMetamask } : Contai
 
       {loading && <Modal hideModal={() => null}>
         <LoadingIndicator />
-      </Modal>}       
+      </Modal>}     
     </section>
   </div>
 }
