@@ -11,24 +11,43 @@ import BubbleLink from './Generics/BubbleLink';
 // }
 
 export default function Home() {
-    // const calculateTimeLeft = () => {
-    //     let year = new Date().getFullYear();
-    //     const difference = +new Date(`${year}-10-25`) - +new Date();
-    //     let timeLeft = {
-    //         days: '00',
-    //         hours: '00',
-    //         minutes: '00',
-    //         seconds: '00'
-    //     };
+
+//     const calculateTimeLeft = () => {
+
+//         const now = new Date();
+//         const offset = new Date().getTimezoneOffset() / 60
+
+//         console.log(offset)
+ 
+//         // Get the localized end date for your countdown
+//         const end = new Date(Date.UTC(
+//             2021, // Year
+//             11-1,  // Month (0 is January, so 3 minus 1 is 2, which is March)
+//             23,   // Day
+//             9 + offset,   // Hour
+//             0,    // Minutes
+//             0,    // Seconds
+//             0     // Milliseconds
+//         ));
+
+//         const difference = +end - +now
+
+//         let timeLeft = {
+//             days: '00',
+//             hours: '00',
+//             minutes: '00',
+//             seconds: '00'
+//         };
     
-    //     if (difference > 0) {
-    //       timeLeft = {
-    //         days: padZero(`${Math.floor(difference / (1000 * 60 * 60 * 24))}`),
-    //         hours: padZero(`${Math.floor((difference / (1000 * 60 * 60)) % 24)}`),
-    //         minutes: padZero(`${Math.floor((difference / 1000 / 60) % 60)}`),
-    //         seconds: padZero(`${Math.floor((difference / 1000) % 60)}`),
-    //       };
-    //     }
+//         if (now < end) {
+//           timeLeft = {
+//             days: padZero(`${Math.floor(difference / (1000 * 60 * 60 * 24))}`),
+//             hours: padZero(`${Math.floor((difference / (1000 * 60 * 60)) % 24)}`),
+//             minutes: padZero(`${Math.floor((difference / 1000 / 60) % 60)}`),
+//             seconds: padZero(`${Math.floor((difference / 1000) % 60)}`),
+//           };
+//         }
+
     
     //     return timeLeft;
     //   };
@@ -41,7 +60,6 @@ export default function Home() {
     //     }, 1000);
     //   });
 
-
     return (
         <div className="layout-container">
             <HomeHeader />
@@ -51,9 +69,8 @@ export default function Home() {
                     <div className="inner-text measure-narrow">
                         <p>Star Market is the only place to swap your Urbit star for a WSTR.
 </p>
+                        <p>Star Market is a community driven project audited by Urbit.</p>
 
-                        <p>Stars are businesses, supernodes, and service providers on the Urbit Network. </p>
-                        
                     </div>
                 </div>
             </section>

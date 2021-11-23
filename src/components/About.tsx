@@ -12,8 +12,7 @@ export default function About() {
                 <p>Star Market is the only place to swap your Urbit star for a WSTR.
                 </p>
                 <p>
-                Stars are gateways to building businesses, communities, supernodes, and other provider services on 
-                    the Urbit Network.
+                    Star Market is a community driven project audited by Urbit. 
                 </p>
 
                 <p>
