@@ -11,14 +11,12 @@ const ajs = require('azimuth-js')
 const {
   REACT_APP_AZIMUTH_ADDRESS,
   REACT_APP_TREASURY_ADDRESS,
+  REACT_APP_INFURA_URL,
 } = process.env
 
 export const SET_TRANSFER_PROXY_GAS_LIMIT = 400000
 export const DEPOSIT_GAS_LIMIT = 800000
 export const REDEEM_GAS_LIMIT = 600000
-
-const showNotConnectedAlert = () =>
-  alert('You must have Metamask or another extension installed and active to connect to the Ethereum network. Please reload the page when ready.')
 
 export default class Api {
   web3: Web3
@@ -33,11 +31,10 @@ export default class Api {
     
     const ethereum = (window as any).ethereum // default is to use metamask
 
-    if (!ethereum) {
-      showNotConnectedAlert()
-    }
+    // Use infura connection if ethereum isn't available
+    const connection = ethereum || REACT_APP_INFURA_URL;
 
-    this.web3 = new Web3(ethereum); // use infura connection if ethereum isn't available?
+    this.web3 = new Web3(connection);
     this.treasury = new this.web3.eth.Contract(TREASURY_ABI, REACT_APP_TREASURY_ADDRESS)
   }
 
@@ -49,6 +46,8 @@ export default class Api {
     this.eclipticAddress = eclipticAddress
   }
 
+  getBalance = async () => this.account.currentAddress ? this.web3.eth.getBalance(this.account.currentAddress) : '0'
+
   connectMetamask = async () => {
     const ethereum = (window as any).ethereum
 
@@ -59,15 +58,7 @@ export default class Api {
     }
   }
 
-  checkConnection = () => {
-    if (!(window as any).ethereum) {
-      showNotConnectedAlert()
-      throw new Error('No Ethereum connection available')
-    }
-  }
-
   getStars = async () : Promise<Star[]> => {
-    this.checkConnection()
     if (!this.contracts) {
       return []
     }
@@ -78,26 +69,22 @@ export default class Api {
       .map(Number)
       .filter(ajs.check.isStar)
       .map(async (point: number) => {
-        const isUnlinked = !(await ajs.azimuth.hasBeenLinked(this.contracts, point))
-  
+        const isEligible = 0 === Number(await ajs.azimuth.getSpawnCount(this.contracts, point))
+
         return new Star({
           point,
-          isUnlinked,
+          isEligible,
         })
       }))
     return stars
   }
 
   getTreasuryBalance = async (): Promise<number> => {
-    this.checkConnection()
-
     const assetCount = await this.treasury.methods.getAssetCount().call()
     return assetCount
   }
 
   getDust = async () : Promise<number> => {
-    this.checkConnection()
-
     const tokenAddress = await this.treasury.methods.startoken().call()
     const starToken = new this.web3.eth.Contract(DUST_ABI, tokenAddress)
 
@@ -123,6 +110,7 @@ export default class Api {
       data: this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).encodeABI(),
       gas: SET_TRANSFER_PROXY_GAS_LIMIT,
       gasPrice,
+      nonce: await this.web3.eth.getTransactionCount(this.account.currentAddress!),
     }
 
     if (this.account.urbitWallet) {
@@ -144,7 +132,6 @@ export default class Api {
   }
 
   depositStar = async (star: Star, gwei: number) : Promise<string | undefined> =>  {
-    this.checkConnection()
     if (!this.ecliptic || !this.eclipticAddress) {
       throw new Error('Ecliptic address not set')
     }
@@ -156,6 +143,7 @@ export default class Api {
       data: this.treasury.methods.deposit(star.point).encodeABI(),
       gas: DEPOSIT_GAS_LIMIT, 
       gasPrice,
+      nonce: await this.web3.eth.getTransactionCount(this.account.currentAddress!),
     }
 
     if (this.account.urbitWallet) {
@@ -181,8 +169,6 @@ export default class Api {
   }
 
   redeemTokens = async (tokens: number, gwei: number) : Promise<string[]> => {
-    this.checkConnection()
-
     const gasPrice = this.web3.utils.toWei(gwei.toString(), 'gwei')
     const hashes = []
 
@@ -193,6 +179,7 @@ export default class Api {
         data: this.treasury.methods.redeem().encodeABI(),
         gas: REDEEM_GAS_LIMIT, 
         gasPrice,
+        nonce: await this.web3.eth.getTransactionCount(this.account.currentAddress!),
       }
 
       if (this.account.urbitWallet) {

@@ -5,7 +5,7 @@ import { useStore } from "../../store"
 import Account from "../../account"
 import FormHeader from "./FormHeader"
 import { stopClick } from "../../utils/modal"
-import { RefreshProps } from "../SwapApp"
+import { RefreshProps } from "../Container"
 import { UrbitWallet } from "../../types/UrbitWallet"
 import { formatTicket } from "../../utils/ticket"
 

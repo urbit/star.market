@@ -16,12 +16,12 @@ export interface RefreshProps {
   refresh: (account: Account) => void
 }
 
-export interface SwapAppProps extends RefreshProps {
+export interface ContainerProps extends RefreshProps {
   connectWalletConnector: () => void
   connectMetamask: () => void
 }
 
-const SwapApp = ({ refresh, connectWalletConnector, connectMetamask } : SwapAppProps) => {
+const Container = ({ refresh, connectWalletConnector, connectMetamask } : ContainerProps) => {
   const { successTxHashes, errorMessage, loading, setSuccessTxHashes, setErrorMessage } = useStore()
 
   const [showWalletModal, setShowWalletModal] = useState(false)
@@ -71,4 +71,4 @@ const SwapApp = ({ refresh, connectWalletConnector, connectMetamask } : SwapAppP
   </div>
 }
 
-export default SwapApp
+export default Container

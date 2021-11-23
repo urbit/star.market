@@ -10,7 +10,6 @@ import dark from './components/themes/dark'
 
 import { useStore } from './store';
 import Api from './api';
-import SwapApp from './components/SwapApp'
 
 import Home from './components/Home'
 import About from './components/About'
@@ -25,6 +24,7 @@ import { getPreferredWallet } from './utils/local-storage';
 import { defaultGasValues, formatWait, minGas } from './utils/gas-prices';
 import { DEFAULT_GAS_PRICE_GWEI } from './constants/gas';
 import { getEthBalance } from './utils/eth';
+import Container from './components/Container';
 // import { toPairsIn } from 'lodash';
 // import { ToggleSwitch } from '@tlon/indigo-react';
 
@@ -95,7 +95,7 @@ const App = () => {
   
       loadGasPrices()
 
-      setTimeout(() => getEthBalance(account, setEthBalance), 3000)
+      setTimeout(() => getEthBalance(api, setEthBalance), 3000)
 
       setLoading(false)
     }
@@ -172,8 +172,11 @@ const App = () => {
     <BrowserRouter>
       <ThemeProvider theme={false ? dark : light}>
       <Switch>
+          {/* <Container/> refers to the swap app */}
           <Route path="/app">
-            <SwapApp {...{ refresh, connectMetamask, connectWalletConnector }} />
+            
+            <Container {...{ refresh, connectMetamask, connectWalletConnector }} />
+            
           </Route>
           <Route path="/about">
             <About />

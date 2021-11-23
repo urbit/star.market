@@ -65,7 +65,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "cp .ropsten-env .env && react-scripts build",
+    "start:ropsten": "cp .ropsten-env .env && react-scripts start",
+    "start:mainnet": "cp .mainnet-env .env && react-scripts start",
+    "build": "cp .mainnet-env .env && react-scripts build",
+    "build:ropsten": "cp .ropsten-env .env && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -1,14 +1,15 @@
-import Account from "../account"
-import { GWEI, TEN_THOUSAND } from "./constants"
+import Api from "../api"
+import { TEN_THOUSAND } from "./constants"
 
-export const weiToEth = (weiBalance: string) => Math.round(parseInt(weiBalance, 16) * GWEI * GWEI * TEN_THOUSAND) / TEN_THOUSAND
+export const formatEth = (ethBalance: number) => Math.round(ethBalance * TEN_THOUSAND) / TEN_THOUSAND
 
-export const getEthBalance = async (account: Account, setEthBalance: (ethBalance: number) => void) => {
+export const getEthBalance = async (api: Api, setEthBalance: (ethBalance: number) => void) => {
   try {
-    if (account && account.currentWalletType) {
-      const weiBalance = await account.getBalance()
+    if (api) {
+      const weiBalance = await api.getBalance()
+      const ethBalance = api.web3.utils.fromWei(weiBalance, 'ether');
 
-      setEthBalance(weiToEth(weiBalance))
+      setEthBalance(formatEth(Number(ethBalance)))
     }
   } catch (e) {
     console.warn(e)

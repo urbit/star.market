@@ -46,7 +46,7 @@ export const useStore = create<Store>(set => ({
   ethBalance: 0,
   setAccount: (account: Account) => set(() => ({ account, api: new Api(account) })),
   setDust: (dust: number) => set(() => ({ dust })),
-  setStars: (stars: Star[]) => set(() => ({ stars: stars.sort((a, b) => Number(b.isUnlinked) - Number(a.isUnlinked) ) })),
+  setStars: (stars: Star[]) => set(() => ({ stars: stars.sort((a, b) => Number(b.isEligible) - Number(a.isEligible) ) })),
   setTreasuryBalance: (treasuryBalance: number) => set(() => ({ treasuryBalance })),
   setGasPrice: (gasPrice: number) => set(() => ({ gasPrice })),
   setLoading: (loading: boolean) => set(({ loadingText }) => ({ loading, loadingText: !loading ? null : loadingText })),
