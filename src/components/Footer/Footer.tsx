@@ -41,7 +41,7 @@ export default function Footer({className, style}:FooterProps) {
                             Terms of Service
                         </div>
                     </Link>
-                    <a href="https://github.com/urbit/starketplace/issues" target="_blank" rel="noreferrer"className="toolbar-link">
+                    <a href="https://github.com/urbit/starketplace/issues/new?assignees=&labels=&template=bug_report.md&title=" target="_blank" rel="noreferrer"className="toolbar-link">
                         Bug Reports
                     </a>
                 </nav>
