@@ -182,7 +182,7 @@ export default function Home() {
                     </h2>
                     <ul>
                         <BubbleLink
-                            href="https://info.uniswap.org/#/pools/0x7f4a0822a6e3c085df795a8d78acbcd36f210ebf/"
+                            href="https://info.uniswap.org/#/pools/0x7f4a0822a6e3c085df795a8d78acbcd36f210ebf"
                             title="Uniswap V3"
                             caption="A decentralized finance protocol"
                         >
