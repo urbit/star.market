@@ -146,6 +146,15 @@ export default function Home() {
                         >
                             <img alt="the marketplace logo" className="bubble" src="/assets/the-marketplace-logo.png" />
                         </BubbleLink>
+
+                        <BubbleLink
+                            href="https://urbitex.io"
+                            className="mt-2"
+                            title="Urbitex"
+                            caption="An automated Urbit address marketplace"
+                        >
+                            <img alt="urbitex logo" className="bubble" src="/assets/urbitex-logo.png" />
+                        </BubbleLink>
                     </ul>
                        
                 </div>
