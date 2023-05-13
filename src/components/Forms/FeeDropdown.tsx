@@ -40,7 +40,7 @@ export default function FeeDropdown() {
       customWait = `< ${fast.wait}`;
     }
 
-    setSelected({ price: cleanedValue, wait: customWait });
+    setSelected({ price: cleanedValue, wait: customWait, maxFeePerGas: 'unknown', maxPriorityFeePerGas: 0, suggestedBaseFeePerGas: 0 });
   };
 
   useEffect(() => {
@@ -66,14 +66,14 @@ export default function FeeDropdown() {
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Content className="dropdown-menu" sideOffset={5}>
-        {Object.values(suggestedGasPrices).map(
-          (value: GasPrice, ind: number) => (
+        {Object.keys(suggestedGasPrices).map(
+          (key: string, ind: number) => (
             <DropdownMenu.Item
               className="dropdown-item"
-              onSelect={selectPrice(value)}
-              key={value.wait}>
+              onSelect={selectPrice(suggestedGasPrices[key as 'fast' | 'average' | 'low'])}
+              key={key}>
                 <p className="label">{PRICE_LABELS[ind]}:</p>
-                <p>{formatDisplay(value)}</p>
+                <p>{formatDisplay(suggestedGasPrices[key as 'fast' | 'average' | 'low'])}</p>
             </DropdownMenu.Item >
           )
         )}

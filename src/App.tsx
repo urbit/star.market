@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import WalletConnect from "@walletconnect/client"
 import QRCodeModal from "@walletconnect/qrcode-modal"
+import Web3 from 'web3';
 
 import { ThemeProvider } from 'styled-components'
 
@@ -21,14 +22,21 @@ import './App.scss';
 import Account, { WalletType } from './account';
 import { useEffect } from 'react';
 import { getPreferredWallet } from './utils/local-storage';
-import { defaultGasValues, formatWait, minGas } from './utils/gas-prices';
-import { DEFAULT_GAS_PRICE_GWEI } from './constants/gas';
+import { minGas } from './utils/gas-prices';
 import { getEthBalance } from './utils/eth';
 import Container from './components/Container';
+
 // import { toPairsIn } from 'lodash';
 // import { ToggleSwitch } from '@tlon/indigo-react';
 
-// const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
+const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
+
+const formatWait = (wait: number) => String(Math.round(wait * 100 / 60) / 100);
+
+const feeToInt = (f: number) => f < 1 ? 1 : Math.round(f);
+const feeToWei = (fee: number) => Web3.utils.toHex(Web3.utils.toWei(String(fee), 'gwei' ))
+
+const calculateMaxFee = (baseFee: number, maxPriorityFee: number) => feeToWei(Math.round((2 * baseFee) + maxPriorityFee))
 
 interface WalletConnectParams {
   accounts: string[]
@@ -44,42 +52,59 @@ const App = () => {
   }, [api, setTreasuryBalance])
 
   const loadGasPrices = useCallback(async () => {
+
     try {
-      // const { result } = await fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`)
-      //   .then(result => result.json())
-      // const { FastGasPrice, ProposeGasPrice, SafeGasPrice } = result
-      // setGasPrice(Number(SafeGasPrice))
-      // const [fastTime, proposeTime, safeTime] = await Promise.all([FastGasPrice, ProposeGasPrice, SafeGasPrice].map((price) =>
-      //   fetch(`https://api.etherscan.io/api?module=gastracker&action=gasestimate&gasprice=${2000}&apikey=${ETHERSCAN_API_KEY}`)
-      //     .then(result => result.json())
-      // ))
+      const [feeResponse, waitResponse] = await Promise.all([
+        fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`,
+          {
+            method: 'GET',
+            cache: 'no-cache',
+          }
+        ),
+        fetch(
+          'https://ethereum-api.xyz/gas-prices',
+          {
+            method: 'GET',
+            cache: 'no-cache',
+          }
+        )
+      ]);
+  
+      const [feeJson, waitJson] = await Promise.all([
+        feeResponse.json(),
+        waitResponse.json()
+      ])
 
-      const json = await fetch('https://ethgasstation.info/json/ethgasAPI.json',
-        {
-          method: 'GET',
-          cache: 'no-cache',
-        }
-      ).then(response => response.json())
+      const suggestedBaseFeePerGas = Number(feeJson.result.suggestBaseFee);
 
-      setGasPrice(minGas(json.average))
+      setGasPrice(minGas(feeJson.result.SafeGasPrice))
 
+      // Calculations derived from:
+      // https://www.blocknative.com/blog/eip-1559-fees
       setSuggestedGasPrices({
         fast: {
-          price: minGas(json.fast),
-          wait: formatWait(json.fastWait),
+          price: minGas(feeJson.result.FastGasPrice),
+          wait: formatWait(waitJson.result.fast.time),
+          maxFeePerGas: calculateMaxFee(suggestedBaseFeePerGas, feeJson.result.FastGasPrice - suggestedBaseFeePerGas),
+          maxPriorityFeePerGas: feeToInt((feeJson.result.FastGasPrice - suggestedBaseFeePerGas)),
+          suggestedBaseFeePerGas
         },
         average: {
-          price: minGas(json.average),
-          wait: formatWait(json.avgWait),
+          price: minGas(feeJson.result.ProposeGasPrice),
+          wait: formatWait(waitJson.result.average.time),
+          maxFeePerGas: calculateMaxFee(suggestedBaseFeePerGas, feeJson.result.ProposeGasPrice - suggestedBaseFeePerGas),
+          maxPriorityFeePerGas: feeToInt((feeJson.result.ProposeGasPrice - suggestedBaseFeePerGas)),
+          suggestedBaseFeePerGas
         },
         low: {
-          price: minGas(json.safeLow),
-          wait: formatWait(json.safeLowWait),
+          price: minGas(feeJson.result.SafeGasPrice),
+          wait: formatWait(waitJson.result.slow.time),
+          maxFeePerGas: calculateMaxFee(suggestedBaseFeePerGas, feeJson.result.SafeGasPrice - suggestedBaseFeePerGas),
+          maxPriorityFeePerGas: feeToInt((feeJson.result.SafeGasPrice - suggestedBaseFeePerGas)),
+          suggestedBaseFeePerGas
         },
       })
-    } catch (e) {
-      setSuggestedGasPrices(defaultGasValues(DEFAULT_GAS_PRICE_GWEI));
-    }
+    } catch (e) {}
   }, [setGasPrice, setSuggestedGasPrices])
 
   const refresh = useCallback(async (account: Account) => {
