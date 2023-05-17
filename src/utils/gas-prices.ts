@@ -4,17 +4,26 @@ export const defaultGasValues = (value: number) => ({
   fast: {
     price: value,
     wait: '120',
+    maxFeePerGas: '20',
+    maxPriorityFeePerGas: 20,
+    suggestedBaseFeePerGas: 20,
   },
   average: {
     price: value,
     wait: '120',
+    maxFeePerGas: '20',
+    maxPriorityFeePerGas: 20,
+    suggestedBaseFeePerGas: 20,
   },
   low: {
     price: value,
     wait: '120',
+    maxFeePerGas: '20',
+    maxPriorityFeePerGas: 20,
+    suggestedBaseFeePerGas: 20,
   },
 });
 
 export const formatWait = (wait: number) => String(Math.round(wait * 100) / 100);
 
-export const minGas = (gas: number) => Math.min(Math.ceil(gas / 10), MAX_GAS_PRICE_GWEI);
+export const minGas = (gas: string) => Math.min(Math.ceil(Number(gas)), MAX_GAS_PRICE_GWEI);
