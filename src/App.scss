@@ -1111,6 +1111,12 @@ button:hover {
   text-align: left;
 }
 
+@media screen and (max-width: 767px) {
+  .message-container {
+    max-width: 250px;
+  }
+}
+
 .relative {
   position: relative;
 }
