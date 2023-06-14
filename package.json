@@ -18,7 +18,7 @@
     "@reach/tabs": "^0.10.5",
     "@tlon/indigo-light": "^1.0.5",
     "@tlon/indigo-react": "^1.2.8",
-    "@tlon/sigil-js": "^1.4.3",
+    "@tlon/sigil-js": "^1.4.5",
     "@types/lodash": "^4.14.155",
     "@types/react": "^16.9.38",
     "@types/react-dom": "^16.9.8",

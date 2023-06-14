@@ -7,3 +7,5 @@ export const pluralize = (text: string, amount: number, canPluralize?: boolean) 
 export const getExchangeRate = (starsForDust: boolean) => starsForDust ? '1 WSTR = 1.00 Star' : '1 Star = 1.00 WSTR'
 
 export const formatComma = (amount: number) => String(amount).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',')
+
+export const truncateAddress = (address: string) => address.slice(0, 6) + '...' + address.slice(-4);
