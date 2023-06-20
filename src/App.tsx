@@ -12,7 +12,7 @@ import dark from './components/themes/dark'
 import { useStore } from './store';
 import Api from './api';
 
-import Home from './components/Main'
+import Home from './components/Home'
 import About from './components/About'
 import Disclaimer from './components/Disclaimer'
 import Tos from './components/Tos'

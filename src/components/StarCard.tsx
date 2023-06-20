@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = ({ patp, size, sigColors }) => {
 
   return (
     <div
-      className="star-card remove-when-reduced-2"
+      className="star-card"
       style={{
         overflow: 'hidden',
         borderTopRightRadius: 15,

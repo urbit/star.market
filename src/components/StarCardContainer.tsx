@@ -2,37 +2,42 @@ import { Box } from '@tlon/indigo-react';
 import StarCard from './StarCard';
 
 const StarCardContainer = () => {
+
+  const size = 165;
+  const bgColor = '#f3f2f0';
+  const shapeColor = '#272720';
+
   return (
-    <Box display="flex" flexDirection="row" style={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+    <Box className="card-container">
       <Box style={{ display: 'flex' }}>
         <StarCard
           patp={'~tirryx'}
-          size={165}
-          sigColors={['rgb(234, 67, 104, 1)', 'rgb(15, 58, 63, 1)']}
+          size={size}
+          sigColors={[bgColor, shapeColor]}
         />
         <StarCard
           patp={'~magnus'}
-          size={165}
-          sigColors={['rgb(12, 7, 131, 1)', 'rgb(153, 248, 229, 1)']}
+          size={size}
+          sigColors={[bgColor, shapeColor]}
         />
       </Box>
       <Box style={{ display: 'flex' }}>
         <StarCard
           patp={'~delhul'}
-          size={165}
-          sigColors={['rgb(11, 8, 82, 1)', 'rgb(172, 254, 82, 1)']}
+          size={size}
+          sigColors={[bgColor, shapeColor]}
         />
         <StarCard
-          patp={'~sonnex'}
-          size={165}
-          sigColors={['rgb(190, 201, 0, 1)', 'rgb(28, 4, 58, 1)']}
+          patp={'~bolreg'}
+          size={size}
+          sigColors={[bgColor, shapeColor]}
         />
       </Box>
       <div className="remove-when-reduced">
         <StarCard
-          patp={'~bolreg'}
-          size={165}
-          sigColors={['#00203FFF', '#ADEFD1FF']}
+          patp={'~sonnex'}
+          size={size}
+          sigColors={[bgColor, shapeColor]}
         />
       </div>
     </Box>
