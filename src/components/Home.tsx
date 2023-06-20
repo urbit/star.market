@@ -92,7 +92,10 @@ const Home = () => {
               addresses, like the one your computer or mobile device is using to
               access the internet. Perhaps unknown to most, these addresses have
               value and are
-              <a href="https://auctions.ipv4.global/" className="custom-link">
+              <a href="https://auctions.ipv4.global/" className="custom-link"
+                target="_blank"
+                rel="noreferrer"
+              >
                 {" "}
                 bought and sold in marketplaces
               </a>{" "}
@@ -145,14 +148,9 @@ const Home = () => {
               </p>
             </Box>
             <br />
-            <a
-              className="custom-link"
-              href="https://urbit.org/overview"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <Link to="/about" className="custom-link">
               Learn more{" "}
-            </a>{" "}
+            </Link>
             about Wrapped Star.
             <Box
               style={{
@@ -194,7 +192,10 @@ const Home = () => {
             </p>
           </Box>
           <Box style={{ marginTop: 15, marginBottom: 15 }}>
-            <a href={"https://opensea.io/collection/urbit-id-star"}>
+            <a href={"https://opensea.io/collection/urbit-id-star"}
+              target="_blank"
+              rel="noreferrer"
+            >
               <img
                 alt="opensea logo"
                 src={openseaLogo}
@@ -207,7 +208,10 @@ const Home = () => {
             <a
               href={
                 "https://app.uniswap.org/#/swap?exactField=output&inputCurrency=ETH&outputCurrency=0xF0dC76C22139ab22618dDFb498BE1283254612B1&exactAmount=1"
+
               }
+              target="_blank"
+              rel="noreferrer"
             >
               <img
                 alt="uniswap logo"
@@ -224,7 +228,7 @@ const Home = () => {
               been developed by the community, like{" "}
               <a
                 className="custom-link"
-                href="https://urbit.org/overview"
+                href="https://starswap.app"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -233,7 +237,7 @@ const Home = () => {
               and{" "}
               <a
                 className="custom-link"
-                href="https://urbit.org/overview"
+                href="https://urbitex.io"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -271,11 +275,11 @@ const Home = () => {
           <div style={{ marginTop: 20 }}>
             <h2 className="secondary-title">Media</h2>
             <p className="text-content">
-              Follow <a className="custom-link"
+              Follow Star Market on <a className="custom-link"
                 target="_blank"
                 rel="noreferrer"
-                href={'https://twitter.com/star-market'}
-              >@star.market</a> on Twitter, and check out Urbit's{" "}
+                href={'https://twitter.com/stardotmarket'}
+              >Twitter</a>, and check out Urbit's{" "}
               <a
                 className="custom-link"
                 target="_blank"
