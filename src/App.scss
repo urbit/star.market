@@ -1294,7 +1294,7 @@ p.label {
   align-items: center;
 }
 
-@media (max-width: 428px) {
+@media (max-width: 495px) {
   .remove-when-reduced-2 {
     display: none;
   }
@@ -1462,6 +1462,7 @@ p.label {
 .header-row {
   display: flex;
   align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 .logo-home {

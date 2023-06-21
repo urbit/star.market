@@ -37,9 +37,11 @@ const Home = () => {
             <h2 className="header-title">The value of stars</h2>
 
             <p>
-              Below are some reasons often cited for why stars have value.
-              Others have written in more detail on this subject, which can be
-              found in this three part series of blog posts:{" "}
+              Below are some reasons often cited for why stars have value, based
+              on both their existing functionality and features that are
+              currently under development. Others have written in more detail on
+              this subject, which can be found in this three part series of blog
+              posts:{" "}
               <a
                 className="custom-link"
                 href="https://urbit.org/blog/value-of-address-space-pt1"
@@ -67,10 +69,11 @@ const Home = () => {
                 Part 3
               </a>
               .
-
             </p>
 
-            <h3 className="section-title">1. Digital identity and Unique Collectible</h3>
+            <h3 className="section-title">
+              1. Digital identity and Unique Collectible
+            </h3>
             <p>
               Like most NFTs, stars have a unique ID and image, and are limited
               in supply. Some people may purchase them solely for their
@@ -79,9 +82,9 @@ const Home = () => {
               <span style={{ fontFamily: "Source Code Pro" }}>
                 ~winner, ~holder, or ~darryl.
               </span>{" "}
-              This makes more sense when you consider that stars are also used
-              as a digital identity on Urbit, so acquiring the desired name
-              could be important to some.
+              This makes more sense when you consider that stars can also be
+              used as your digital identity on Urbit, so acquiring the desired
+              name might be important to some.
             </p>
 
             <h3 className="section-title">2. Bulk address space</h3>
@@ -90,9 +93,11 @@ const Home = () => {
               large blocks of Urbit address space; with each star having
               ownership of 65,535 planets. Planets are often compared to IP
               addresses, like the one your computer or mobile device is using to
-              access the internet. Perhaps unknown to most, these addresses have
-              value and are
-              <a href="https://auctions.ipv4.global/" className="custom-link"
+              access the internet. Perhaps unknown to most, IP addresses are
+              valuable and are actively
+              <a
+                href="https://auctions.ipv4.global/"
+                className="custom-link"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -101,34 +106,26 @@ const Home = () => {
               </a>{" "}
               for around $40 each.
             </p>
-            <h3 className="section-title">3. Network infrastructure services</h3>
+            <h3 className="section-title">
+              3. Network infrastructure services
+            </h3>
             <p>
               Stars are infrastructure nodes, which makes them uniquely
-              positioned to generate cash flow from activities on the network
-              like hosting and packet routing. This means that with a couple of
-              clicks an ordinary user could buy a planet, sign up for a
-              hosting/routing bundle, get access to a set of services, and be
-              immediately ready to interact with the community of their choice.
+              positioned as productive assets for services like hosting,
+              software distribution, payments, and packet routing.  Stars can take advantage of business opportunities where a centralized service makes sense in an otherwise decentralized network. A star could
+              act as a dealer-operator where an ordinary user could buy a
+              planet, sign up for a hosting/routing bundle, get access to a set
+              of services, and be immediately ready to interact with the
+              community of their choice.
             </p>
-            <h3 className="section-title">4. Software distribution</h3>
+            <h3 className="section-title">4. Trust infrastructure for Web3</h3>
 
             <p>
-              As the system evolves, stars will also to act as software
-              distribution hubs. Apps need to be discoverable and safe, so a
-              central hub for finding and downloading trusted software is
-              necessary. This presents an opportunity for stars to host and
-              distribute software, and perhaps take a fee for this service.
-            </p>
-
-            <h3 className="section-title">5. Payment and transactions</h3>
-
-            <p>
-              Fiat payments require access to a payment gateway and business
-              that can accept liability. Crypto payments require access to a
-              node. A payments-focused star could run Bitcoin, Lightning or
-              Ethereum nodes exclusively for sponsored planets, or a
-              trading-focused star could run a 0x relayer and provide an order
-              book for sponsored planets.
+              As peer-to-peer networked servers with built-in reputation, stars
+              are the natural assets to provide mission critical infrastructure
+              services to the broader crypto ecosystem, including decentralised
+              sequencers for L2 blockchains, Proof of Authority blockchains
+              using stars, zero-knowledge proofs, oracle networks, and others.
             </p>
           </p>
         </section>
@@ -139,19 +136,21 @@ const Home = () => {
             <Box style={{ paddingRight: 40, paddingTop: 10 }}>
               <p className="text-content">
                 Wrapped Star (WSTR) is an ERC-20 token that represents one Urbit
-                star. It was developed by the community, but has been audited
-                and supported by the Urbit Foundation.
+                star. One WSTR may be converted to one star, and vice versa,
+                using the Star Market conversion app.
                 <br />
                 <br />
-                As an ERC-20 token, WSTR may be purchased in fractions. One
-                WSTR may be converted to one star, and vice versa.
+                WSTR was developed by the community, but has been audited and
+                supported by the Urbit Foundation.
+
+                <br />
+                <br />
+                <Link to="/about" className="custom-link">
+                  Learn more{" "}
+                </Link>
+                about Wrapped Star.
               </p>
             </Box>
-            <br />
-            <Link to="/about" className="custom-link">
-              Learn more{" "}
-            </Link>
-            about Wrapped Star.
             <Box
               style={{
                 display: "flex",
@@ -160,7 +159,9 @@ const Home = () => {
                 alignItems: "center",
               }}
             >
-              <Link to="/app" className="pill-button bg-yellow"
+              <Link
+                to="/app"
+                className="pill-button bg-yellow"
                 style={{ borderRadius: 5 }}
               >
                 <Text fontSize={16} fontWeight={600}>
@@ -192,7 +193,8 @@ const Home = () => {
             </p>
           </Box>
           <Box style={{ marginTop: 15, marginBottom: 15 }}>
-            <a href={"https://opensea.io/collection/urbit-id-star"}
+            <a
+              href={"https://opensea.io/collection/urbit-id-star"}
               target="_blank"
               rel="noreferrer"
             >
@@ -208,7 +210,6 @@ const Home = () => {
             <a
               href={
                 "https://app.uniswap.org/#/swap?exactField=output&inputCurrency=ETH&outputCurrency=0xF0dC76C22139ab22618dDFb498BE1283254612B1&exactAmount=1"
-
               }
               target="_blank"
               rel="noreferrer"
@@ -275,11 +276,16 @@ const Home = () => {
           <div style={{ marginTop: 20 }}>
             <h2 className="secondary-title">Media</h2>
             <p className="text-content">
-              Follow Star Market on <a className="custom-link"
+              Follow Star Market on{" "}
+              <a
+                className="custom-link"
                 target="_blank"
                 rel="noreferrer"
-                href={'https://twitter.com/stardotmarket'}
-              >Twitter</a>, and check out Urbit's{" "}
+                href={"https://twitter.com/stardotmarket"}
+              >
+                Twitter
+              </a>
+              , and check out Urbit's{" "}
               <a
                 className="custom-link"
                 target="_blank"
