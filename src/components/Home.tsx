@@ -34,7 +34,7 @@ const Home = () => {
           <StarCardContainer />
 
           <p className="text-content">
-            <h2 className="header-title">The value of stars</h2>
+            <h2 className="secondary-title">The value of stars</h2>
 
             <p>
               Below are some reasons often cited for why stars have value, based
@@ -133,7 +133,7 @@ const Home = () => {
         <section className="section-layout-flex" id="wrapped-star">
           <Box>
             <h2 className="secondary-title">Wrapped Star</h2>
-            <Box style={{ paddingRight: 40, paddingTop: 10 }}>
+            <Box style={{ paddingRight: 40 }}>
               <p className="text-content">
                 Wrapped Star (WSTR) is an ERC-20 token that represents one Urbit
                 star. One WSTR may be converted to one star, and vice versa,
@@ -152,12 +152,7 @@ const Home = () => {
               </p>
             </Box>
             <Box
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                marginTop: 25,
-                alignItems: "center",
-              }}
+              className="button-container"
             >
               <Link
                 to="/app"
@@ -185,7 +180,7 @@ const Home = () => {
         <section className="layout" id="markets">
           <h2 className="secondary-title">Markets for Stars and WSTR</h2>
 
-          <Box style={{ paddingRight: 40, paddingTop: 10 }}>
+          <Box>
             <p className="text-content">
               The most active marketplace for stars is currently OpenSea.
               Wrapped Star is traded on Ethereum-based decentralized exchanges
