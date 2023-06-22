@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .loading {
   &.has-text {
@@ -31,6 +31,19 @@
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: #fff transparent transparent transparent;
   }
+
+  &.small {
+    .lds-ring {
+      width: 3rem;
+      height: 3rem;
+    }
+    .lds-ring div {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin: 0.25rem;
+    }
+  }
+
   .lds-ring div:nth-child(1) {
     animation-delay: -0.45s;
   }

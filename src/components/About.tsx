@@ -7,20 +7,20 @@ export default function About() {
         <div className="layout-container">
             <HomeHeader />
 
-            <section className="layout">
+            {/* <section className="layout">
                 <div className="measure-narrow hero-text">
-                <p>Star Market is the only place to swap your Urbit star for a WSTR.
-                </p>
-                <p>
-                    Star Market is a community driven project audited by Urbit. 
-                </p>
+                    <p>Star Market is the only place to swap your Urbit star for a WSTR.
+                    </p>
+                    <p>
+                        Star Market is a community driven project audited by Urbit.
+                    </p>
 
-                <p>
-                    Urbit is a peer-to-peer network of personal servers in the cloud.
-                    Learn more about Urbit at <a href="urbit.org" rel="noreferrer" target="_blank">Urbit.org</a>.
-                </p>
-            </div>
-            </section>
+                    <p>
+                        Urbit is a peer-to-peer network of personal servers in the cloud.
+                        Learn more about Urbit at <a href="urbit.org" rel="noreferrer" target="_blank">Urbit.org</a>.
+                    </p>
+                </div>
+            </section> */}
 
             <section className="layout token-info">
                 <table className="mb-4em">
@@ -34,16 +34,16 @@ export default function About() {
                             <td>WSTR</td>
                         </tr>
                         <tr>
-                                <td>Max Supply</td>
-                                <td>65,280</td>
+                            <td>Max Supply</td>
+                            <td>65,280</td>
                         </tr>
                         <tr>
-                                <td>Social</td>
-                                <td><a rel="noreferrer" target="_blank" href="https://twitter.com/urbit">@urbit</a> on Twitter</td>
+                            <td>Social</td>
+                            <td><a rel="noreferrer" target="_blank" href="https://twitter.com/urbit">@urbit</a> on Twitter</td>
                         </tr>
                         <tr>
                             <td>Token Icon</td>
-                            <td><img alt="wstr-logo" style={{width:'96px', height: '96px'}} src="/assets/wstr-logo-192.png" /></td>
+                            <td><img alt="wstr-logo" style={{ width: '96px', height: '96px' }} src="/assets/wstr-logo-192.png" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -85,17 +85,17 @@ export default function About() {
                         title="Optilistic Audit"
                         caption="Security audit from Optilistic"
                     >
-                    <img 
-                        alt="lock icon"
-                        className="bubble" src="assets/lock-bg.png" />
+                        <img
+                            alt="lock icon"
+                            className="bubble" src="assets/lock-bg.png" />
                     </BubbleLink>
-                     <BubbleLink
+                    <BubbleLink
                         href="https://18108973658826589741.googlegroups.com/attach/51257300be160/Sigma%20Prime%20-%20Urbit%20-%20Stardust%20Smart%20Contract%20Security%20Assessment%20v1.0.pdf?part=0.1&view=1&vt=ANaJVrE6sFqTUiND0NB1qOyFg7Xo_TuRX4QHnkoY1NOpv8FlP2QEz3gWynLm0MZo4ZsB3h2MQywvFCCv3-ossLb5j9Ytg9BraEiuR4jG6PMk2Ngp4H71g2E"
                         title="Sigma Prime Audit"
                         className="mt-2"
                         caption="Smart contract security review from Sigma Prime"
                     >
-                        <img 
+                        <img
                             alt="lock icon"
                             className="bubble" src="assets/lock-bg.png" />
                     </BubbleLink>
@@ -105,14 +105,14 @@ export default function About() {
                         caption="Security audit by Mix Bytes"
                         className="mt-2"
                     >
-                    <img 
-                        alt="lock icon"
-                        className="bubble" src="assets/lock-bg.png" />
+                        <img
+                            alt="lock icon"
+                            className="bubble" src="assets/lock-bg.png" />
                     </BubbleLink>
                 </ul>
             </section>
             <Footer />
-            
+
         </div>
     )
 }

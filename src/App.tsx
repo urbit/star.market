@@ -34,7 +34,7 @@ const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
 const formatWait = (wait: number) => String(Math.round(wait * 100 / 60) / 100);
 
 const feeToInt = (f: number) => f < 1 ? 1 : Math.round(f);
-const feeToWei = (fee: number) => Web3.utils.toHex(Web3.utils.toWei(String(fee), 'gwei' ))
+const feeToWei = (fee: number) => Web3.utils.toHex(Web3.utils.toWei(String(fee), 'gwei'))
 
 const calculateMaxFee = (baseFee: number, maxPriorityFee: number) => feeToWei(Math.round((2 * baseFee) + maxPriorityFee))
 
@@ -69,7 +69,7 @@ const App = () => {
           }
         )
       ]);
-  
+
       const [feeJson, waitJson] = await Promise.all([
         feeResponse.json(),
         waitResponse.json()
@@ -104,7 +104,7 @@ const App = () => {
           suggestedBaseFeePerGas
         },
       })
-    } catch (e) {}
+    } catch (e) { }
   }, [setGasPrice, setSuggestedGasPrices])
 
   const refresh = useCallback(async (account: Account) => {
@@ -113,13 +113,13 @@ const App = () => {
       const api = new Api(account)
 
       await api.loadContracts()
-  
+
       const stars = await api.getStars().catch(console.error)
       setStars(stars || [])
-  
+
       const dust = await api.getDust().catch(console.error)
       setDust(dust || 0)
-  
+
       loadTreasuryBalance()
       loadGasPrices()
 
@@ -133,12 +133,12 @@ const App = () => {
     if (error) {
       throw error // need to handle
     }
-    
+
     const data: WalletConnectParams = payload.params[0]
 
     const newAccount = new Account({ walletConnection: connector })
     newAccount.setCurrentAddress(data.accounts[0])
-    
+
     setAccount(newAccount)
     refresh(newAccount)
   }, [setAccount, refresh])
@@ -148,14 +148,14 @@ const App = () => {
       bridge: "https://bridge.walletconnect.org", // Required
       qrcodeModal: QRCodeModal,
     })
-  
+
     if (!connector.connected) {
       connector.createSession()
     }
 
     connector.on("connect", updateCurrentAddress(connector))
     connector.on("session_update", updateCurrentAddress(connector))
-  
+
     connector.on("disconnect", (error, payload) => {
       if (error) {
         throw error
@@ -199,12 +199,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={false ? dark : light}>
-      <Switch>
+        <Switch>
           {/* <Container/> refers to the swap app */}
           <Route path="/app">
-            
+
             <Container {...{ refresh, connectMetamask, connectWalletConnector }} />
-            
+
           </Route>
           <Route path="/about">
             <About />
