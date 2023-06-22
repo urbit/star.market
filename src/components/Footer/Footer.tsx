@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Logo from '../Icons/Logo'
 
 import './Footer.scss'
 
@@ -13,18 +14,13 @@ export default function Footer({ className, style }: FooterProps) {
             <div className="innerCol">
                 <Link to="/">
                     <div className="toolbar-link">
-                        {/* <Logo /> */}
+                        <Logo />
                         <p className=" ml-0.5em">
                             Star Market
                         </p>
                     </div>
                 </Link>
                 <nav>
-                    <Link to="/about">
-                        <div className='toolbar-link'>
-                            About
-                        </div>
-                    </Link>
                     <Link to="/app">
                         <div className="toolbar-link">
                             App

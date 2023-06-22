@@ -53,9 +53,6 @@ export default function HeaderBar(props: WalletDisplayProps) {
                 </Row> */}
         </div>
         <nav className="walletSection">
-          <Link to="/about" className='pill-button' color={'black'} style={{ marginRight: 15 }}>
-            About
-          </Link>
           <WalletDisplay {...props} />
         </nav>
       </div>
