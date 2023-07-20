@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
 import Logo from '../Icons/Logo';
+import { FC } from 'react';
 
-export default function HomeHeader() {
+interface HomeHeaderProps {
+    gray?: boolean;
+}
+
+const HomeHeader: FC<HomeHeaderProps> = ({ gray }) => {
     return (
         <header className="homeHeader">
             <div className="innerCol">
-                <Link to="/" className="pill-button">
+                <Link to="/" className={`pill-button ${gray ? 'bg-gray' : ''}`}>
                     <Logo />
                     <span className="ml-0.5em">Star Market</span>
                 </Link>
@@ -21,3 +26,5 @@ export default function HomeHeader() {
         </header>
     )
 }
+
+export default HomeHeader;

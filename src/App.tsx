@@ -25,7 +25,7 @@ import { getPreferredWallet } from './utils/local-storage';
 import { minGas } from './utils/gas-prices';
 import { getEthBalance } from './utils/eth';
 import Container from './components/Container';
-
+import StarAnalyzer from "./components/Analyzer/StarAnalyzer";
 // import { toPairsIn } from 'lodash';
 // import { ToggleSwitch } from '@tlon/indigo-react';
 
@@ -215,6 +215,8 @@ const App = () => {
           <Route path="/tos">
             <Tos />
           </Route>
+          <Route exact path="/star-analyzer" component={StarAnalyzer} />
+          <Route path="/star-analyzer/:star" component={StarAnalyzer} />
           <Route exact path="/">
             <Home />
           </Route>

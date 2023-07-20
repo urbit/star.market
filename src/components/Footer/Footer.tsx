@@ -26,6 +26,11 @@ export default function Footer({ className, style }: FooterProps) {
                             App
                         </div>
                     </Link>
+                    <Link to="/star-analyzer">
+                        <div className="toolbar-link">
+                            Star Analyzer
+                        </div>
+                    </Link>
                     <Link to="/disclaimer">
                         <div className="toolbar-link">
                             Disclaimer
