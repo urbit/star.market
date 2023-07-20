@@ -93,7 +93,7 @@ const PlanetTable: React.FC<PlanetTableProps> = (props) => {
 
       <div
         className="pagination-container"
-        style={{ cursor: "pointer" }}
+        style={{ cursor: "pointer", marginTop: 50 }}
       >
         <ReactPaginate
           forcePage={currentPage}
