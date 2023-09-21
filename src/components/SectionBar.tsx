@@ -1,5 +1,5 @@
 import Logo from "./Icons/Logo";
-import { Icon, Box, Text, Image } from "@tlon/indigo-react";
+import { Icon, Box, Text } from "@tlon/indigo-react";
 import { Link } from "react-router-dom";
 
 const SectionBar = () => {

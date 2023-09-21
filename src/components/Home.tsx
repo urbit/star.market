@@ -1,6 +1,6 @@
 import Footer from "./Footer/Footer";
 import { Link } from "react-router-dom";
-import { Icon, Box, Text, Image, Ul, Li } from "@tlon/indigo-react";
+import { Icon, Box, Text, Image } from "@tlon/indigo-react";
 import MetricsBar from "./MetricsBar";
 import StarCardContainer from "./StarCardContainer";
 import uniswapLogo from "./Icons/uniswap-logo.png";
@@ -91,7 +91,8 @@ const Home = () => {
             <p>
               Stars have intrinsic value in the most basic sense by simply being
               large blocks of Urbit address space; with each star having
-              ownership of 65,535 planets. Planets are often compared to IP
+              ownership of 65,535 planets (check out the  <Link to="/star-analyzer" className="custom-link">
+                Star Analyzer </Link> to view a star's planets). Planets are often compared to IP
               addresses, like the one your computer or mobile device is using to
               access the internet. Perhaps unknown to most, IP addresses are
               valuable and are actively
