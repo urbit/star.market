@@ -100,10 +100,8 @@ const StarAnalyzer = () => {
   const handleFilterClick = (filter: string) => {
     params.set("tag", filter);
 
-    // reset pagination for new filter
+    resetPagination();
 
-    setItemOffset(0);
-    setCurrentPage(0);
     if (selectedFilter === filter) {
       setSelectedFilter("");
       params.delete("tag");
@@ -127,13 +125,19 @@ const StarAnalyzer = () => {
     }
   };
 
+  const resetPagination = () => {
+    setItemOffset(0);
+    setCurrentPage(0);
+  };
+
+
   const checkInput = (_star: string) => {
     // reset filters and pagination
 
     setSelectedFilter("");
     setTextFilter("");
-    setItemOffset(0);
-    setCurrentPage(0);
+
+    resetPagination();
 
     const _patp = utils.formatPatp(_star);
 
@@ -209,7 +213,7 @@ const StarAnalyzer = () => {
           Star Analyzer is a tool for exploring the spawnable planets of an
           Urbit star.
           <br />
-          Planets are tagged based on arbitrary properties which may be of
+          Planets are tagged based on arbitrary properties that may be of
           interest.
         </div>
       </div>
@@ -219,6 +223,8 @@ const StarAnalyzer = () => {
   const applyTextFilter = (val: string) => {
     setTextFilter(val);
 
+    resetPagination();
+
     // update url
     params.set("filter", val);
     handleApplyFilters();
@@ -226,6 +232,8 @@ const StarAnalyzer = () => {
 
   const clearTextFilter = () => {
     setTextFilter("");
+
+    resetPagination();
 
     // update url
     params.delete("filter");

@@ -54,7 +54,10 @@ const FilterBar = (props: FilterBarProps) => {
 
         {star && renderBackButton()}
 
-        {/* <div style={{ marginTop: 25 }}>Filter Tags:</div> */}
+
+        {selectedFilter.length === 0 && (
+          <div style={{ marginTop: 25, fontSize: 14 }}>Use the filter buttons to check for interesting planets:</div>
+        )}
         <div
           style={{
             flexWrap: "wrap",

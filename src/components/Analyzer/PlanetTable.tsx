@@ -28,12 +28,14 @@ const PlanetTable: React.FC<PlanetTableProps> = (props) => {
         {currentItems.map((planet, index) => (
           <tr key={index} >
             <td>
-              {sigil({
-                patp: planet.patp,
-                renderer: reactRenderer,
-                size: 30,
-                colors: ["black", "#FFFFFF"],
-              })}
+              <div style={{ borderRadius: 2, overflow: "hidden", width: 30, height: 30 }} >
+                {sigil({
+                  patp: planet.patp,
+                  renderer: reactRenderer,
+                  size: 30,
+                  colors: ["black", "#FFFFFF"],
+                })}
+              </div>
             </td>
             <td>{planet.patp}</td>
             <td className={"remove-mobile"}>{planet.point}</td>

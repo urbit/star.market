@@ -1,10 +1,5 @@
 @import "../../styles/variables.scss";
 
-.button-csv {
-  background-color: green;
-  color: pink;
-}
-
 .patp-input {
   display: flex;
   flex-direction: row;
@@ -227,4 +222,5 @@
   width: 100%;
   text-align: left;
   font-family: "Source Code Pro";
+  margin-bottom: 50;
 }
