@@ -10,7 +10,7 @@ const PRICE_LABELS = ['Fast', 'Average', 'Slow'];
 
 export const formatWait = (wait: number) => Math.round(wait * 100) / 100;
 export const formatDisplay = ({ price, wait }: GasPrice) =>
-  `${price} gwei (${wait} min)`;
+  `${price} gwei`;
 
 export default function FeeDropdown() {
   const { suggestedGasPrices, setGasPrice } = useStore();
