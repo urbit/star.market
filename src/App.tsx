@@ -31,6 +31,7 @@ import Container from './components/Container';
 
 const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
 
+// ST: Wait time no longer displayed, keeping in case we feel like adding it back
 // const formatWait = (wait: number) => String(Math.round(wait * 100 / 60) / 100);
 
 const feeToInt = (f: number) => f < 1 ? 1 : Math.round(f);
