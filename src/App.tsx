@@ -31,7 +31,8 @@ import Container from './components/Container';
 
 const ETHERSCAN_API_KEY = 'BXEKQG3V5SSS57PUCHCIJJ3X8CMRYS4B6D'
 
-const formatWait = (wait: number) => String(Math.round(wait * 100 / 60) / 100);
+// ST: Wait time no longer displayed, keeping in case we feel like adding it back
+// const formatWait = (wait: number) => String(Math.round(wait * 100 / 60) / 100);
 
 const feeToInt = (f: number) => f < 1 ? 1 : Math.round(f);
 const feeToWei = (fee: number) => Web3.utils.toHex(Web3.utils.toWei(String(fee), 'gwei'))
@@ -54,26 +55,15 @@ const App = () => {
   const loadGasPrices = useCallback(async () => {
 
     try {
-      const [feeResponse, waitResponse] = await Promise.all([
-        fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`,
-          {
-            method: 'GET',
-            cache: 'no-cache',
-          }
-        ),
-        fetch(
-          'https://ethereum-api.xyz/gas-prices',
-          {
-            method: 'GET',
-            cache: 'no-cache',
-          }
-        )
-      ]);
-
-      const [feeJson, waitJson] = await Promise.all([
-        feeResponse.json(),
-        waitResponse.json()
-      ])
+      const feeResponse = await fetch(
+        `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`,
+        {
+          method: "GET",
+          cache: "no-cache",
+        }
+      );
+      
+      const feeJson = await  feeResponse.json()
 
       const suggestedBaseFeePerGas = Number(feeJson.result.suggestBaseFee);
 
@@ -84,21 +74,21 @@ const App = () => {
       setSuggestedGasPrices({
         fast: {
           price: minGas(feeJson.result.FastGasPrice),
-          wait: formatWait(waitJson.result.fast.time),
+          wait: '1',
           maxFeePerGas: calculateMaxFee(suggestedBaseFeePerGas, feeJson.result.FastGasPrice - suggestedBaseFeePerGas),
           maxPriorityFeePerGas: feeToInt((feeJson.result.FastGasPrice - suggestedBaseFeePerGas)),
           suggestedBaseFeePerGas
         },
         average: {
           price: minGas(feeJson.result.ProposeGasPrice),
-          wait: formatWait(waitJson.result.average.time),
+          wait: '1',
           maxFeePerGas: calculateMaxFee(suggestedBaseFeePerGas, feeJson.result.ProposeGasPrice - suggestedBaseFeePerGas),
           maxPriorityFeePerGas: feeToInt((feeJson.result.ProposeGasPrice - suggestedBaseFeePerGas)),
           suggestedBaseFeePerGas
         },
         low: {
           price: minGas(feeJson.result.SafeGasPrice),
-          wait: formatWait(waitJson.result.slow.time),
+          wait: '1',
           maxFeePerGas: calculateMaxFee(suggestedBaseFeePerGas, feeJson.result.SafeGasPrice - suggestedBaseFeePerGas),
           maxPriorityFeePerGas: feeToInt((feeJson.result.SafeGasPrice - suggestedBaseFeePerGas)),
           suggestedBaseFeePerGas
