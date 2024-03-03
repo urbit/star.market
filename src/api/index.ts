@@ -126,7 +126,8 @@ export default class Api {
     } else {
       return this.ecliptic.methods.setTransferProxy(star.point, REACT_APP_TREASURY_ADDRESS).send({
         from: this.account.currentAddress,
-        gasPrice,
+        // Metamask will handle suggested gas price
+        // gasPrice,
       })
     }
   }
@@ -162,7 +163,8 @@ export default class Api {
     } else {
       const { transactionHash } = await this.treasury.methods.deposit(star.point).send({
         from: this.account.currentAddress,
-        gasPrice,
+        // Metamask will handle suggested gas price
+        // gasPrice,
       })
       return transactionHash
     }
@@ -198,7 +200,8 @@ export default class Api {
       } else {
         const { transactionHash } = await this.treasury.methods.redeem().send({
           from: this.account.currentAddress,
-          gasPrice,
+          // Metamask will handle suggested gas price
+          // gasPrice,
         })
         hashes.push(transactionHash)
       }
