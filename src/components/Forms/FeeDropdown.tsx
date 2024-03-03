@@ -62,9 +62,10 @@ export default function FeeDropdown() {
       <div className="ml-0.5em mr-0.5em text-lightGray">{formatDisplay(selected)}</div>
       <DropdownMenu.Root modal={true}>
 
-      <DropdownMenu.Trigger className="dropdown-button">
+      {/* Gas changing options removed from UI */}
+      {/* <DropdownMenu.Trigger className="dropdown-button">
         <Icon icon="Ellipsis" color="black"/>
-      </DropdownMenu.Trigger>
+      </DropdownMenu.Trigger> */}
 
       <DropdownMenu.Content className="dropdown-menu" sideOffset={5}>
         {Object.keys(suggestedGasPrices).map(
