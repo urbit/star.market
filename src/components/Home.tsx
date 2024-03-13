@@ -3,20 +3,16 @@ import { Link } from "react-router-dom";
 import { Icon, Box, Text, Image, Ul, Li } from "@tlon/indigo-react";
 import MetricsBar from "./MetricsBar";
 import StarCardContainer from "./StarCardContainer";
-import uniswapLogo from "./Icons/uniswap-logo.png";
 import openseaLogo from "./Icons/opensea-logo.png";
 import SectionBar from "./SectionBar";
 
 const Home = () => {
   const { PUBLIC_URL } = process.env;
 
-  const wrappedStar = `${PUBLIC_URL}/assets/network-graph.png`;
-
   return (
     <div>
       <MetricsBar />
       <div className="layout-container">
-
         <section className="layout" id="urbit-stars">
           <SectionBar />
 
@@ -27,8 +23,7 @@ const Home = () => {
             hierarchy of Urbit address space. They represent an asset class that
             is fundamentally distinct from most NFTs, and these differences
             should be understood by prospective buyers. Star Market aims to be a
-            resource for those interested in buying Urbit stars, or their ERC-20
-            tokenized version, Wrapped Star.
+            resource for those interested in buying Urbit stars.
           </p>
 
           <StarCardContainer />
@@ -112,8 +107,10 @@ const Home = () => {
             <p>
               Stars are infrastructure nodes, which makes them uniquely
               positioned as productive assets for services like hosting,
-              software distribution, payments, and packet routing.  Stars can take advantage of business opportunities where a centralized service makes sense in an otherwise decentralized network. A star could
-              act as a dealer-operator where an ordinary user could buy a
+              software distribution, payments, and packet routing. Stars can
+              take advantage of business opportunities where a centralized
+              service makes sense in an otherwise decentralized network. A star
+              could act as a dealer-operator where an ordinary user could buy a
               planet, sign up for a hosting/routing bundle, get access to a set
               of services, and be immediately ready to interact with the
               community of their choice.
@@ -130,61 +127,12 @@ const Home = () => {
           </p>
         </section>
 
-        <section className="section-layout-flex" id="wrapped-star">
-          <Box>
-            <h2 className="secondary-title">Wrapped Star</h2>
-            <Box style={{ paddingRight: 40 }}>
-              <p className="text-content">
-                Wrapped Star (WSTR) is an ERC-20 token that represents one Urbit
-                star. One WSTR may be converted to one star, and vice versa,
-                using the Star Market conversion app.
-                <br />
-                <br />
-                WSTR was developed by the community, but has been audited and
-                supported by the Urbit Foundation.
-
-                <br />
-                <br />
-                <Link to="/about" className="custom-link">
-                  Learn more{" "}
-                </Link>
-                about Wrapped Star.
-              </p>
-            </Box>
-            <Box
-              className="button-container"
-            >
-              <Link
-                to="/app"
-                className="pill-button bg-yellow"
-                style={{ borderRadius: 5 }}
-              >
-                <Text fontSize={16} fontWeight={600}>
-                  Convert Star to WSTR
-                </Text>
-                <Icon
-                  color="black"
-                  size={16}
-                  icon="Swap"
-                  style={{ marginLeft: 10 }}
-                />
-              </Link>
-            </Box>
-          </Box>
-
-          <Box style={{ paddingTop: 30 }}>
-            <Image src={wrappedStar} borderRadius={10} width={330} />
-          </Box>
-        </section>
-
         <section className="layout" id="markets">
-          <h2 className="secondary-title">Markets for Stars and WSTR</h2>
+          <h2 className="secondary-title">Markets for Stars</h2>
 
           <Box>
             <p className="text-content">
               The most active marketplace for stars is currently OpenSea.
-              Wrapped Star is traded on Ethereum-based decentralized exchanges
-              (DEXs) like Uniswap.
             </p>
           </Box>
           <Box style={{ marginTop: 15, marginBottom: 15 }}>
@@ -198,22 +146,6 @@ const Home = () => {
                 src={openseaLogo}
                 width={1311 * 0.135}
                 height={300 * 0.135}
-                style={{ margin: 15 }}
-              />
-            </a>
-
-            <a
-              href={
-                "https://app.uniswap.org/#/swap?exactField=output&inputCurrency=ETH&outputCurrency=0xF0dC76C22139ab22618dDFb498BE1283254612B1&exactAmount=1"
-              }
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img
-                alt="uniswap logo"
-                src={uniswapLogo}
-                width={1200 * 0.15}
-                height={300 * 0.15}
                 style={{ margin: 15 }}
               />
             </a>
@@ -278,7 +210,7 @@ const Home = () => {
                 rel="noreferrer"
                 href={"https://twitter.com/stardotmarket"}
               >
-                Twitter
+                X (Twitter)
               </a>
               , and check out Urbit's{" "}
               <a

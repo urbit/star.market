@@ -4,79 +4,52 @@ import { Link } from "react-router-dom";
 
 const SectionBar = () => {
   return (
-    <div
-      style={{ paddingBottom: '2em' }}
-    >
+    <div style={{ paddingBottom: "2em" }}>
       <Box className="header-row">
         <Logo />
         <Box className="logo-home">Star Market</Box>
 
         <div className="remove-when-reduced">
           <a href="#urbit-stars">
-            <Box
-              display="inline-block"
-              marginRight={35}
-            >
-              <span className="section-item">
-                Urbit Stars
-              </span>
-            </Box>
-          </a>
-          <a href="#wrapped-star">
             <Box display="inline-block" marginRight={35}>
-              <span className="section-item">
-                Wrapped Star
-              </span>
+              <span className="section-item">Urbit Stars</span>
             </Box>
           </a>
           <a href="#markets">
-            <Box
-              display="inline-block"
-              marginRight={35}
-            >
-              <span className="section-item">
-                Markets
-              </span>
+            <Box display="inline-block" marginRight={35}>
+              <span className="section-item">Markets</span>
             </Box>
           </a>
           <a href="#price-chart">
-            <Box
-              display="inline-block"
-              marginRight={35}
-            >
-              <span className="section-item">
-                Price
-              </span>
+            <Box display="inline-block" marginRight={35}>
+              <span className="section-item">Price</span>
             </Box>
           </a>
           <a href="#media">
-            <Box
-              display="inline-block"
-
-            >
-              <span className="section-item">
-                Media
-              </span>
+            <Box display="inline-block" marginRight={35}>
+              <span className="section-item">Media</span>
             </Box>
-
           </a>
-
+          <Link
+            to="/app"
+            className="pill-button bg-yellow"
+            style={{ marginLeft: "2em", borderRadius: 5, marginRight: 0 }}
+          >
+            <Text
+              fontSize={14}
+              fontWeight={600}
+              style={{ whiteSpace: "nowrap" }}
+            >
+              Convert to WSTR
+            </Text>
+            <Icon
+              color="black"
+              size={16}
+              icon="Swap"
+              style={{ marginLeft: 10, fontWeight: 800 }}
+            />
+          </Link>
         </div>
-        <Link
-          to="/app"
-          className="pill-button bg-yellow"
-          style={{ marginLeft: '2em', borderRadius: 5, marginRight: 0 }}
-        >
-          <Text fontSize={14} fontWeight={600} style={{ whiteSpace: "nowrap" }}>
-            Convert to WSTR
-          </Text>
-          <Icon
-            color="black"
-            size={16}
-            icon="Swap"
-            style={{ marginLeft: 10, fontWeight: 800 }}
-          />
-        </Link>
       </Box>
     </div>
   );
