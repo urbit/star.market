@@ -165,7 +165,7 @@ const Home = () => {
               and{" "}
               <a
                 className="custom-link"
-                href="https://urbitex.io/swap"
+                href="https://urbitex.io"
                 target="_blank"
                 rel="noreferrer"
               >
