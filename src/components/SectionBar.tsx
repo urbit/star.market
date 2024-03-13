@@ -30,6 +30,25 @@ const SectionBar = () => {
               <span className="section-item">Media</span>
             </Box>
           </a>
+          <Link
+            to="/app"
+            className="pill-button bg-yellow"
+            style={{ marginLeft: "2em", borderRadius: 5, marginRight: 0 }}
+          >
+            <Text
+              fontSize={14}
+              fontWeight={600}
+              style={{ whiteSpace: "nowrap" }}
+            >
+              Convert to WSTR
+            </Text>
+            <Icon
+              color="black"
+              size={16}
+              icon="Swap"
+              style={{ marginLeft: 10, fontWeight: 800 }}
+            />
+          </Link>
         </div>
       </Box>
     </div>
